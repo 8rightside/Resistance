@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: API
 public enum Resistor {
     case fourBand(Digit, Digit, Multiplier, Tolerance)
     case fiveBand(Digit, Digit, Digit, Multiplier, Tolerance)
@@ -17,19 +18,7 @@ public enum Resistor {
     }
 }
 
-extension Resistor: CustomStringConvertible {
-    public var description: String {
-        let thousand = value / 1000
-        let million = value / 1_000_000
-        let billion = value / 1_000_000_000
-        
-        if      billion >= 1.0  { return String(format: "%g GΩ", billion) }
-        else if million >= 1.0  { return String(format: "%g MΩ", million) }
-        else if thousand >= 1.0 { return String(format: "%g KΩ", thousand) }
-        else                    { return String(format: "%g Ω", value) }
-    }
-}
-
+// MARK:- Nested Types
 extension Resistor {
     public enum Digit: Double {
         case black, brown, red, orange, yellow, green, blue, violet, grey, white
@@ -70,5 +59,19 @@ extension Resistor {
         case yellow = 25
         case blue   = 10
         case violet = 5
+    }
+}
+
+// MARK:- Custom String Convertible
+extension Resistor: CustomStringConvertible {
+    public var description: String {
+        let thousand = value / 1000
+        let million = value / 1_000_000
+        let billion = value / 1_000_000_000
+        
+        if      billion >= 1.0  { return String(format: "%g GΩ", billion) }
+        else if million >= 1.0  { return String(format: "%g MΩ", million) }
+        else if thousand >= 1.0 { return String(format: "%g KΩ", thousand) }
+        else                    { return String(format: "%g Ω", value) }
     }
 }
