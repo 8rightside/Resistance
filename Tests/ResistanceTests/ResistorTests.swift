@@ -1,7 +1,7 @@
 import XCTest
 @testable import Resistance
 
-final class ResistanceTests: XCTestCase {
+final class ResistorTests: XCTestCase {
     
     func testFourBandResistorValue() {
         var resistor: Resistor
