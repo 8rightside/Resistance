@@ -1,11 +1,15 @@
 import Foundation
 
 // MARK: API
+
+
+/// Type representing a four, five, or six banded resistor.
 public enum Resistor {
     case fourBand(Digit, Digit, Multiplier, Tolerance)
     case fiveBand(Digit, Digit, Digit, Multiplier, Tolerance)
     case sixBand(Digit, Digit, Digit, Multiplier, Tolerance, TempCoef)
     
+    /// The resistance value of the represented resistor
     public var value: Double {
         switch self {
             case .fourBand(let digit1, let digit2, let multiplier, _):
