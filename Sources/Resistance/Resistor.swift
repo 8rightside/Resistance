@@ -5,8 +5,11 @@ import Foundation
 
 /// Type representing a four, five, or six banded resistor.
 public enum Resistor {
+    /// Four banded resistor type
     case fourBand(Digit, Digit, Multiplier, Tolerance)
+    /// Five banded resistor type
     case fiveBand(Digit, Digit, Digit, Multiplier, Tolerance)
+    /// Six banded resistor type
     case sixBand(Digit, Digit, Digit, Multiplier, Tolerance, TempCoef)
     
     /// The resistance value of the represented resistor
@@ -19,6 +22,42 @@ public enum Resistor {
                  .sixBand(let digit1, let digit2, let digit3, let multiplier, _, _):
                 return (digit1.rawValue * 100 + digit2.rawValue * 10 + digit3.rawValue) * multiplier.rawValue
         }
+    }
+    
+    /// Create a four banded resistor from a given resistance value with the given tolerance rating
+    /// - Parameters:
+    ///     - value: Resistance value the resistor will represent
+    ///     - tolerance: Tolerance rating of the resistor
+    /// - Returns: A four banded resistor type representing the given resistance and tolerance
+    /// - Note: Because a four banded resistor can only represent **two significant figures** of
+    /// a value the returned type will be rounded if necessary.
+    static func createFourBand(from value: Double, tolerance: Tolerance) -> Resistor {
+        return .fourBand(.black, .black, .black, tolerance)
+    }
+    
+    /// Create a five banded resistor from a given resistance value with the given tolerance rating
+    /// - Parameters:
+    ///     - value: Resistance value the resistor will represent
+    ///     - tolerance: Tolerance rating of the resistor
+    /// - Returns: A five banded resistor type representing the given resistance and tolerance
+    /// - Note: Because a five banded resistor can only represent **three significant figures** of
+    /// a value the returned type will be rounded if necessary.
+    static func createFiveBand(from value: Double, tolerance: Tolerance) -> Resistor {
+        return .fiveBand(.black, .black, .black, .black, tolerance)
+    }
+    
+    /// Create a six banded resistor from a given resistance value with the given tolerance rating and
+    /// temperature coefficient
+    /// - Parameters:
+    ///     - value: Resistance value the resistor will represent
+    ///     - tolerance: Tolerance rating of the resistor
+    ///     - coefficient: Temperature coefficient of the resistor
+    /// - Returns: A six banded resistor type representing the given resistance, tolerance, and temperature
+    /// coefficient
+    /// - Note: Because a six banded resistor can only represent **three significant figures** of
+    /// a value the returned type will be rounded if necessary.
+    static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef) -> Resistor {
+        return .sixBand(.black, .black, .black, .black, tolerance, coefficient)
     }
 }
 
