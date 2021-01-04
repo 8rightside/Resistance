@@ -31,8 +31,19 @@ public enum Resistor {
     /// - Returns: A four banded resistor type representing the given resistance and tolerance
     /// - Note: Because a four banded resistor can only represent **two significant figures** of
     /// a value the returned type will be rounded if necessary.
-    static func createFourBand(from value: Double, tolerance: Tolerance) -> Resistor {
-        return .fourBand(.black, .black, .black, tolerance)
+    public static func createFourBand(from value: Double, tolerance: Tolerance) -> Resistor {
+        let exp = value < 0.1 ? floor(log10(value)) : floor(log10(value)) - 1
+        let sigfigs = value / pow(10, exp)
+        
+        let band1 = Double(Int(sigfigs / 10))
+        let band2 = sigfigs.truncatingRemainder(dividingBy: 10)
+        let band3 = pow(10, exp)
+        
+        let digit1 = Resistor.Digit(rawValue: band1)!
+        let digit2 = Resistor.Digit(rawValue: band2)!
+        let digit3 = Resistor.Multiplier(rawValue: band3)!
+
+        return Resistor.fourBand(digit1, digit2, digit3, tolerance)
     }
     
     /// Create a five banded resistor from a given resistance value with the given tolerance rating
@@ -42,7 +53,7 @@ public enum Resistor {
     /// - Returns: A five banded resistor type representing the given resistance and tolerance
     /// - Note: Because a five banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    static func createFiveBand(from value: Double, tolerance: Tolerance) -> Resistor {
+    public static func createFiveBand(from value: Double, tolerance: Tolerance) -> Resistor {
         return .fiveBand(.black, .black, .black, .black, tolerance)
     }
     
@@ -56,7 +67,7 @@ public enum Resistor {
     /// coefficient
     /// - Note: Because a six banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef) -> Resistor {
+    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef) -> Resistor {
         return .sixBand(.black, .black, .black, .black, tolerance, coefficient)
     }
 }
