@@ -82,7 +82,7 @@ extension ResistorTests {
         XCTAssertEqual(String(describing: resistor), "70 GΩ")
     }
     
-    func testFiveBandResistorDescripton() {
+    func testFiveBandResistorDescription() {
         var resistor: Resistor
         
         resistor = .fiveBand(.black, .brown, .brown, .silver, .silver)
@@ -167,13 +167,17 @@ final class ResistorTests: XCTestCase {
     
     static var allTests = [
         ("testFourBandResistorValue", testFourBandResistorValue),
-        ("testFourBandResistorDescription", testFourBandResistorDescription),
         ("testFiveBandResistorValue", testFiveBandResistorValue),
-        ("testFiveBandResistorDescripton", testFiveBandResistorDescripton),
+
+        ("testFourBandResistorDescription", testFourBandResistorDescription),
+        ("testFiveBandResistorDescription", testFiveBandResistorDescription),
+        
         ("testCreateFourBandResistor_withValidInput", testCreateFourBandResistor_withValidInput),
         ("testCreateFourBandResistor_withInvalidInput", testCreateFourBandResistor_withInvalidInput),
+
         ("testCreateFiveBandResistor_withValidInput", testCreateFiveBandResistor_withValidInput),
         ("testCreateFiveBandResistor_withInvalidInput", testCreateFiveBandResistor_withInvalidInput),
+
         ("testCreateSixBandResistor_withValidInput", testCreateSixBandResistor_withValidInput),
         ("testCreateSixBandResistor_withInvalidInput", testCreateSixBandResistor_withInvalidInput),
     ]
