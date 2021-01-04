@@ -2,23 +2,23 @@
 // MARK: Resistor Value Tests
 extension ResistorTests {
     func testFourBandResistorValue() {
-            var resistor: Resistor
-            
-            resistor = .fourBand(.black, .blue, .silver, .gold)
-            XCTAssertEqual(resistor.value, 0.06)
-            
-            resistor = .fourBand(.red, .blue, .gold, .silver)
-            XCTAssertEqual(resistor.value, 2.6)
-            
-            resistor = .fourBand(.green, .orange, .brown, .blue)
-            XCTAssertEqual(resistor.value, 530)
-            
-            resistor = .fourBand(.brown, .yellow, .red, .brown)
-            XCTAssertEqual(resistor.value, 1400)
-            
-            resistor = .fourBand(.violet, .yellow, .green, .green)
-            XCTAssertEqual(resistor.value, 7_400_000)
-        }
+        var resistor: Resistor
+        
+        resistor = .fourBand(.black, .blue, .silver, .gold)
+        XCTAssertEqual(resistor.value, 0.06)
+        
+        resistor = .fourBand(.red, .blue, .gold, .silver)
+        XCTAssertEqual(resistor.value, 2.6)
+        
+        resistor = .fourBand(.green, .orange, .brown, .blue)
+        XCTAssertEqual(resistor.value, 530)
+        
+        resistor = .fourBand(.brown, .yellow, .red, .brown)
+        XCTAssertEqual(resistor.value, 1400)
+        
+        resistor = .fourBand(.violet, .yellow, .green, .green)
+        XCTAssertEqual(resistor.value, 7_400_000)
+    }
     
     func testFiveBandResistorValue() {
         var resistor: Resistor
@@ -114,28 +114,49 @@ extension ResistorTests {
 // MARK:- Create Methods Tests
 extension ResistorTests {
     func testCreateFourBandResistor_withValidInput() {
-            
-        }
+        var value: Double
+        var result: Resistor
         
-        func testCreateFourBandResistor_withInvalidInput() {
-            
-        }
+        value = 0.01
+        result = .createFourBand(from: value)
+        XCTAssertEqual(result.value, 0.01)
         
-        func testCreateFiveBandResistor_withValidInput() {
-            
-        }
+        value = 23
+        result = .createFourBand(from: value)
+        XCTAssertEqual(result.value, 23)
         
-        func testCreateFiveBandResistor_withInvalidInput() {
-            
-        }
+        value = 540
+        result = .createFourBand(from: value)
+        XCTAssertEqual(result.value, 540)
         
-        func testCreateSixBandResistor_withValidInput() {
-            
-        }
+        value = 37_000
+        result = .createFourBand(from: value)
+        XCTAssertEqual(result.value, 37_000)
         
-        func testCreateSixBandResistor_withInvalidInput() {
-            
-        }
+        value = 99_000_000_000
+        result = .createFourBand(from: value)
+        XCTAssertEqual(result.value, 99_000_000_000)
+    }
+    
+    func testCreateFourBandResistor_withInvalidInput() {
+        
+    }
+    
+    func testCreateFiveBandResistor_withValidInput() {
+        
+    }
+    
+    func testCreateFiveBandResistor_withInvalidInput() {
+        
+    }
+    
+    func testCreateSixBandResistor_withValidInput() {
+        
+    }
+    
+    func testCreateSixBandResistor_withInvalidInput() {
+        
+    }
 }
 
 // MARK:- Internal
@@ -143,7 +164,7 @@ import XCTest
 @testable import Resistance
 
 final class ResistorTests: XCTestCase {
-
+    
     static var allTests = [
         ("testFourBandResistorValue", testFourBandResistorValue),
         ("testFourBandResistorDescription", testFourBandResistorDescription),

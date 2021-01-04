@@ -31,7 +31,7 @@ public enum Resistor {
     /// - Returns: A four banded resistor type representing the given resistance and tolerance
     /// - Note: Because a four banded resistor can only represent **two significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createFourBand(from value: Double, tolerance: Tolerance) -> Resistor {
+    public static func createFourBand(from value: Double, tolerance: Tolerance = .gold) -> Resistor {
         let exp = value < 0.1 ? floor(log10(value)) : floor(log10(value)) - 1
         let sigfigs = value / pow(10, exp)
         
@@ -53,7 +53,7 @@ public enum Resistor {
     /// - Returns: A five banded resistor type representing the given resistance and tolerance
     /// - Note: Because a five banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createFiveBand(from value: Double, tolerance: Tolerance) -> Resistor {
+    public static func createFiveBand(from value: Double, tolerance: Tolerance = .gold) -> Resistor {
         return .fiveBand(.black, .black, .black, .black, tolerance)
     }
     
@@ -67,7 +67,7 @@ public enum Resistor {
     /// coefficient
     /// - Note: Because a six banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef) -> Resistor {
+    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef = .brown) -> Resistor {
         return .sixBand(.black, .black, .black, .black, tolerance, coefficient)
     }
 }
