@@ -108,11 +108,41 @@ final class ResistorTests: XCTestCase {
         resistor = .fiveBand(.blue, .violet, .black, .grey, .grey)
         XCTAssertEqual(String(describing: resistor), "67 GΩ")
     }
+    
+    func testCreateFourBandResistor_withValidInput() {
+        
+    }
+    
+    func testCreateFourBandResistor_withInvalidInput() {
+        
+    }
+    
+    func testCreateFiveBandResistor_withValidInput() {
+        
+    }
+    
+    func testCreateFiveBandResistor_withInvalidInput() {
+        
+    }
+    
+    func testCreateSixBandResistor_withValidInput() {
+        
+    }
+    
+    func testCreateSixBandResistor_withInvalidInput() {
+        
+    }
 
     static var allTests = [
         ("testFourBandResistorValue", testFourBandResistorValue),
         ("testFourBandResistorDescription", testFourBandResistorDescription),
         ("testFiveBandResistorValue", testFiveBandResistorValue),
         ("testFiveBandResistorDescripton", testFiveBandResistorDescripton),
+        ("testCreateFourBandResistor_withValidInput", testCreateFourBandResistor_withValidInput),
+        ("testCreateFourBandResistor_withInvalidInput", testCreateFourBandResistor_withInvalidInput),
+        ("testCreateFiveBandResistor_withValidInput", testCreateFiveBandResistor_withValidInput),
+        ("testCreateFiveBandResistor_withInvalidInput", testCreateFiveBandResistor_withInvalidInput),
+        ("testCreateSixBandResistor_withValidInput", testCreateSixBandResistor_withValidInput),
+        ("testCreateSixBandResistor_withInvalidInput", testCreateSixBandResistor_withInvalidInput),
     ]
 }
