@@ -1,27 +1,56 @@
-import XCTest
-@testable import Resistance
 
-final class ResistorTests: XCTestCase {
-    
+// MARK: Resistor Value Tests
+extension ResistorTests {
     func testFourBandResistorValue() {
+            var resistor: Resistor
+            
+            resistor = .fourBand(.black, .blue, .silver, .gold)
+            XCTAssertEqual(resistor.value, 0.06)
+            
+            resistor = .fourBand(.red, .blue, .gold, .silver)
+            XCTAssertEqual(resistor.value, 2.6)
+            
+            resistor = .fourBand(.green, .orange, .brown, .blue)
+            XCTAssertEqual(resistor.value, 530)
+            
+            resistor = .fourBand(.brown, .yellow, .red, .brown)
+            XCTAssertEqual(resistor.value, 1400)
+            
+            resistor = .fourBand(.violet, .yellow, .green, .green)
+            XCTAssertEqual(resistor.value, 7_400_000)
+        }
+    
+    func testFiveBandResistorValue() {
         var resistor: Resistor
         
-        resistor = .fourBand(.black, .blue, .silver, .gold)
-        XCTAssertEqual(resistor.value, 0.06)
+        resistor = .fiveBand(.black, .brown, .brown, .silver, .silver)
+        XCTAssertEqual(resistor.value, 0.11)
         
-        resistor = .fourBand(.red, .blue, .gold, .silver)
-        XCTAssertEqual(resistor.value, 2.6)
+        resistor = .fiveBand(.orange, .yellow, .red, .gold, .gold)
+        XCTAssertEqual(resistor.value, 34.2)
         
-        resistor = .fourBand(.green, .orange, .brown, .blue)
-        XCTAssertEqual(resistor.value, 530)
+        resistor = .fiveBand(.violet, .green, .white, .brown, .yellow)
+        XCTAssertEqual(resistor.value, 7590)
         
-        resistor = .fourBand(.brown, .yellow, .red, .brown)
-        XCTAssertEqual(resistor.value, 1400)
+        resistor = .fiveBand(.yellow, .orange, .grey, .red, .silver)
+        XCTAssertEqual(resistor.value, 43_800)
         
-        resistor = .fourBand(.violet, .yellow, .green, .green)
-        XCTAssertEqual(resistor.value, 7_400_000)
+        resistor = .fiveBand(.orange, .black, .black, .orange, .blue)
+        XCTAssertEqual(resistor.value, 300_000)
+        
+        resistor = .fiveBand(.red, .blue, .violet, .yellow, .orange)
+        XCTAssertEqual(resistor.value, 2_670_000)
+        
+        resistor = .fiveBand(.orange, .green, .black, .blue, .violet)
+        XCTAssertEqual(resistor.value, 350_000_000)
+        
+        resistor = .fiveBand(.blue, .violet, .black, .grey, .grey)
+        XCTAssertEqual(resistor.value, 67_000_000_000)
     }
-    
+}
+
+// MARK:- Resistor String Tests
+extension ResistorTests {
     func testFourBandResistorDescription() {
         var resistor: Resistor
         
@@ -53,34 +82,6 @@ final class ResistorTests: XCTestCase {
         XCTAssertEqual(String(describing: resistor), "70 GΩ")
     }
     
-    func testFiveBandResistorValue() {
-        var resistor: Resistor
-        
-        resistor = .fiveBand(.black, .brown, .brown, .silver, .silver)
-        XCTAssertEqual(resistor.value, 0.11)
-        
-        resistor = .fiveBand(.orange, .yellow, .red, .gold, .gold)
-        XCTAssertEqual(resistor.value, 34.2)
-        
-        resistor = .fiveBand(.violet, .green, .white, .brown, .yellow)
-        XCTAssertEqual(resistor.value, 7590)
-        
-        resistor = .fiveBand(.yellow, .orange, .grey, .red, .silver)
-        XCTAssertEqual(resistor.value, 43_800)
-        
-        resistor = .fiveBand(.orange, .black, .black, .orange, .blue)
-        XCTAssertEqual(resistor.value, 300_000)
-        
-        resistor = .fiveBand(.red, .blue, .violet, .yellow, .orange)
-        XCTAssertEqual(resistor.value, 2_670_000)
-        
-        resistor = .fiveBand(.orange, .green, .black, .blue, .violet)
-        XCTAssertEqual(resistor.value, 350_000_000)
-        
-        resistor = .fiveBand(.blue, .violet, .black, .grey, .grey)
-        XCTAssertEqual(resistor.value, 67_000_000_000)
-    }
-    
     func testFiveBandResistorDescripton() {
         var resistor: Resistor
         
@@ -108,30 +109,40 @@ final class ResistorTests: XCTestCase {
         resistor = .fiveBand(.blue, .violet, .black, .grey, .grey)
         XCTAssertEqual(String(describing: resistor), "67 GΩ")
     }
-    
+}
+
+// MARK:- Create Methods Tests
+extension ResistorTests {
     func testCreateFourBandResistor_withValidInput() {
+            
+        }
         
-    }
-    
-    func testCreateFourBandResistor_withInvalidInput() {
+        func testCreateFourBandResistor_withInvalidInput() {
+            
+        }
         
-    }
-    
-    func testCreateFiveBandResistor_withValidInput() {
+        func testCreateFiveBandResistor_withValidInput() {
+            
+        }
         
-    }
-    
-    func testCreateFiveBandResistor_withInvalidInput() {
+        func testCreateFiveBandResistor_withInvalidInput() {
+            
+        }
         
-    }
-    
-    func testCreateSixBandResistor_withValidInput() {
+        func testCreateSixBandResistor_withValidInput() {
+            
+        }
         
-    }
-    
-    func testCreateSixBandResistor_withInvalidInput() {
-        
-    }
+        func testCreateSixBandResistor_withInvalidInput() {
+            
+        }
+}
+
+// MARK:- Internal
+import XCTest
+@testable import Resistance
+
+final class ResistorTests: XCTestCase {
 
     static var allTests = [
         ("testFourBandResistorValue", testFourBandResistorValue),
