@@ -111,54 +111,6 @@ extension ResistorTests {
     }
 }
 
-// MARK:- Create Methods Tests
-extension ResistorTests {
-    func testCreateFourBandResistor_withValidInput() {
-        var value: Double
-        var result: Resistor
-        
-        value = 0.01
-        result = .createFourBand(from: value)
-        XCTAssertEqual(result.value, 0.01)
-        
-        value = 23
-        result = .createFourBand(from: value)
-        XCTAssertEqual(result.value, 23)
-        
-        value = 540
-        result = .createFourBand(from: value)
-        XCTAssertEqual(result.value, 540)
-        
-        value = 37_000
-        result = .createFourBand(from: value)
-        XCTAssertEqual(result.value, 37_000)
-        
-        value = 99_000_000_000
-        result = .createFourBand(from: value)
-        XCTAssertEqual(result.value, 99_000_000_000)
-    }
-    
-    func testCreateFourBandResistor_withInvalidInput() {
-        
-    }
-    
-    func testCreateFiveBandResistor_withValidInput() {
-        
-    }
-    
-    func testCreateFiveBandResistor_withInvalidInput() {
-        
-    }
-    
-    func testCreateSixBandResistor_withValidInput() {
-        
-    }
-    
-    func testCreateSixBandResistor_withInvalidInput() {
-        
-    }
-}
-
 // MARK:- Internal
 import XCTest
 @testable import Resistance
@@ -171,14 +123,5 @@ final class ResistorTests: XCTestCase {
 
         ("testFourBandResistorDescription", testFourBandResistorDescription),
         ("testFiveBandResistorDescription", testFiveBandResistorDescription),
-        
-        ("testCreateFourBandResistor_withValidInput", testCreateFourBandResistor_withValidInput),
-        ("testCreateFourBandResistor_withInvalidInput", testCreateFourBandResistor_withInvalidInput),
-
-        ("testCreateFiveBandResistor_withValidInput", testCreateFiveBandResistor_withValidInput),
-        ("testCreateFiveBandResistor_withInvalidInput", testCreateFiveBandResistor_withInvalidInput),
-
-        ("testCreateSixBandResistor_withValidInput", testCreateSixBandResistor_withValidInput),
-        ("testCreateSixBandResistor_withInvalidInput", testCreateSixBandResistor_withInvalidInput),
     ]
 }

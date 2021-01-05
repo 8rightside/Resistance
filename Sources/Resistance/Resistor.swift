@@ -30,7 +30,7 @@ public enum Resistor {
     /// - Returns: A four banded resistor type representing the given resistance and tolerance
     /// - Note: Because a four banded resistor can only represent **two significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createFourBand(from value: Double, tolerance: Tolerance = .gold) -> Resistor {
+    public static func createFourBand(from value: Double, tolerance: Tolerance = .gold) -> Self? {
         let exp = value < 0.1 ? floor(log10(value)) : floor(log10(value)) - 1
         let sigfigs = value / pow(10, exp)
         
@@ -38,11 +38,11 @@ public enum Resistor {
         let band2 = sigfigs.truncatingRemainder(dividingBy: 10)
         let band3 = pow(10, exp)
         
-        let digit1 = Resistor.Digit(rawValue: band1)!
-        let digit2 = Resistor.Digit(rawValue: band2)!
-        let digit3 = Resistor.Multiplier(rawValue: band3)!
+        let digit1 = Self.Digit(rawValue: band1)!
+        let digit2 = Self.Digit(rawValue: band2)!
+        let digit3 = Self.Multiplier(rawValue: band3)!
 
-        return Resistor.fourBand(digit1, digit2, digit3, tolerance)
+        return Self.fourBand(digit1, digit2, digit3, tolerance)
     }
     
     /// Create a five banded resistor from a given resistance value with the given tolerance rating
@@ -52,8 +52,8 @@ public enum Resistor {
     /// - Returns: A five banded resistor type representing the given resistance and tolerance
     /// - Note: Because a five banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createFiveBand(from value: Double, tolerance: Tolerance = .gold) -> Resistor {
-        return .fiveBand(.black, .black, .black, .black, tolerance)
+    public static func createFiveBand(from value: Double, tolerance: Tolerance = .gold) -> Self? {
+        return nil
     }
     
     /// Create a six banded resistor from a given resistance value with the given tolerance rating and
@@ -66,8 +66,8 @@ public enum Resistor {
     /// coefficient
     /// - Note: Because a six banded resistor can only represent **three significant figures** of
     /// a value the returned type will be rounded if necessary.
-    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef = .brown) -> Resistor {
-        return .sixBand(.black, .black, .black, .black, tolerance, coefficient)
+    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef = .brown) -> Self? {
+        return nil
     }
 }
 
@@ -129,6 +129,13 @@ extension Resistor {
         case blue   = 10
         case violet = 5
     }
+    
+    /// Options for use with resistor creation functions
+    public enum CreateOption {
+        case exactOrFail
+        case nearestRoundUp
+        case nearestRoundDown
+    }
 }
 
 // MARK:- Custom String Convertible
@@ -154,4 +161,9 @@ extension Resistor: CustomStringConvertible {
         else if thousand >= 1.0 { return String(format: "%g KΩ", thousand) }
         else                    { return String(format: "%g Ω", value) }
     }
+}
+
+// MARK:- Internal Methods
+extension Resistor {
+    
 }
