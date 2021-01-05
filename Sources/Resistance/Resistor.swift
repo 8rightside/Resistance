@@ -2,7 +2,6 @@ import Foundation
 
 // MARK: API
 
-
 /// Type representing a four, five, or six banded resistor.
 public enum Resistor {
     /// Four banded resistor type
@@ -74,10 +73,18 @@ public enum Resistor {
 
 // MARK:- Nested Types
 extension Resistor {
+    /// Type representing one of the significant digit bands of a resistor
+    ///
+    /// The associated value of each case is the appropriate value for the colour band it
+    /// represents.
     public enum Digit: Double {
         case black, brown, red, orange, yellow, green, blue, violet, grey, white
     }
     
+    /// Type representing the multiplier band of a resistor
+    ///
+    /// The associated value of each case is the appropriate value for the colour band it
+    /// represents.
     public enum Multiplier: Double {
         case black  = 1
         case brown  = 10
@@ -93,6 +100,10 @@ extension Resistor {
         case silver = 0.01
     }
     
+    /// Type representing the tolerance rating band of a resistor
+    ///
+    /// The associated value of each case is the appropriate value for the colour band it
+    /// represents.
     public enum Tolerance: Double {
         case brown  = 0.01
         case red    = 0.02
@@ -106,6 +117,10 @@ extension Resistor {
         case silver = 0.1
     }
     
+    /// Type representing the temperature coefficient rating of a resistor
+    ///
+    /// The associated value of each case is the appropriate value for the colour band it
+    /// represents.
     public enum TempCoef: Double {
         case brown  = 100
         case red    = 50
@@ -118,6 +133,17 @@ extension Resistor {
 
 // MARK:- Custom String Convertible
 extension Resistor: CustomStringConvertible {
+    /// A textual representation of this instance.
+    ///
+    /// Calling this property directly is discouraged. Instead, convert a
+    /// Resistor instance to a string by using the `String(describing:)`
+    /// initializer.
+    ///
+    ///     let resistor = Resistor.fiveBand(.brown, .green, .yellow, .brown, .gold)
+    ///     let string = String(describing: resistor)
+    ///     print(string)
+    ///     // prints 1.54 KΩ
+    
     public var description: String {
         let thousand = value / 1000
         let million = value / 1_000_000
