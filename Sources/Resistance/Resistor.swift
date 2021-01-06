@@ -23,28 +23,6 @@ public enum Resistor {
         }
     }
     
-    /// Create a four banded resistor from a given resistance value with the given tolerance rating
-    /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A four banded resistor type representing the given resistance and tolerance
-    /// - Note: Because a four banded resistor can only represent **two significant figures** of
-    /// a value the returned type will be rounded if necessary.
-    public static func createFourBand(from value: Double, tolerance: Tolerance = .gold) -> Self? {
-        let exp = value < 0.1 ? floor(log10(value)) : floor(log10(value)) - 1
-        let sigfigs = value / pow(10, exp)
-        
-        let band1 = Double(Int(sigfigs / 10))
-        let band2 = sigfigs.truncatingRemainder(dividingBy: 10)
-        let band3 = pow(10, exp)
-        
-        let digit1 = Self.Digit(rawValue: band1)!
-        let digit2 = Self.Digit(rawValue: band2)!
-        let digit3 = Self.Multiplier(rawValue: band3)!
-
-        return Self.fourBand(digit1, digit2, digit3, tolerance)
-    }
-    
     /// Create a five banded resistor from a given resistance value with the given tolerance rating
     /// - Parameters:
     ///     - value: Resistance value the resistor will represent
