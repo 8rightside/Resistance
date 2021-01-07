@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: API
+// MARK: Resistor Types
 
 /// Type representing a four, five, or six banded resistor.
 public enum Resistor {
@@ -22,34 +22,9 @@ public enum Resistor {
                 return (digit1.rawValue * 100 + digit2.rawValue * 10 + digit3.rawValue) * multiplier.rawValue
         }
     }
-    
-    /// Create a five banded resistor from a given resistance value with the given tolerance rating
-    /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A five banded resistor type representing the given resistance and tolerance
-    /// - Note: Because a five banded resistor can only represent **three significant figures** of
-    /// a value the returned type will be rounded if necessary.
-    public static func createFiveBand(from value: Double, tolerance: Tolerance = .gold) -> Self? {
-        return nil
-    }
-    
-    /// Create a six banded resistor from a given resistance value with the given tolerance rating and
-    /// temperature coefficient
-    /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    ///     - coefficient: Temperature coefficient of the resistor
-    /// - Returns: A six banded resistor type representing the given resistance, tolerance, and temperature
-    /// coefficient
-    /// - Note: Because a six banded resistor can only represent **three significant figures** of
-    /// a value the returned type will be rounded if necessary.
-    public static func createSixBand(from value: Double, tolerance: Tolerance, coefficient: TempCoef = .brown) -> Self? {
-        return nil
-    }
 }
 
-// MARK:- Nested Types
+// MARK:- Resistor Components
 extension Resistor {
     /// Type representing one of the significant digit bands of a resistor
     ///

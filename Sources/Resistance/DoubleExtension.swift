@@ -19,20 +19,4 @@ extension Double {
     var fourBandExponent: Double {
         self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 1
     }
-    
-    var fourBandSigFigs: Double {
-        self / pow(10, self.fourBandExponent)
-    }
-    
-    var fourBandDigit1: Double {
-        Double(Int(self.fourBandSigFigs / 10))
-    }
-    
-    var fourBandDigit2: Double {
-        self.fourBandSigFigs.truncatingRemainder(dividingBy: 10)
-    }
-    
-    var fourBandMultiplier: Double {
-        pow(10, self.fourBandExponent)
-    }
 }
