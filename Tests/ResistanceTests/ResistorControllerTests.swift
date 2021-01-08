@@ -10,6 +10,9 @@ extension ResistorControllerTests {
         result = try sut.createFourBandOrFail(from: 0.01)
         XCTAssertEqual(result.value, 0.01)
         
+        result = try sut.createFourBandOrFail(from: 5)
+        XCTAssertEqual(result.value, 5)
+        
         result = try sut.createFourBandOrFail(from: 23)
         XCTAssertEqual(result.value, 23)
         
@@ -28,6 +31,9 @@ extension ResistorControllerTests {
         
         result = try sut.createFiveBandOrFail(from: 0.01)
         XCTAssertEqual(result.value, 0.01)
+        
+        result = try sut.createFourBandOrFail(from: 5)
+        XCTAssertEqual(result.value, 5)
         
         result = try sut.createFiveBandOrFail(from: 23)
         XCTAssertEqual(result.value, 23)

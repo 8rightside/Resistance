@@ -19,4 +19,8 @@ extension Double {
     var fourBandExponent: Double {
         self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 1
     }
+    
+    var fiveBandExponent: Double {
+        self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 2
+    }
 }

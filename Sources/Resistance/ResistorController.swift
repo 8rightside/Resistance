@@ -73,12 +73,29 @@ extension ResistorController {
         
         guard let digit1 = Resistor.Digit(rawValue: band1) else { throw ResistorError.inValidValueError }
         guard let digit2 = Resistor.Digit(rawValue: band2) else { throw ResistorError.inValidValueError }
-        guard let digit3 = Resistor.Multiplier(rawValue: band3) else { throw ResistorError.inValidValueError }
+        guard let multiplier = Resistor.Multiplier(rawValue: band3) else { throw ResistorError.inValidValueError }
 
-        return .fourBand(digit1, digit2, digit3, tolerance)
+        return .fourBand(digit1, digit2, multiplier, tolerance)
     }
     
     private func calculateFiveBand(from value: Double, tolerance: Resistor.Tolerance, coefficient: Resistor.TempCoef? = nil) throws -> Resistor {
-        throw ResistorError.inValidValueError
+        var sigfigs = value / pow(10, value.fiveBandExponent)
+        
+        let band1 = Double(Int(sigfigs / 100))
+        sigfigs.formTruncatingRemainder(dividingBy: 100)
+        let band2 = Double(Int(sigfigs / 10))
+        let band3 = sigfigs.truncatingRemainder(dividingBy: 10)
+        let band4 = pow(10, value.fiveBandExponent)
+        
+        guard let digit1 = Resistor.Digit(rawValue: band1) else { throw ResistorError.inValidValueError }
+        guard let digit2 = Resistor.Digit(rawValue: band2) else { throw ResistorError.inValidValueError }
+        guard let digit3 = Resistor.Digit(rawValue: band3) else { throw ResistorError.inValidValueError }
+        guard let multiplier = Resistor.Multiplier(rawValue: band4) else { throw ResistorError.inValidValueError }
+
+        if let coefficient = coefficient {
+            return .sixBand(digit1, digit2, digit3, multiplier, tolerance, coefficient)
+        } else {
+            return .fiveBand(digit1, digit2, digit3, multiplier, tolerance)
+        }
     }
 }
