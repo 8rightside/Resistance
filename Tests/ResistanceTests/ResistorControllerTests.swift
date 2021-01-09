@@ -223,16 +223,34 @@ extension ResistorControllerTests {
 
 // MARK: Too Precise Value
 extension ResistorControllerTests {
-    func test_createFourBandOrNearest_withTooPreciseValue() {
-        
+    func test_createFourBandOrNearest_withTooPreciseValueHigh() {
+        let result = sut.createFourBandOrNearest(from: 47_500)
+        XCTAssertEqual(result.value, 48_000)
     }
     
-    func test_createFiveBandOrNearest_withTooPreciseValue() {
-        
+    func test_createFourBandOrNearest_withTooPreciseValueLow() {
+        let result = sut.createFourBandOrNearest(from: 47_400)
+        XCTAssertEqual(result.value, 47_000)
     }
     
-    func test_createSixBandOrNearest_withTooPreciseValue() {
-        
+    func test_createFiveBandOrNearest_withTooPreciseValueHigh() {
+        let result = sut.createFiveBandOrNearest(from: 47_560)
+        XCTAssertEqual(result.value, 47_600)
+    }
+    
+    func test_createFiveBandOrNearest_withTooPreciseValueLow() {
+        let result = sut.createFiveBandOrNearest(from: 47_540)
+        XCTAssertEqual(result.value, 47_500)
+    }
+    
+    func test_createSixBandOrNearest_withTooPreciseValueHigh() {
+        let result = sut.createSixBandOrNearest(from: 47_560)
+        XCTAssertEqual(result.value, 47_600)
+    }
+    
+    func test_createSixBandOrNearest_withTooPreciseValueLow() {
+        let result = sut.createSixBandOrNearest(from: 47_540)
+        XCTAssertEqual(result.value, 47_500)
     }
 }
 
@@ -297,8 +315,11 @@ final class ResistorControllerTests: XCTestCase {
         ("test_createFiveBandOrNearest_withHighValue",  test_createFiveBandOrNearest_withHighValue),
         ("test_createSixBandOrNearest_withHighValue",   test_createSixBandOrNearest_withHighValue),
         
-        ("test_createFourBandOrNearest_withTooPreciseValue",    test_createFourBandOrNearest_withTooPreciseValue),
-        ("test_createFiveBandOrNearest_withTooPreciseValue",    test_createFiveBandOrNearest_withTooPreciseValue),
-        ("test_createSixBandOrNearest_withTooPreciseValue",     test_createSixBandOrNearest_withTooPreciseValue),
+        ("test_createFourBandOrNearest_withTooPreciseValueHigh",    test_createFourBandOrNearest_withTooPreciseValueHigh),
+        ("test_createFourBandOrNearest_withTooPreciseValueLow",    test_createFourBandOrNearest_withTooPreciseValueLow),
+        ("test_createFiveBandOrNearest_withTooPreciseValueHigh",    test_createFiveBandOrNearest_withTooPreciseValueHigh),
+        ("test_createFiveBandOrNearest_withTooPreciseValueLow",    test_createFiveBandOrNearest_withTooPreciseValueLow),
+        ("test_createSixBandOrNearest_withTooPreciseValueHigh",     test_createSixBandOrNearest_withTooPreciseValueHigh),
+        ("test_createSixBandOrNearest_withTooPreciseValueLow",     test_createSixBandOrNearest_withTooPreciseValueLow),
     ]
 }
