@@ -23,4 +23,16 @@ extension Double {
     var fiveBandExponent: Double {
         self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 2
     }
+    
+    var roundedForFourBand: Double {
+        var sigFigs = self / pow(10, self.fourBandExponent)
+        sigFigs.round()
+        return sigFigs * pow(10, self.fourBandExponent)
+    }
+    
+    var roundedForFiveBand: Double {
+        var sigFigs = self / pow(10, self.fiveBandExponent)
+        sigFigs.round()
+        return sigFigs * pow(10, self.fiveBandExponent)
+    }
 }

@@ -33,7 +33,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Resistor Band Exponents
+// MARK:- Resistor Band Exps
 
 
 
@@ -107,6 +107,46 @@ extension DoubleExtensionTests {
     }
 }
 
+// MARK: - Rounded
+
+
+
+// MARK: Four Band
+extension DoubleExtensionTests {
+    func test_roundedForFourBand_withValueToNotRound() {
+        let result = 37_000.0.roundedForFourBand
+        XCTAssertEqual(result, 37_000)
+    }
+    
+    func test_roundedForFourBand_withValueToRoundUp() {
+        let result = 37_500.0.roundedForFourBand
+        XCTAssertEqual(result, 38_000)
+    }
+    
+    func test_roundedForFourBand_withValueToRoundDown() {
+        let result = 37_400.0.roundedForFourBand
+        XCTAssertEqual(result, 37_000)
+    }
+}
+
+// MARK: Five Band
+extension DoubleExtensionTests {
+    func test_roundedForFiveBand_withValueToNotRound() {
+        let result = 37_500.0.roundedForFiveBand
+        XCTAssertEqual(result, 37_500)
+    }
+
+    func test_roundedForFiveBand_withValueToRoundUp() {
+        let result = 37_550.0.roundedForFiveBand
+        XCTAssertEqual(result, 37_600)
+    }
+    
+    func test_roundedForFiveBand_withValueToRoundDown() {
+        let result = 37_540.0.roundedForFiveBand
+        XCTAssertEqual(result, 37_500)
+    }
+}
+
 // MARK:- Internal
 import XCTest
 @testable import Resistance
@@ -135,5 +175,13 @@ final class DoubleExtensionTests: XCTestCase {
         ("test_fiveBandExponent_with1Exp",      test_fiveBandExponent_with1Exp),
         ("test_fiveBandExponent_with2Exp",      test_fiveBandExponent_with2Exp),
         ("test_fiveBandExponent_with3Exp",      test_fiveBandExponent_with3Exp),
+        
+        ("test_roundedForFourBand_withValueToNotRound", test_roundedForFourBand_withValueToNotRound),
+        ("test_roundedForFourBand_withValueToRoundUp", test_roundedForFourBand_withValueToRoundUp),
+        ("test_roundedForFourBand_withValueToRoundUp", test_roundedForFourBand_withValueToRoundUp),
+        
+        ("test_roundedForFiveBand_withValueToNotRound", test_roundedForFiveBand_withValueToNotRound),
+        ("test_roundedForFiveBand_withValueToRoundUp", test_roundedForFiveBand_withValueToRoundUp),
+        ("test_roundedForFiveBand_withValueToRoundDown", test_roundedForFiveBand_withValueToRoundDown),
     ]
 }
