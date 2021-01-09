@@ -1,5 +1,6 @@
 import Foundation
 import Resistance
 
-let num: Double = 3
-let test = num < 0.1 ? floor(log10(num)) : floor(log10(num)) - 1
+let value: Double = 35_450
+let sigfigs = value / pow(10, value.fourBandExponent)
+let rounded = sigfigs.rounded()
