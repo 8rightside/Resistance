@@ -188,30 +188,36 @@ extension ResistorControllerTests {
 // MARK: Low Value
 extension ResistorControllerTests {
     func test_createFourBandOrNearest_withLowValue() {
-        
+        let result = sut.createFourBandOrNearest(from: 0.009)
+        XCTAssertEqual(result.value, 0.01)
     }
     
     func test_createFiveBandOrNearest_withLowValue() {
-        
+        let result = sut.createFiveBandOrNearest(from: 0.009)
+        XCTAssertEqual(result.value, 0.01)
     }
     
     func test_createSixBandOrNearest_withLowValue() {
-        
+        let result = sut.createSixBandOrNearest(from: 0.009)
+        XCTAssertEqual(result.value, 0.01)
     }
 }
 
 // MARK: High Value
 extension ResistorControllerTests {
     func test_createFourBandOrNearest_withHighValue() {
-        
+        let result = sut.createFourBandOrNearest(from: 100_000_000_000)
+        XCTAssertEqual(result.value, 99_000_000_000)
     }
     
     func test_createFiveBandOrNearest_withHighValue() {
-        
+        let result = sut.createFiveBandOrNearest(from: 1_000_000_000_000)
+        XCTAssertEqual(result.value, 999_000_000_000)
     }
     
     func test_createSixBandOrNearest_withHighValue() {
-        
+        let result = sut.createSixBandOrNearest(from: 1_000_000_000_000)
+        XCTAssertEqual(result.value, 999_000_000_000)
     }
 }
 
