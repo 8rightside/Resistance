@@ -1,9 +1,5 @@
 
-// MARK: Resistor Creation
-
-
-
-// MARK: Failable
+// MARK: Failable Creation
 extension ResistorController {
     /// Creates a four banded resistor from a given resistance value with the given tolerance rating
     /// or fails throwing an Error
@@ -52,7 +48,7 @@ extension ResistorController {
     } 
 }
 
-// MARK: Nearest
+// MARK:- Nearest Creation
 extension ResistorController {
     /// Creates a four banded resistor from a given resistance value with the given tolerance rating
     /// or one with the closest value possible
@@ -63,9 +59,9 @@ extension ResistorController {
     public func createFourBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
         guard value >= 0.01 else { return calculateFourBand(from: 0.01, tolerance: tolerance) }
         guard value <= 99_000_000_000 else { return calculateFourBand(from: 99_000_000_000, tolerance: tolerance) }
-        guard value.sigFigsCount < 3 else { fatalError("Hasn't been implemented yet") }
         
-        return calculateFourBand(from: value, tolerance: tolerance)
+        let rounded = value.roundedForFourBand
+        return calculateFourBand(from: rounded, tolerance: tolerance)
     }
     
     /// Creates a five banded resistor from a given resistance value with the given tolerance rating
@@ -77,9 +73,9 @@ extension ResistorController {
     public func createFiveBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
         guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance) }
         guard value <= 99_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
-        guard value.sigFigsCount < 4 else { fatalError("Hasn't been implemented yet") }
-        
-        return calculateFiveBand(from: value, tolerance: tolerance)
+                
+        let rounded = value.roundedForFiveBand
+        return calculateFiveBand(from: rounded, tolerance: tolerance)
     }
     
     /// Creates a six banded resistor from a given resistance value with the given tolerance rating
@@ -92,9 +88,9 @@ extension ResistorController {
     public func createSixBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.TempCoef = .brown) -> Resistor {
         guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance, coefficient: coefficient) }
         guard value <= 99_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
-        guard value.sigFigsCount < 4 else { fatalError("Hasn't been implemented yet") }
         
-        return calculateFiveBand(from: value, tolerance: tolerance, coefficient: coefficient)
+        let rounded = value.roundedForFiveBand
+        return calculateFiveBand(from: rounded, tolerance: tolerance, coefficient: coefficient)
     }
 }
 
