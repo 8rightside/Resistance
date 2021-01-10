@@ -1,13 +1,13 @@
 
 // MARK: Failable Creation
 extension ResistorController {
-    /// Creates a four banded resistor from a given resistance value with the given tolerance rating
+    /// Creates a four banded `Resistor` from a given resistance value with the given tolerance rating
     /// or fails throwing an Error
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A four banded resistor type representing the given resistance and tolerance
-    /// - Throws: ResistorError
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
+    /// - Throws: `ResistorError`
     public func createFourBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
         guard value >= 0.01 else { throw ResistorError.lowValueError }
         guard value <= 99_000_000_000 else { throw ResistorError.highValueError }
@@ -16,13 +16,13 @@ extension ResistorController {
         return calculateFourBand(from: value, tolerance: tolerance)
     }
     
-    /// Creates a five banded resistor from a given resistance value with the given tolerance rating
+    /// Creates a five banded `Resistor` from a given resistance value with the given tolerance rating
     /// or fails throwing an Error
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A five banded resistor type representing the given resistance and tolerance
-    /// - Throws: ResistorError
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Returns: A five banded `Resistor` type representing the given resistance and tolerance
+    /// - Throws: `ResistorError`
     public func createFiveBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
         guard value >= 0.01 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
@@ -31,14 +31,14 @@ extension ResistorController {
         return calculateFiveBand(from: value, tolerance: tolerance)
     }
     
-    /// Creates a six banded resistor from a given resistance value with the given tolerance rating
+    /// Creates a six banded `Resistor` from a given resistance value with the given tolerance rating
     /// or fails throwing an Error
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    ///     - coefficient: Temperature coefficient rating of the resistor
-    /// - Returns: A six banded resistor type representing the given resistance and tolerance
-    /// - Throws: ResistorError
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    ///     - coefficient: Temperature coefficient rating of the `Resistor`
+    /// - Returns: A six banded `Resistor` type representing the given resistance and tolerance
+    /// - Throws: `ResistorError`
     public func createSixBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.TempCoef = .brown) throws -> Resistor {
         guard value >= 0.01 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
@@ -50,12 +50,12 @@ extension ResistorController {
 
 // MARK:- Nearest Creation
 extension ResistorController {
-    /// Creates a four banded resistor from a given resistance value with the given tolerance rating
-    /// or one with the closest value possible
+    /// Creates a four banded `Resistor` from a given resistance value with the given tolerance rating
+    /// or one with the nearest value possible
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A four banded resistor type representing the given resistance and tolerance
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createFourBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
         guard value >= 0.01 else { return calculateFourBand(from: 0.01, tolerance: tolerance) }
         guard value <= 99_000_000_000 else { return calculateFourBand(from: 99_000_000_000, tolerance: tolerance) }
@@ -64,33 +64,117 @@ extension ResistorController {
         return calculateFourBand(from: rounded, tolerance: tolerance)
     }
     
-    /// Creates a five banded resistor from a given resistance value with the given tolerance rating
-    /// or one with the closest value possible
+    /// Creates a five banded `Resistor` from a given resistance value with the given tolerance rating
+    /// or one with the nearest value possible
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    /// - Returns: A four banded resistor type representing the given resistance and tolerance
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createFiveBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
         guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance) }
-        guard value <= 99_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
+        guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
                 
         let rounded = value.roundedForFiveBand
         return calculateFiveBand(from: rounded, tolerance: tolerance)
     }
     
-    /// Creates a six banded resistor from a given resistance value with the given tolerance rating
-    /// or one with the closest value possible
+    /// Creates a six banded `Resistor` from a given resistance value with the given tolerance rating
+    /// or one with the nearest value possible
     /// - Parameters:
-    ///     - value: Resistance value the resistor will represent
-    ///     - tolerance: Tolerance rating of the resistor
-    ///     - coefficient: Temperature coefficient rating of the resistor
-    /// - Returns: A four banded resistor type representing the given resistance and tolerance
+    ///     - value: Resistance value the `Resistor` will represent
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    ///     - coefficient: Temperature coefficient rating of the `Resistor`
+    /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createSixBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.TempCoef = .brown) -> Resistor {
         guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance, coefficient: coefficient) }
-        guard value <= 99_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
+        guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
         
         let rounded = value.roundedForFiveBand
         return calculateFiveBand(from: rounded, tolerance: tolerance, coefficient: coefficient)
+    }
+}
+
+// MARK:- Failable Conversion
+extension ResistorController {
+    /// Creates a four banded `Resistor` with the resistance value of the input `Resistor` or throws an
+    /// error if the value can't be represented
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passed
+    /// `Resistor` will be used
+    /// - Returns: A four banded `Resistor` representing the conversion
+    /// - Throws: `ResistorError`
+    public func convertToFourBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) throws -> Resistor {
+        throw ResistorError.inValidValueError
+    }
+    
+    /// Creates a five banded `Resistor` with the resistance value of the input `Resistor` or throws an
+    /// error if the value can't be represented
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passed
+    /// `Resistor` will be used
+    /// - Returns: A five banded `Resistor` representing the conversion
+    /// - Throws: `ResistorError`
+    public func convertToFiveBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) throws -> Resistor {
+        throw ResistorError.inValidValueError
+    }
+    
+    /// Creates a six banded `Resistor` with the resistance value of the input `Resistor` or throws an
+    /// error if the value can't be represented
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    ///     - coefficient: Temperature coefficient rating of the `Resistor`
+    /// - Note: If the tolerance or coefficient parameters are omitted the tolerance or
+    /// coefficient ratings of the passed `Resistor` will be used
+    /// - Returns: A six banded `Resistor` representing the conversion
+    /// - Throws: `ResistorError`
+    public func convertToSixBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.TempCoef? = nil) throws -> Resistor {
+        throw ResistorError.inValidValueError
+    }
+}
+
+// MARK:- Nearest Conversion
+extension ResistorController {
+    /// Creates a four banded `Resistor` with the resistance value of the input `Resistor` or one with
+    /// the nearest value possible
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passed
+    /// `Resistor` will be used
+    /// - Returns: A four banded `Resistor` representing the conversion
+    public func convertToFourBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) -> Resistor {
+        return .fourBand(.black, .brown, .brown, .gold)
+    }
+    
+    /// Creates a five banded `Resistor` with the resistance value of the input `Resistor` or one with
+    /// the nearest value possible
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passed
+    /// `Resistor` will be used
+    /// - Returns: A five banded `Resistor` representing the conversion
+    public func convertToFiveBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) -> Resistor {
+        return .fiveBand(.brown, .black, .black, .brown, .gold)
+    }
+    
+    /// Creates a six banded `Resistor` with the resistance value of the input `Resistor` or one with
+    /// the nearest value possible
+    /// - Parameters:
+    ///     - resistor: The `Resistor` to convert from
+    ///     - tolerance: Tolerance rating of the `Resistor`
+    ///     - coefficient: Temperature coefficient rating of the `Resistor`
+    /// - Note: If the tolerance or coefficient parameters are omitted the tolerance or
+    ///  coefficient ratings of the passed `Resistor` will be used
+    /// `Resistor` will be used
+    /// - Returns: A six banded `Resistor` representing the conversion
+    public func convertToSixBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.TempCoef? = nil) -> Resistor {
+        return .sixBand(.brown, .black, .black, .brown, .gold, .brown)
     }
 }
 

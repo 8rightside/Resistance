@@ -254,6 +254,44 @@ extension ResistorControllerTests {
     }
 }
 
+// MARK:- Failable Conversion
+
+
+
+// MARK: Four Band
+extension ResistorControllerTests {
+    
+}
+
+// MARK: Five Band
+extension ResistorControllerTests {
+    
+}
+
+// MARK: Six Band
+extension ResistorControllerTests {
+    
+}
+
+// MARK:- Nearest Conversion
+
+
+
+// MARK: Four Band
+extension ResistorControllerTests {
+    
+}
+
+// MARK: Five Band
+extension ResistorControllerTests {
+    
+}
+
+// MARK: Six Band
+extension ResistorControllerTests {
+    
+}
+
 // MARK:- Internal
 import XCTest
 @testable import Resistance

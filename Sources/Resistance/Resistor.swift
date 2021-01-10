@@ -1,6 +1,6 @@
-import Foundation
 
 // MARK: Resistor Types
+import Foundation
 
 /// Type representing a four, five, or six banded resistor.
 public enum Resistor {
