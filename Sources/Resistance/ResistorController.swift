@@ -106,6 +106,7 @@ extension ResistorController {
     /// - Returns: A four banded `Resistor` representing the conversion
     /// - Throws: `ResistorError`
     public func convertToFourBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) throws -> Resistor {
+        
         throw ResistorError.inValidValueError
     }
     

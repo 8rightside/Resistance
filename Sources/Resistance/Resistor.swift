@@ -2,7 +2,7 @@
 // MARK: Resistor Types
 import Foundation
 
-/// Type representing a four, five, or six banded resistor.
+/// Type representing a four, five, or six banded `Resistor`
 public enum Resistor {
     /// Four banded resistor type
     case fourBand(Digit, Digit, Multiplier, Tolerance)
@@ -11,7 +11,7 @@ public enum Resistor {
     /// Six banded resistor type
     case sixBand(Digit, Digit, Digit, Multiplier, Tolerance, TempCoef)
     
-    /// The resistance value of the represented resistor
+    /// The resistance value of the represented `Resistor`
     public var value: Double {
         switch self {
             case .fourBand(let digit1, let digit2, let multiplier, _):
@@ -22,11 +22,20 @@ public enum Resistor {
                 return (digit1.rawValue * 100 + digit2.rawValue * 10 + digit3.rawValue) * multiplier.rawValue
         }
     }
+    
+    /// The tolerance rating of the `Resistor` represented as a decimal
+    public var tolerance: Double {
+        switch self {
+            case .fourBand(_, _, _, let tolerance): return tolerance.rawValue
+            case .fiveBand(_, _, _, _, let tolerance): return tolerance.rawValue
+            case .sixBand(_, _, _, _, let tolerance, _): return tolerance.rawValue
+        }
+    }
 }
 
 // MARK:- Resistor Components
 extension Resistor {
-    /// Type representing one of the significant digit bands of a resistor
+    /// Type representing one of the significant digit bands of a `Resistor`
     ///
     /// The associated value of each case is the appropriate value for the colour band it
     /// represents.
@@ -34,7 +43,7 @@ extension Resistor {
         case black, brown, red, orange, yellow, green, blue, violet, grey, white
     }
     
-    /// Type representing the multiplier band of a resistor
+    /// Type representing the multiplier band of a `Resistor`
     ///
     /// The associated value of each case is the appropriate value for the colour band it
     /// represents.
@@ -53,7 +62,7 @@ extension Resistor {
         case silver = 0.01
     }
     
-    /// Type representing the tolerance rating band of a resistor
+    /// Type representing the tolerance rating band of a `Resistor`
     ///
     /// The associated value of each case is the appropriate value for the colour band it
     /// represents.
@@ -70,7 +79,7 @@ extension Resistor {
         case silver = 0.1
     }
     
-    /// Type representing the temperature coefficient rating of a resistor
+    /// Type representing the temperature coefficient rating of a `Resistor`
     ///
     /// The associated value of each case is the appropriate value for the colour band it
     /// represents.
@@ -83,7 +92,7 @@ extension Resistor {
         case violet = 5
     }
     
-    /// Options for use with resistor creation functions
+    /// Options for use with `Resistor` creation functions
     public enum CreateOption {
         case exactOrFail
         case nearestRoundUp
@@ -96,7 +105,7 @@ extension Resistor: CustomStringConvertible {
     /// A textual representation of this instance.
     ///
     /// Calling this property directly is discouraged. Instead, convert a
-    /// Resistor instance to a string by using the `String(describing:)`
+    /// `Resistor` instance to a string by using the `String(describing:)`
     /// initializer.
     ///
     ///     let resistor = Resistor.fiveBand(.brown, .green, .yellow, .brown, .gold)
@@ -114,9 +123,4 @@ extension Resistor: CustomStringConvertible {
         else if thousand >= 1.0 { return String(format: "%g KΩ", thousand) }
         else                    { return String(format: "%g Ω", value) }
     }
-}
-
-// MARK:- Internal Methods
-extension Resistor {
-    
 }
