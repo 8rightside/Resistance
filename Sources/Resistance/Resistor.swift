@@ -24,11 +24,11 @@ public enum Resistor {
     }
     
     /// The tolerance rating of the `Resistor` represented as a decimal
-    public var tolerance: Double {
+    public var tolerance: Tolerance {
         switch self {
-            case .fourBand(_, _, _, let tolerance): return tolerance.rawValue
-            case .fiveBand(_, _, _, _, let tolerance): return tolerance.rawValue
-            case .sixBand(_, _, _, _, let tolerance, _): return tolerance.rawValue
+            case .fourBand(_, _, _, let tolerance): return tolerance
+            case .fiveBand(_, _, _, _, let tolerance): return tolerance
+            case .sixBand(_, _, _, _, let tolerance, _): return tolerance
         }
     }
 }

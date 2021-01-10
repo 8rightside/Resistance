@@ -106,8 +106,7 @@ extension ResistorController {
     /// - Returns: A four banded `Resistor` representing the conversion
     /// - Throws: `ResistorError`
     public func convertToFourBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) throws -> Resistor {
-        
-        throw ResistorError.inValidValueError
+        try createFourBandOrFail(from: resistor.value, tolerance: tolerance ?? resistor.tolerance)
     }
     
     /// Creates a five banded `Resistor` with the resistance value of the input `Resistor` or throws an
@@ -120,7 +119,7 @@ extension ResistorController {
     /// - Returns: A five banded `Resistor` representing the conversion
     /// - Throws: `ResistorError`
     public func convertToFiveBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) throws -> Resistor {
-        throw ResistorError.inValidValueError
+        try createFiveBandOrFail(from: resistor.value, tolerance: tolerance ?? resistor.tolerance)
     }
     
     /// Creates a six banded `Resistor` with the resistance value of the input `Resistor` or throws an
@@ -134,7 +133,8 @@ extension ResistorController {
     /// - Returns: A six banded `Resistor` representing the conversion
     /// - Throws: `ResistorError`
     public func convertToSixBandOrFail(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.TempCoef? = nil) throws -> Resistor {
-        throw ResistorError.inValidValueError
+        guard case .sixBand(_, _, _, _, _, let tempCo) = resistor else { fatalError("Should be impossible to create resistor without tempCo") }
+        return try createSixBandOrFail(from: resistor.value, tolerance: tolerance ?? resistor.tolerance, coefficient: coefficient ?? tempCo)
     }
 }
 
@@ -149,7 +149,7 @@ extension ResistorController {
     /// `Resistor` will be used
     /// - Returns: A four banded `Resistor` representing the conversion
     public func convertToFourBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) -> Resistor {
-        return .fourBand(.black, .brown, .brown, .gold)
+        createFourBandOrNearest(from: resistor.value, tolerance: tolerance ?? resistor.tolerance)
     }
     
     /// Creates a five banded `Resistor` with the resistance value of the input `Resistor` or one with
@@ -161,7 +161,7 @@ extension ResistorController {
     /// `Resistor` will be used
     /// - Returns: A five banded `Resistor` representing the conversion
     public func convertToFiveBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil) -> Resistor {
-        return .fiveBand(.brown, .black, .black, .brown, .gold)
+        createFiveBandOrNearest(from: resistor.value, tolerance: tolerance ?? resistor.tolerance)
     }
     
     /// Creates a six banded `Resistor` with the resistance value of the input `Resistor` or one with
@@ -175,7 +175,8 @@ extension ResistorController {
     /// `Resistor` will be used
     /// - Returns: A six banded `Resistor` representing the conversion
     public func convertToSixBandOrNearest(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.TempCoef? = nil) -> Resistor {
-        return .sixBand(.brown, .black, .black, .brown, .gold, .brown)
+        guard case .sixBand(_, _, _, _, _, let tempCo) = resistor else { fatalError("Should be impossible to create resistor without tempCo") }
+        return createSixBandOrNearest(from: resistor.value, tolerance: tolerance ?? resistor.tolerance, coefficient: coefficient ?? tempCo)
     }
 }
 

@@ -124,52 +124,52 @@ extension ResistorTests {
 extension ResistorTests {
     func test_fourBand_tolerance_withBrownBand() {
         let resistor = Resistor.fourBand(.black, .green, .silver, .brown)
-        XCTAssertEqual(resistor.tolerance, 0.01)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.01)
     }
     
     func test_fourBand_tolerance_withRedBand() {
         let resistor = Resistor.fourBand(.green, .blue, .gold, .red)
-        XCTAssertEqual(resistor.tolerance, 0.02)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.02)
     }
     
     func test_fourBand_tolerance_withOrangeBand() {
         let resistor = Resistor.fourBand(.yellow, .violet, .red, .orange)
-        XCTAssertEqual(resistor.tolerance, 0.03)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.03)
     }
     
     func test_fourBand_tolerance_withYellowBand() {
         let resistor = Resistor.fourBand(.orange, .white, .yellow, .yellow)
-        XCTAssertEqual(resistor.tolerance, 0.04)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.04)
     }
     
     func test_fourBand_tolerance_withGreenBand() {
         let resistor = Resistor.fourBand(.orange, .yellow, .green, .green)
-        XCTAssertEqual(resistor.tolerance, 0.005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.005)
     }
     
     func test_fourBand_tolerance_withBlueBand() {
         let resistor = Resistor.fourBand(.yellow, .black, .blue, .blue)
-        XCTAssertEqual(resistor.tolerance, 0.0025)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0025)
     }
     
     func test_fourBand_tolerance_withVioletBand() {
         let resistor = Resistor.fourBand(.violet, .black, .white, .violet)
-        XCTAssertEqual(resistor.tolerance, 0.001)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.001)
     }
     
     func test_fourBand_tolerance_withGreyBand() {
         let resistor = Resistor.fourBand(.black, .green, .silver, .grey)
-        XCTAssertEqual(resistor.tolerance, 0.0005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0005)
     }
     
     func test_fourBand_tolerance_withGoldBand() {
         let resistor = Resistor.fourBand(.orange, .white, .yellow, .gold)
-        XCTAssertEqual(resistor.tolerance, 0.05)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.05)
     }
     
     func test_fourBand_tolerance_withSilverBand() {
         let resistor = Resistor.fourBand(.green, .blue, .gold, .silver)
-        XCTAssertEqual(resistor.tolerance, 0.1)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.1)
     }
 }
 
@@ -177,52 +177,52 @@ extension ResistorTests {
 extension ResistorTests {
     func test_fiveBand_tolerance_withBrownBand() {
         let resistor = Resistor.fiveBand(.black, .brown, .brown, .silver, .brown)
-        XCTAssertEqual(resistor.tolerance, 0.01)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.01)
     }
     
     func test_fiveBand_tolerance_withRedBand() {
         let resistor = Resistor.fiveBand(.green, .orange, .brown, .red, .red)
-        XCTAssertEqual(resistor.tolerance, 0.02)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.02)
     }
     
     func test_fiveBand_tolerance_withOrangeBand() {
         let resistor = Resistor.fiveBand(.black, .brown, .yellow, .orange, .orange)
-        XCTAssertEqual(resistor.tolerance, 0.03)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.03)
     }
     
     func test_fiveBand_tolerance_withYellowBand() {
         let resistor = Resistor.fiveBand(.blue, .green, .grey, .brown, .yellow)
-        XCTAssertEqual(resistor.tolerance, 0.04)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.04)
     }
     
     func test_fiveBand_tolerance_withGreenBand() {
         let resistor = Resistor.fiveBand(.black, .orange, .white, .gold, .green)
-        XCTAssertEqual(resistor.tolerance, 0.005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.005)
     }
     
     func test_fiveBand_tolerance_withBlueBand() {
         let resistor = Resistor.fiveBand(.blue, .green, .red, .gold, .blue)
-        XCTAssertEqual(resistor.tolerance, 0.0025)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0025)
     }
     
     func test_fiveBand_tolerance_withVioletBand() {
         let resistor = Resistor.fiveBand(.orange, .black, .green, .black, .violet)
-        XCTAssertEqual(resistor.tolerance, 0.001)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.001)
     }
     
     func test_fiveBand_tolerance_withGreyBand() {
         let resistor = Resistor.fiveBand(.white, .blue, .blue, .brown, .grey)
-        XCTAssertEqual(resistor.tolerance, 0.0005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0005)
     }
     
     func test_fiveBand_tolerance_withGoldBand() {
         let resistor = Resistor.fiveBand(.yellow, .brown, .green, .black, .gold)
-        XCTAssertEqual(resistor.tolerance, 0.05)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.05)
     }
     
     func test_fiveBand_tolerance_withSilverBand() {
         let resistor = Resistor.fiveBand(.brown, .black, .green, .green, .silver)
-        XCTAssertEqual(resistor.tolerance, 0.1)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.1)
     }
 }
 
@@ -230,52 +230,52 @@ extension ResistorTests {
 extension ResistorTests {
     func test_sixBand_tolerance_withBrownBand() {
         let resistor = Resistor.sixBand(.black, .brown, .brown, .silver, .brown, .blue)
-        XCTAssertEqual(resistor.tolerance, 0.01)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.01)
     }
     
     func test_sixBand_tolerance_withRedBand() {
         let resistor = Resistor.sixBand(.green, .orange, .brown, .red, .red, .brown)
-        XCTAssertEqual(resistor.tolerance, 0.02)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.02)
     }
     
     func test_sixBand_tolerance_withOrangeBand() {
         let resistor = Resistor.sixBand(.black, .brown, .yellow, .orange, .orange, .orange)
-        XCTAssertEqual(resistor.tolerance, 0.03)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.03)
     }
     
     func test_sixBand_tolerance_withYellowBand() {
         let resistor = Resistor.sixBand(.blue, .green, .grey, .brown, .yellow, .red)
-        XCTAssertEqual(resistor.tolerance, 0.04)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.04)
     }
     
     func test_sixBand_tolerance_withGreenBand() {
         let resistor = Resistor.sixBand(.black, .orange, .white, .gold, .green, .violet)
-        XCTAssertEqual(resistor.tolerance, 0.005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.005)
     }
     
     func test_sixBand_tolerance_withBlueBand() {
         let resistor = Resistor.sixBand(.blue, .green, .red, .gold, .blue, .yellow)
-        XCTAssertEqual(resistor.tolerance, 0.0025)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0025)
     }
     
     func test_sixBand_tolerance_withVioletBand() {
         let resistor = Resistor.sixBand(.orange, .black, .green, .black, .violet, .blue)
-        XCTAssertEqual(resistor.tolerance, 0.001)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.001)
     }
     
     func test_sixBand_tolerance_withGreyBand() {
         let resistor = Resistor.sixBand(.white, .blue, .blue, .brown, .grey, .brown)
-        XCTAssertEqual(resistor.tolerance, 0.0005)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.0005)
     }
     
     func test_sixBand_tolerance_withGoldBand() {
         let resistor = Resistor.sixBand(.yellow, .brown, .green, .black, .gold, .orange)
-        XCTAssertEqual(resistor.tolerance, 0.05)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.05)
     }
     
     func test_sixBand_tolerance_withSilverBand() {
         let resistor = Resistor.sixBand(.brown, .black, .green, .green, .silver, .red)
-        XCTAssertEqual(resistor.tolerance, 0.1)
+        XCTAssertEqual(resistor.tolerance.rawValue, 0.1)
     }
 }
 
