@@ -254,7 +254,7 @@ extension ResistorControllerTests {
     }
 }
 
-// MARK:- Failable Conversion
+// MARK:- Resistor Conversion
 
 
 
@@ -264,7 +264,7 @@ extension ResistorControllerTests {
         let resistor = Resistor.fiveBand(.brown, .grey, .black, .red, .blue)
         let result = try sut.convertToFourBandOrFail(resistor)
         XCTAssertEqual(result.value, 18_000)
-        XCTAssertEqual(result.tolerance, .gold)
+        XCTAssertEqual(result.tolerance, .blue)
     }
     
     func test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNotNil() throws {
@@ -311,31 +311,126 @@ extension ResistorControllerTests {
 
 // MARK: Five Band
 extension ResistorControllerTests {
+    func test_convertToFiveBand_fromFourBand_toleranceNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
+        let result = sut.convertToFiveBand(resistor)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .blue)
+    }
     
+    func test_convertToFiveBand_fromFourBand_toleranceNotNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .gold)
+        let result = sut.convertToFiveBand(resistor, tolerance: .green)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .green)
+    }
+    
+    func test_convertToFiveBand_fromSixBand_toleranceNil() {
+        let resistor = Resistor.sixBand(.brown, .grey, .black, .red, .gold, .orange)
+        let result = sut.convertToFiveBand(resistor)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .gold)
+    }
+    
+    func test_convertToFiveBand_fromSixBand_toleranceNotNil() {
+        let resistor = Resistor.sixBand(.brown, .grey, .black, .red, .gold, .orange)
+        let result = sut.convertToFiveBand(resistor, tolerance: .red)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .red)
+    }
 }
 
 // MARK: Six Band
 extension ResistorControllerTests {
+    func test_convertToSixBand_fromFourBand_toleranceNil_coefficientNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
+        let result = sut.convertToSixBand(resistor)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .brown)
+        }
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .blue)
+    }
     
-}
-
-// MARK:- Nearest Conversion
-
-
-
-// MARK: Four Band
-extension ResistorControllerTests {
+    func test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
+        let result = sut.convertToSixBand(resistor, tolerance: .green)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .brown)
+        }
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .green)
+    }
     
-}
-
-// MARK: Five Band
-extension ResistorControllerTests {
+    func test_convertToSixBand_fromFourBand_toleranceNil_coefficientNotNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
+        let result = sut.convertToSixBand(resistor, coefficient: .red)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .red)
+        }
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .blue)
+    }
     
-}
-
-// MARK: Six Band
-extension ResistorControllerTests {
+    func test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNotNil() {
+        let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
+        let result = sut.convertToSixBand(resistor, tolerance: .green, coefficient: .yellow)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .yellow)
+        }
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .green)
+    }
     
+    func test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
+        let result = sut.convertToSixBand(resistor)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .brown)
+        }
+        XCTAssertEqual(result.value, 187_000)
+        XCTAssertEqual(result.tolerance, .yellow)
+    }
+    
+    func test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
+        let result = sut.convertToSixBand(resistor, tolerance: .orange)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .brown)
+        }
+        XCTAssertEqual(result.value, 187_000)
+        XCTAssertEqual(result.tolerance, .orange)
+    }
+    
+    func test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNotNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
+        let result = sut.convertToSixBand(resistor, coefficient: .violet)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .violet)
+        }
+        XCTAssertEqual(result.value, 187_000)
+        XCTAssertEqual(result.tolerance, .yellow)
+    }
+    
+    func test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNotNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
+        let result = sut.convertToSixBand(resistor, tolerance: .green, coefficient: .blue)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .blue)
+        }
+        XCTAssertEqual(result.value, 187_000)
+        XCTAssertEqual(result.tolerance, .green)
+    }
+    
+    func test_convertSixBand_fromSixBand_toleranceNil_coefficientNil() {
+        let resistor = Resistor.sixBand(.brown, .grey, .violet, .orange, .yellow, .yellow)
+        let result = sut.convertToSixBand(resistor)
+        if case .sixBand(_, _, _, _, _, let tempCo) = result {
+            XCTAssertEqual(tempCo, .yellow)
+        }
+        XCTAssertEqual(result.value, 187_000)
+        XCTAssertEqual(result.tolerance, .yellow)
+    }
 }
 
 // MARK:- Internal
@@ -415,5 +510,19 @@ final class ResistorControllerTests: XCTestCase {
         ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil",       test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil),
         ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil",    test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil),
         
+        ("test_convertToFiveBand_fromFourBand_toleranceNil",    test_convertToFiveBand_fromFourBand_toleranceNil),
+        ("test_convertToFiveBand_fromFourBand_toleranceNotNil", test_convertToFiveBand_fromFourBand_toleranceNotNil),
+        ("test_convertToFiveBand_fromSixBand_toleranceNil",     test_convertToFiveBand_fromSixBand_toleranceNil),
+        ("test_convertToFiveBandfrom_SixBand_toleranceNotNil",   test_convertToFiveBand_fromSixBand_toleranceNotNil),
+        
+        ("test_convertToSixBand_fromFourBand_toleranceNil_coefficientNil",          test_convertToSixBand_fromFourBand_toleranceNil_coefficientNil),
+        ("test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNil",       test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNil),
+        ("test_convertToSixBand_fromFourBand_toleranceNil_coefficientNotNil",       test_convertToSixBand_fromFourBand_toleranceNil_coefficientNotNil),
+        ("test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNotNil",    test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNotNil),
+        ("test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNil",          test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNil),
+        ("test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNil",       test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNil),
+        ("test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNotNil",       test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNotNil),
+        ("test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNotNil",    test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNotNil),
+        ("test_convertSixBand_fromSixBand_toleranceNil_coefficientNil",             test_convertSixBand_fromSixBand_toleranceNil_coefficientNil),
     ]
 }
