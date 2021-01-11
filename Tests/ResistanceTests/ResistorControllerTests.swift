@@ -413,8 +413,7 @@ final class ResistorControllerTests: XCTestCase {
         ("test_convertToFourBandOrFail_fromSixBand_valid_toleranceNil",         test_convertToFourBandOrFail_fromSixBand_valid_toleranceNil),
         ("test_convertToFourBandOrFail_fromSixBand_valid_toleranceNotNil",      test_convertToFourBandOrFail_fromSixBand_valid_toleranceNotNil),
         ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil",       test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil),
-        ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil",    test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil)
-        
+        ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil",    test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil),
         
     ]
 }
