@@ -260,7 +260,53 @@ extension ResistorControllerTests {
 
 // MARK: Four Band
 extension ResistorControllerTests {
+    func test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNil() throws {
+        let resistor = Resistor.fiveBand(.brown, .grey, .black, .red, .blue)
+        let result = try sut.convertToFourBandOrFail(resistor)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .gold)
+    }
     
+    func test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNotNil() throws {
+        let resistor = Resistor.fiveBand(.brown, .grey, .black, .red, .gold)
+        let result = try sut.convertToFourBandOrFail(resistor, tolerance: .green)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .green)
+    }
+    
+    func test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .yellow, .red, .violet)
+        XCTAssertThrowsError(try sut.convertToFourBandOrFail(resistor))
+    }
+    
+    func test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNotNil() {
+        let resistor = Resistor.fiveBand(.brown, .grey, .yellow, .red, .violet)
+        XCTAssertThrowsError(try sut.convertToFourBandOrFail(resistor, tolerance: .brown))
+    }
+    
+    func test_convertToFourBandOrFail_fromSixBand_valid_toleranceNil() throws {
+        let resistor = Resistor.sixBand(.brown, .grey, .black, .red, .gold, .orange)
+        let result = try sut.convertToFourBandOrFail(resistor)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .gold)
+    }
+    
+    func test_convertToFourBandOrFail_fromSixBand_valid_toleranceNotNil() throws {
+        let resistor = Resistor.sixBand(.brown, .grey, .black, .red, .gold, .orange)
+        let result = try sut.convertToFourBandOrFail(resistor, tolerance: .red)
+        XCTAssertEqual(result.value, 18_000)
+        XCTAssertEqual(result.tolerance, .red)
+    }
+    
+    func test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil() {
+        let resistor = Resistor.sixBand(.brown, .grey, .yellow, .red, .violet, .violet)
+        XCTAssertThrowsError(try sut.convertToFourBandOrFail(resistor))
+    }
+    
+    func test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil() {
+        let resistor = Resistor.sixBand(.brown, .grey, .yellow, .red, .violet, .blue)
+        XCTAssertThrowsError(try sut.convertToFourBandOrFail(resistor, tolerance: .brown))
+    }
 }
 
 // MARK: Five Band
@@ -359,5 +405,16 @@ final class ResistorControllerTests: XCTestCase {
         ("test_createFiveBandOrNearest_withTooPreciseValueLow",    test_createFiveBandOrNearest_withTooPreciseValueLow),
         ("test_createSixBandOrNearest_withTooPreciseValueHigh",     test_createSixBandOrNearest_withTooPreciseValueHigh),
         ("test_createSixBandOrNearest_withTooPreciseValueLow",     test_createSixBandOrNearest_withTooPreciseValueLow),
+        
+        ("test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNil",        test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNil),
+        ("test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNotNil",     test_convertToFourBandOrFail_fromFiveBand_valid_toleranceNotNil),
+        ("test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNil",      test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNil),
+        ("test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNotNil",   test_convertToFourBandOrFail_fromFiveBand_invalid_toleranceNotNil),
+        ("test_convertToFourBandOrFail_fromSixBand_valid_toleranceNil",         test_convertToFourBandOrFail_fromSixBand_valid_toleranceNil),
+        ("test_convertToFourBandOrFail_fromSixBand_valid_toleranceNotNil",      test_convertToFourBandOrFail_fromSixBand_valid_toleranceNotNil),
+        ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil",       test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNil),
+        ("test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil",    test_convertToFourBandOrFail_fromSixBand_invalid_toleranceNotNil)
+        
+        
     ]
 }
