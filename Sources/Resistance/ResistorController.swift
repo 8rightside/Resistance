@@ -39,7 +39,7 @@ extension ResistorController {
     ///     - coefficient: Temperature coefficient rating of the `Resistor`
     /// - Returns: A six banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
-    public func createSixBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.TempCoef = .brown) throws -> Resistor {
+    public func createSixBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) throws -> Resistor {
         guard value >= 0.01 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
@@ -85,7 +85,7 @@ extension ResistorController {
     ///     - tolerance: Tolerance rating of the `Resistor`
     ///     - coefficient: Temperature coefficient rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
-    public func createSixBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.TempCoef = .brown) -> Resistor {
+    public func createSixBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) -> Resistor {
         guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance, coefficient: coefficient) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
         
@@ -145,8 +145,8 @@ extension ResistorController {
     /// `Resistor` will be used. If the coefficient parameter is omitted either the coefficient
     /// rating of the passed `Resistor` or a default of Brown will be used
     /// - Returns: A six banded `Resistor` representing the conversion
-    public func convertToSixBand(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.TempCoef? = nil) -> Resistor {
-        var tempCo = Resistor.TempCoef.brown
+    public func convertToSixBand(_ resistor: Resistor, tolerance: Resistor.Tolerance? = nil, coefficient: Resistor.Coefficient? = nil) -> Resistor {
+        var tempCo = Resistor.Coefficient.brown
         if case .sixBand(_, _, _, _, _, let tc) = resistor { tempCo = tc }
         do {
             return try createSixBandOrFail(from: resistor.value, tolerance: tolerance ?? resistor.tolerance, coefficient: coefficient ?? tempCo)
@@ -186,7 +186,7 @@ extension ResistorController {
         return .fourBand(digit1, digit2, multiplier, tolerance)
     }
     
-    private func calculateFiveBand(from value: Double, tolerance: Resistor.Tolerance, coefficient: Resistor.TempCoef? = nil) -> Resistor {
+    private func calculateFiveBand(from value: Double, tolerance: Resistor.Tolerance, coefficient: Resistor.Coefficient? = nil) -> Resistor {
         var sigfigs = value / pow(10, value.fiveBandExponent)
         
         let band1 = Double(Int(sigfigs / 100))

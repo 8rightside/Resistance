@@ -9,7 +9,7 @@ public enum Resistor {
     /// Five banded resistor type
     case fiveBand(Digit, Digit, Digit, Multiplier, Tolerance)
     /// Six banded resistor type
-    case sixBand(Digit, Digit, Digit, Multiplier, Tolerance, TempCoef)
+    case sixBand(Digit, Digit, Digit, Multiplier, Tolerance, Coefficient)
     
     /// The resistance value of the represented `Resistor`
     public var value: Double {
@@ -23,6 +23,27 @@ public enum Resistor {
         }
     }
     
+    /// A `Resistor.Digit` array containing the digit bands of the `Resistor`
+    public var digits: [Digit] {
+        switch self {
+            case .fourBand(let digit1, let digit2, _, _):
+                return [digit1, digit2]
+                
+            case .fiveBand(let digit1, let digit2, let digit3, _, _),
+                 .sixBand(let digit1, let digit2, let digit3, _, _, _):
+                return [digit1, digit2, digit3]
+        }
+    }
+    
+    /// The multiplier band of the `Resistor`
+    public var multiplier: Multiplier {
+        switch self {
+            case .fourBand(_, _, let multiplier, _): return multiplier
+            case .fiveBand(_, _, _, let multiplier, _): return multiplier
+            case .sixBand(_, _, _, let multiplier, _, _): return multiplier
+        }
+    }
+    
     /// The tolerance rating of the `Resistor` represented as a decimal
     public var tolerance: Tolerance {
         switch self {
@@ -30,6 +51,15 @@ public enum Resistor {
             case .fiveBand(_, _, _, _, let tolerance): return tolerance
             case .sixBand(_, _, _, _, let tolerance, _): return tolerance
         }
+    }
+    
+    /// The optional cooefficient rating of the `Resistor` if it has one
+    public var coefficient: Coefficient? {
+        if case .sixBand(_, _, _, _, _, let tempCo) = self {
+            return tempCo
+        } else {
+            return nil
+        }        
     }
 }
 
@@ -83,7 +113,7 @@ extension Resistor {
     ///
     /// The associated value of each case is the appropriate value for the colour band it
     /// represents.
-    public enum TempCoef: Double {
+    public enum Coefficient: Double {
         case brown  = 100
         case red    = 50
         case orange = 15

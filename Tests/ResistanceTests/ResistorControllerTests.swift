@@ -345,91 +345,73 @@ extension ResistorControllerTests {
     func test_convertToSixBand_fromFourBand_toleranceNil_coefficientNil() {
         let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
         let result = sut.convertToSixBand(resistor)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .brown)
-        }
         XCTAssertEqual(result.value, 18_000)
         XCTAssertEqual(result.tolerance, .blue)
+        XCTAssertEqual(result.coefficient!, .brown)
     }
     
     func test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNil() {
         let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
         let result = sut.convertToSixBand(resistor, tolerance: .green)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .brown)
-        }
         XCTAssertEqual(result.value, 18_000)
         XCTAssertEqual(result.tolerance, .green)
+        XCTAssertEqual(result.coefficient!, .brown)
     }
     
     func test_convertToSixBand_fromFourBand_toleranceNil_coefficientNotNil() {
         let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
         let result = sut.convertToSixBand(resistor, coefficient: .red)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .red)
-        }
         XCTAssertEqual(result.value, 18_000)
         XCTAssertEqual(result.tolerance, .blue)
+        XCTAssertEqual(result.coefficient, .red)
     }
     
     func test_convertToSixBand_fromFourBand_toleranceNotNil_coefficientNotNil() {
         let resistor = Resistor.fourBand(.brown, .grey, .orange, .blue)
         let result = sut.convertToSixBand(resistor, tolerance: .green, coefficient: .yellow)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .yellow)
-        }
         XCTAssertEqual(result.value, 18_000)
         XCTAssertEqual(result.tolerance, .green)
+        XCTAssertEqual(result.coefficient!, .yellow)
     }
     
     func test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNil() {
         let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
         let result = sut.convertToSixBand(resistor)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .brown)
-        }
         XCTAssertEqual(result.value, 187_000)
         XCTAssertEqual(result.tolerance, .yellow)
+        XCTAssertEqual(result.coefficient!, .brown)
     }
     
     func test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNil() {
         let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
         let result = sut.convertToSixBand(resistor, tolerance: .orange)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .brown)
-        }
         XCTAssertEqual(result.value, 187_000)
         XCTAssertEqual(result.tolerance, .orange)
+        XCTAssertEqual(result.coefficient!, .brown)
     }
     
     func test_convertToSixBand_fromFiveBand_toleranceNil_coefficientNotNil() {
         let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
         let result = sut.convertToSixBand(resistor, coefficient: .violet)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .violet)
-        }
         XCTAssertEqual(result.value, 187_000)
         XCTAssertEqual(result.tolerance, .yellow)
+        XCTAssertEqual(result.coefficient!, .violet)
     }
     
     func test_convertToSixBand_fromFiveBand_toleranceNotNil_coefficientNotNil() {
         let resistor = Resistor.fiveBand(.brown, .grey, .violet, .orange, .yellow)
         let result = sut.convertToSixBand(resistor, tolerance: .green, coefficient: .blue)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .blue)
-        }
         XCTAssertEqual(result.value, 187_000)
         XCTAssertEqual(result.tolerance, .green)
+        XCTAssertEqual(result.coefficient!, .blue)
     }
     
     func test_convertSixBand_fromSixBand_toleranceNil_coefficientNil() {
         let resistor = Resistor.sixBand(.brown, .grey, .violet, .orange, .yellow, .yellow)
         let result = sut.convertToSixBand(resistor)
-        if case .sixBand(_, _, _, _, _, let tempCo) = result {
-            XCTAssertEqual(tempCo, .yellow)
-        }
         XCTAssertEqual(result.value, 187_000)
         XCTAssertEqual(result.tolerance, .yellow)
+        XCTAssertEqual(result.coefficient!, .yellow)
     }
 }
 
