@@ -21,7 +21,7 @@ extension Double {
     }
     
     var fiveBandExponent: Double {
-        self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 2
+        self < 1 ? floor(log10(self)) - 1 : floor(log10(self)) - 2
     }
     
     var roundedForFourBand: Double {

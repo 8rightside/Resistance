@@ -75,7 +75,7 @@ extension DoubleExtensionTests {
 // MARK: Five Band
 extension DoubleExtensionTests {
     func test_fiveBandExponent_withMinus2Exp() {
-        let result1 = 0.01.fiveBandExponent
+        let result1 = 0.1.fiveBandExponent
         let result2 = 5.0.fiveBandExponent
         XCTAssertEqual(result1, -2)
         XCTAssertEqual(result2, -2)

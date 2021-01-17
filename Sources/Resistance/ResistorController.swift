@@ -9,7 +9,7 @@ extension ResistorController {
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
     public func createFourBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
-        guard value >= 0.01 else { throw ResistorError.lowValueError }
+        guard value >= 0.1 else { throw ResistorError.lowValueError }
         guard value <= 99_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 3 else { throw ResistorError.inValidValueError }
 
@@ -24,7 +24,7 @@ extension ResistorController {
     /// - Returns: A five banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
     public func createFiveBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
-        guard value >= 0.01 else { throw ResistorError.lowValueError }
+        guard value >= 0.1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
         
@@ -40,7 +40,7 @@ extension ResistorController {
     /// - Returns: A six banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
     public func createSixBandOrFail(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) throws -> Resistor {
-        guard value >= 0.01 else { throw ResistorError.lowValueError }
+        guard value >= 0.1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
         
@@ -57,7 +57,7 @@ extension ResistorController {
     ///     - tolerance: Tolerance rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createFourBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
-        guard value >= 0.01 else { return calculateFourBand(from: 0.01, tolerance: tolerance) }
+        guard value >= 0.1 else { return calculateFourBand(from: 0.1, tolerance: tolerance) }
         guard value <= 99_000_000_000 else { return calculateFourBand(from: 99_000_000_000, tolerance: tolerance) }
         
         let rounded = value.roundedForFourBand
@@ -71,7 +71,7 @@ extension ResistorController {
     ///     - tolerance: Tolerance rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createFiveBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
-        guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance) }
+        guard value >= 0.1 else { return calculateFiveBand(from: 0.1, tolerance: tolerance) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
                 
         let rounded = value.roundedForFiveBand
@@ -86,7 +86,7 @@ extension ResistorController {
     ///     - coefficient: Temperature coefficient rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func createSixBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) -> Resistor {
-        guard value >= 0.01 else { return calculateFiveBand(from: 0.01, tolerance: tolerance, coefficient: coefficient) }
+        guard value >= 0.1 else { return calculateFiveBand(from: 0.1, tolerance: tolerance, coefficient: coefficient) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
         
         let rounded = value.roundedForFiveBand

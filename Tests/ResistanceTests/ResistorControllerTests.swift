@@ -5,8 +5,8 @@
 // MARK: Valid Input
 extension ResistorControllerTests {
     func test_createFourBandOrFail_withMinValue() throws {
-        let result = try sut.createFourBandOrFail(from: 0.01)
-        XCTAssertEqual(result.value, 0.01)
+        let result = try sut.createFourBandOrFail(from: 0.1)
+        XCTAssertEqual(result.value, 0.1)
     }
     
     func test_createFourBandOrFail_with1DigitValue() throws {
@@ -38,7 +38,7 @@ extension ResistorControllerTests {
 // MARK: Invalid Input
 extension ResistorControllerTests {
     func test_createFourBandOrFail_withLowValue() {
-        let lowValue = 0.001
+        let lowValue = 0.01
         XCTAssertThrowsError(try sut.createFourBandOrFail(from: lowValue))
     }
     
@@ -60,8 +60,8 @@ extension ResistorControllerTests {
 // MARK: Valid Input
 extension ResistorControllerTests {
     func test_createFiveBandOrFail_withMinValue() throws {
-        let result = try sut.createFourBandOrFail(from: 0.01)
-        XCTAssertEqual(result.value, 0.01)
+        let result = try sut.createFiveBandOrFail(from: 0.1)
+        XCTAssertEqual(result.value, 0.1)
     }
     
     func test_createFiveBandOrFail_with1DigitValue() throws {
@@ -93,7 +93,7 @@ extension ResistorControllerTests {
 // MARK: Invalid Input
 extension ResistorControllerTests {
     func test_createFiveBandOrFail_withLowValue() {
-        let lowValue = 0.001
+        let lowValue = 0.01
         XCTAssertThrowsError(try sut.createFourBandOrFail(from: lowValue))
     }
     
@@ -115,8 +115,8 @@ extension ResistorControllerTests {
 // MARK: Valid Input
 extension ResistorControllerTests {
     func test_createSixBandOrFail_withMinValue() throws {
-        let result = try sut.createFiveBandOrFail(from: 0.01)
-        XCTAssertEqual(result.value, 0.01)
+        let result = try sut.createFiveBandOrFail(from: 0.1)
+        XCTAssertEqual(result.value, 0.1)
     }
     
     func test_createSixBandOrFail_with1DigitValue() throws {
@@ -148,7 +148,7 @@ extension ResistorControllerTests {
 // MARK: Invalid Input
 extension ResistorControllerTests {
     func test_createSixBandOrFail_withLowValue() {
-        let lowValue = 0.001
+        let lowValue = 0.01
         XCTAssertThrowsError(try sut.createFourBandOrFail(from: lowValue))
     }
     
@@ -188,18 +188,18 @@ extension ResistorControllerTests {
 // MARK: Low Value
 extension ResistorControllerTests {
     func test_createFourBandOrNearest_withLowValue() {
-        let result = sut.createFourBandOrNearest(from: 0.009)
-        XCTAssertEqual(result.value, 0.01)
+        let result = sut.createFourBandOrNearest(from: 0.09)
+        XCTAssertEqual(result.value, 0.1)
     }
     
     func test_createFiveBandOrNearest_withLowValue() {
-        let result = sut.createFiveBandOrNearest(from: 0.009)
-        XCTAssertEqual(result.value, 0.01)
+        let result = sut.createFiveBandOrNearest(from: 0.09)
+        XCTAssertEqual(result.value, 0.1)
     }
     
     func test_createSixBandOrNearest_withLowValue() {
-        let result = sut.createSixBandOrNearest(from: 0.009)
-        XCTAssertEqual(result.value, 0.01)
+        let result = sut.createSixBandOrNearest(from: 0.09)
+        XCTAssertEqual(result.value, 0.1)
     }
 }
 
