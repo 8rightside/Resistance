@@ -12,7 +12,7 @@ extension ResistorController {
         guard value >= 0.1 else { throw ResistorError.lowValueError }
         guard value <= 99_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 3 else { throw ResistorError.inValidValueError }
-
+        
         return calculateFourBand(from: value, tolerance: tolerance)
     }
     
@@ -73,7 +73,7 @@ extension ResistorController {
     public func createFiveBandOrNearest(from value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
         guard value >= 0.1 else { return calculateFiveBand(from: 0.1, tolerance: tolerance) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
-                
+        
         let rounded = value.roundedForFiveBand
         return calculateFiveBand(from: rounded, tolerance: tolerance)
     }
@@ -156,10 +156,28 @@ extension ResistorController {
     }
 }
 
+// MARK:- Prefered Values
+extension ResistorController {
+    
+    
+    ///
+    public func preferedValue(for resistor: Double, using: ESeries, rounding: RoundingType = .auto) -> Double {
+        0
+    }
+}
+
 // MARK:- Nested Types
 extension ResistorController {
     public enum ResistorError: Error {
         case lowValueError, highValueError, inValidValueError
+    }
+    
+    public enum ESeries {
+        case e6, e12, e24, e48, e192
+    }
+    
+    public enum RoundingType {
+        case up, down, auto
     }
 }
 
@@ -182,7 +200,7 @@ extension ResistorController {
         guard let digit1 = Resistor.Digit(rawValue: band1) else { fatalError("Value passed to digit 1 incorrect") }
         guard let digit2 = Resistor.Digit(rawValue: band2) else { fatalError("Value passed to digit 2 incorrect") }
         guard let multiplier = Resistor.Multiplier(rawValue: band3) else { fatalError("Value passed to multiplier incorrect") }
-
+        
         return .fourBand(digit1, digit2, multiplier, tolerance)
     }
     
@@ -199,7 +217,7 @@ extension ResistorController {
         guard let digit2 = Resistor.Digit(rawValue: band2) else { fatalError("Value passed to digit 2 incorrect") }
         guard let digit3 = Resistor.Digit(rawValue: band3) else { fatalError("Value passed to digit 3 incorrect") }
         guard let multiplier = Resistor.Multiplier(rawValue: band4) else { fatalError("Value passed to multiplier incorrect") }
-
+        
         if let coefficient = coefficient {
             return .sixBand(digit1, digit2, digit3, multiplier, tolerance, coefficient)
         } else {

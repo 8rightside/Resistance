@@ -53,3 +53,17 @@ res3.multiplier
 let res4 = try! ResistorController().createFiveBandOrFail(from: 0.1)
 res4.digits
 res4.multiplier
+res4.tolerance
+
+
+// let controller = ResistorController()
+// let resistor = controller.createFourBandOrFail(from: 45_000)
+// let e6 = ESeriesController(using: .e6)
+//
+// let e6Res = e6.nearestValue(to: resistor)
+// let e6Res = e6.nearestValue(to: 45_000)
+//
+// let isESeries = e6.
+//
+// let preferedValues = e6.preferedValues(for:
+
