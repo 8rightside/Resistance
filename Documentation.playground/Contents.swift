@@ -63,7 +63,10 @@ res4.tolerance
 // let e6Res = e6.nearestValue(to: resistor)
 // let e6Res = e6.nearestValue(to: 45_000)
 //
-// let isESeries = e6.
+// let isESeries = e6.inSeries(resistor)
+// let isESeries = e6.inSeries(47_000)
 //
-// let preferedValues = e6.preferedValues(for:
+// let preferedValues = e6.preferedValues
+
+
 

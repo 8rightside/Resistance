@@ -121,13 +121,6 @@ extension Resistor {
         case blue   = 10
         case violet = 5
     }
-    
-    /// Options for use with `Resistor` creation functions
-    public enum CreateOption {
-        case exactOrFail
-        case nearestRoundUp
-        case nearestRoundDown
-    }
 }
 
 // MARK:- Custom String Convertible
