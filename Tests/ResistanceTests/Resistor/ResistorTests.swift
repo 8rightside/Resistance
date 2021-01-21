@@ -397,6 +397,82 @@ extension ResistorTests {
     }
 }
 
+// MARK:- Value Range
+
+
+
+// MARK: Four Band
+extension ResistorTests {
+    func test_fourBand_valueRange_gold() {
+        let resistor = Resistor.fourBand(.brown, .black, .red, .gold)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 950)
+        XCTAssertEqual(result.upperBound, 1050)
+    }
+    
+    func test_fourBand_valueRange_silver() {
+        let resistor = Resistor.fourBand(.brown, .black, .red, .silver)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 900)
+        XCTAssertEqual(result.upperBound, 1100)
+    }
+    
+    func test_fourBand_valueRange_brown() {
+        let resistor = Resistor.fourBand(.brown, .black, .red, .brown)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 990)
+        XCTAssertEqual(result.upperBound, 1010)
+    }
+}
+
+// MARK: Five Band
+extension ResistorTests {
+    func test_fiveBand_valueRange_gold() {
+        let resistor = Resistor.fiveBand(.brown, .black, .black, .brown, .gold)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 950)
+        XCTAssertEqual(result.upperBound, 1050)
+    }
+    
+    func test_fiveBand_valueRange_silver() {
+        let resistor = Resistor.fiveBand(.brown, .black, .black, .brown, .silver)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 900)
+        XCTAssertEqual(result.upperBound, 1100)
+    }
+    
+    func test_fiveBand_valueRange_brown() {
+        let resistor = Resistor.fiveBand(.brown, .black, .black, .brown, .brown)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 990)
+        XCTAssertEqual(result.upperBound, 1010)
+    }
+}
+
+// MARK: Six Band
+extension ResistorTests {
+    func test_sixBand_valueRange_gold() {
+        let resistor = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 950)
+        XCTAssertEqual(result.upperBound, 1050)
+    }
+    
+    func test_sixBand_valueRange_silver() {
+        let resistor = Resistor.sixBand(.brown, .black, .black, .brown, .silver, .brown)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 900)
+        XCTAssertEqual(result.upperBound, 1100)
+    }
+    
+    func test_sixBand_valueRange_brown() {
+        let resistor = Resistor.sixBand(.brown, .black, .black, .brown, .brown, .brown)
+        let result = resistor.valueRange
+        XCTAssertEqual(result.lowerBound, 990)
+        XCTAssertEqual(result.upperBound, 1010)
+    }
+}
+
 // MARK:- Internal
 import XCTest
 @testable import Resistance
@@ -484,5 +560,17 @@ final class ResistorTests: XCTestCase {
         ("test_sixBand_description_withMegaFractional", test_sixBand_description_withMegaFractional),
         ("test_sixBand_description_withMega3Digits",    test_sixBand_description_withMega3Digits),
         ("test_sixBand_description_withGiga2Digits",    test_sixBand_description_withGiga2Digits),
+        
+        ("test_fourBand_valueRange_gold",   test_fourBand_valueRange_gold),
+        ("test_fourBand_valueRange_silver", test_fourBand_valueRange_silver),
+        ("test_fourBand_valueRange_brown",  test_fourBand_valueRange_brown),
+        
+        ("test_fiveBand_valueRange_gold",   test_fiveBand_valueRange_gold),
+        ("test_fiveBand_valueRange_silver", test_fiveBand_valueRange_silver),
+        ("test_fiveBand_valueRange_brown",  test_fiveBand_valueRange_brown),
+        
+        ("test_sixBand_valueRange_gold",    test_sixBand_valueRange_gold),
+        ("test_sixBand_valueRange_silver",  test_sixBand_valueRange_silver),
+        ("test_sixBand_valueRange_brown",   test_sixBand_valueRange_brown),
     ]
 }
