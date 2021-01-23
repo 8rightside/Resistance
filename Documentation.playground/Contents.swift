@@ -17,6 +17,7 @@ let value3: Double = 0.1
 //
 // let preferedValues = e6.preferedValues
 
-let resistor = ResistorFactory().makeFourBand(value: 1000)
+let resistor = ResistorFactory().makeSixBand(value: 1000)
 
-let range = resistor.valueRange
+let range = resistor.toleranceValueRange
+let coRange = resistor.coefficientValueRange(tempChange: 25)

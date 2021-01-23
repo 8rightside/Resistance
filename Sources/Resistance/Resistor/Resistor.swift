@@ -61,9 +61,20 @@ public enum Resistor {
     }
     
     /// `Range` representing the values the `Resistor` covers
-    public var valueRange: Range<Double> {
+    public var toleranceValueRange: Range<Double> {
         let lowerBound = value - value * tolerance.rawValue
         let upperBound = value + value * tolerance.rawValue
+        return lowerBound..<upperBound
+    }
+    
+    /// Calculates the `Range` of values a resistor covers depending on its `Coefficient` rating
+    /// and the given temperature difference
+    /// - Parameters:
+    ///     - tempChange: Temperature delta from the nominal value
+    /// - Returns: `Range` representing the values the `Resistor` covers
+    public func coefficientValueRange(tempChange: Double) -> Range<Double> {
+        let lowerBound = value - value / 1_000_000 * (coefficient?.rawValue ?? 0) * tempChange
+        let upperBound = value + value / 1_000_000 * (coefficient?.rawValue ?? 0) * tempChange
         return lowerBound..<upperBound
     }
 }
