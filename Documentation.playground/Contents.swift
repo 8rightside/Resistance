@@ -1,23 +1,45 @@
 import Foundation
 import Resistance
 
-let value1: Double = 47_000
-let value2: Double = 1
-let value3: Double = 0.1
+extension Double {
+    var sigFigsCount: Int {
+        guard self >= 1 else { return 0 }
+        guard self != 1 else { return 1 }
+        let digits = ceil(log10(self))
+        var value = self
+        var trailingZeros = 0
+        while value.truncatingRemainder(dividingBy: 10) == 0 {
+            value /= 10
+            trailingZeros += 1
+        }
+        
+        return Int(digits) - trailingZeros
+    }
+    
+    var sigFigs: Double {
+        let digits = floor(log10(self))
+        return self / pow(10, digits)
+    }
+    
+    var fiveBandExponent: Double {
+        self < 1 ? floor(log10(self)) - 1 : floor(log10(self)) - 2
+    }
+}
 
-// let controller = ResistorController()
-// let resistor = controller.createFourBandOrFail(from: 45_000)
-// let e6 = ESeriesController(using: .e6)
-//
-// let e6Res = e6.nearestValue(to: resistor)
-// let e6Res = e6.nearestValue(to: 45_000)
-//
-// let isESeries = e6.inSeries(resistor)
-// let isESeries = e6.inSeries(47_000)
-//
-// let preferedValues = e6.preferedValues
+let value: Double = 0.1
+let e6 = ESeries.e6
+let inSeries = e6.containsPreferedValue(value)
 
-let resistor = ResistorFactory().makeSixBand(value: 1000)
+func testfunc(value: Double) -> Bool {
+    guard value > 0.1 else { return false }
+    guard value < 999_000_000_000 else { return false }
+    guard value.sigFigsCount <= 3 else { return false }
+    
+    let x = value.sigFigs
+    let y = Int((x * pow(10, 2)).rounded())
+    return ESeries.e6.preferedValues.contains(y)
+}
 
-let range = resistor.toleranceValueRange
-let coRange = resistor.coefficientValueRange(tempChange: 25)
+let test = testfunc(value: value)
+
+let pot = floor(log10(value))
