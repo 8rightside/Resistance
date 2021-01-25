@@ -15,24 +15,18 @@ extension Double {
         
         return Int(digits) - trailingZeros
     }
-
-    var fourBandExponent: Double {
-        self < 0.1 ? floor(log10(self)) : floor(log10(self)) - 1
+    
+    var sigFigs: Double {
+        let digits = floor(log10(self))
+        return self / pow(10, digits)
     }
     
-    var fiveBandExponent: Double {
-        self < 1 ? floor(log10(self)) - 1 : floor(log10(self)) - 2
+    var powerOfTen: Double {
+        floor(log10(self))
     }
     
-    var roundedForFourBand: Double {
-        var sigFigs = self / pow(10, self.fourBandExponent)
-        sigFigs.round()
-        return sigFigs * pow(10, self.fourBandExponent)
-    }
-    
-    var roundedForFiveBand: Double {
-        var sigFigs = self / pow(10, self.fiveBandExponent)
-        sigFigs.round()
-        return sigFigs * pow(10, self.fiveBandExponent)
+    func sigFigsRounded(by sigFigs: Int) -> Self {
+        let roundedSigFigs = (self.sigFigs * pow(10, Double(sigFigs) - 1)).rounded()
+        return roundedSigFigs / pow(10, Double(sigFigs) - 1) * pow(10, self.powerOfTen)
     }
 }

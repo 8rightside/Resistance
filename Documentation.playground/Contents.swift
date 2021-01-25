@@ -16,30 +16,21 @@ extension Double {
         return Int(digits) - trailingZeros
     }
     
-    var sigFigs: Double {
+    var sigFigs: Self {
         let digits = floor(log10(self))
         return self / pow(10, digits)
     }
     
-    var fiveBandExponent: Double {
-        self < 1 ? floor(log10(self)) - 1 : floor(log10(self)) - 2
+    var powerOfTen: Self {
+        floor(log10(self))
+    }
+    
+    func sigFigsRounded(by sigFigs: Int) -> Self {
+        let roundedSigFigs = (self.sigFigs * pow(10, Double(sigFigs) - 1)).rounded()
+        return roundedSigFigs / pow(10, Double(sigFigs) - 1) * pow(10, self.powerOfTen)
     }
 }
 
-let value: Double = 0.1
-let e6 = ESeries.e6
-let inSeries = e6.containsPreferedValue(value)
+let value: Double = 0.135
+let result = value.sigFigsRounded(by: 2)
 
-func testfunc(value: Double) -> Bool {
-    guard value > 0.1 else { return false }
-    guard value < 999_000_000_000 else { return false }
-    guard value.sigFigsCount <= 3 else { return false }
-    
-    let x = value.sigFigs
-    let y = Int((x * pow(10, 2)).rounded())
-    return ESeries.e6.preferedValues.contains(y)
-}
-
-let test = testfunc(value: value)
-
-let pot = floor(log10(value))

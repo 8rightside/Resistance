@@ -60,8 +60,8 @@ extension ResistorFactoryTests {
 // MARK: Valid Input
 extension ResistorFactoryTests {
     func test_makeFiveBandOrFail_withMinValue() throws {
-        let result = try sut.makeFiveBandOrFail(value: 0.1)
-        XCTAssertEqual(result.value, 0.1)
+        let result = try sut.makeFiveBandOrFail(value: 1)
+        XCTAssertEqual(result.value, 1)
     }
     
     func test_makeFiveBandOrFail_with1DigitValue() throws {
@@ -75,7 +75,7 @@ extension ResistorFactoryTests {
     }
     
     func test_makeFiveBandOrFail_with3DigitValue() throws {
-        let result = try sut.makeFourBandOrFail(value: 540)
+        let result = try sut.makeFiveBandOrFail(value: 540)
         XCTAssertEqual(result.value, 540)
     }
     
@@ -115,8 +115,8 @@ extension ResistorFactoryTests {
 // MARK: Valid Input
 extension ResistorFactoryTests {
     func test_makeSixBandOrFail_withMinValue() throws {
-        let result = try sut.makeFiveBandOrFail(value: 0.1)
-        XCTAssertEqual(result.value, 0.1)
+        let result = try sut.makeFiveBandOrFail(value: 1)
+        XCTAssertEqual(result.value, 1)
     }
     
     func test_makeSixBandOrFail_with1DigitValue() throws {
@@ -194,12 +194,12 @@ extension ResistorFactoryTests {
     
     func test_makeFiveBand_withLowValue() {
         let result = sut.makeFiveBand(value: 0.09)
-        XCTAssertEqual(result.value, 0.1)
+        XCTAssertEqual(result.value, 1)
     }
     
     func test_makeSixBand_withLowValue() {
         let result = sut.makeSixBand(value: 0.09)
-        XCTAssertEqual(result.value, 0.1)
+        XCTAssertEqual(result.value, 1)
     }
 }
 

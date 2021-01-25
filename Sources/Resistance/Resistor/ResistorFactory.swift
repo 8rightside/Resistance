@@ -39,7 +39,7 @@ extension ResistorFactory {
         guard value >= 0.1 else { return calculateFourBand(from: 0.1, tolerance: tolerance) }
         guard value <= 99_000_000_000 else { return calculateFourBand(from: 99_000_000_000, tolerance: tolerance) }
         
-        let rounded = value.roundedForFourBand
+        let rounded = value.sigFigsRounded(by: 2)
         return calculateFourBand(from: rounded, tolerance: tolerance)
     }
         
@@ -66,7 +66,7 @@ extension ResistorFactory {
     /// - Returns: A five banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
     public func makeFiveBandOrFail(value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
-        guard value >= 0.1 else { throw ResistorError.lowValueError }
+        guard value >= 1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
         
@@ -80,10 +80,10 @@ extension ResistorFactory {
     ///     - tolerance: Tolerance rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func makeFiveBand(value: Double, tolerance: Resistor.Tolerance = .gold) -> Resistor {
-        guard value >= 0.1 else { return calculateFiveBand(from: 0.1, tolerance: tolerance) }
+        guard value >= 1 else { return calculateFiveBand(from: 1, tolerance: tolerance) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance) }
         
-        let rounded = value.roundedForFiveBand
+        let rounded = value.sigFigsRounded(by: 3)
         return calculateFiveBand(from: rounded, tolerance: tolerance)
     }
     
@@ -114,7 +114,7 @@ extension ResistorFactory {
     /// - Returns: A six banded `Resistor` type representing the given resistance and tolerance
     /// - Throws: `ResistorError`
     public func makeSixBandOrFail(value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) throws -> Resistor {
-        guard value >= 0.1 else { throw ResistorError.lowValueError }
+        guard value >= 1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
         guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
         
@@ -129,10 +129,10 @@ extension ResistorFactory {
     ///     - coefficient: Temperature coefficient rating of the `Resistor`
     /// - Returns: A four banded `Resistor` type representing the given resistance and tolerance
     public func makeSixBand(value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) -> Resistor {
-        guard value >= 0.1 else { return calculateFiveBand(from: 0.1, tolerance: tolerance, coefficient: coefficient) }
+        guard value >= 1 else { return calculateFiveBand(from: 1, tolerance: tolerance, coefficient: coefficient) }
         guard value <= 999_000_000_000 else { return calculateFiveBand(from: 999_000_000_000, tolerance: tolerance, coefficient: coefficient) }
         
-        let rounded = value.roundedForFiveBand
+        let rounded = value.sigFigsRounded(by: 3)
         return calculateFiveBand(from: rounded, tolerance: tolerance, coefficient: coefficient)
     }
     
@@ -181,11 +181,12 @@ public struct ResistorFactory {
 // MARK:- Internal Methods
 extension ResistorFactory {
     private func calculateFourBand(from value: Double, tolerance: Resistor.Tolerance) -> Resistor {
-        let sigfigs = value / pow(10, value.fourBandExponent)
+        var sigfigs = (value.sigFigs * pow(10, 2)).rounded()
         
-        let band1 = Double(Int(sigfigs / 10))
-        let band2 = sigfigs.truncatingRemainder(dividingBy: 10)
-        let band3 = pow(10, value.fourBandExponent)
+        let band1 = Double(Int(sigfigs / 100))
+        sigfigs.formTruncatingRemainder(dividingBy: 100)
+        let band2 = Double(Int(sigfigs / 10))
+        let band3 = pow(10, value.powerOfTen - 1)
         
         guard let digit1 = Resistor.Digit(rawValue: band1) else { fatalError("Value passed to digit 1 incorrect") }
         guard let digit2 = Resistor.Digit(rawValue: band2) else { fatalError("Value passed to digit 2 incorrect") }
@@ -195,13 +196,13 @@ extension ResistorFactory {
     }
     
     private func calculateFiveBand(from value: Double, tolerance: Resistor.Tolerance, coefficient: Resistor.Coefficient? = nil) -> Resistor {
-        var sigfigs = value / pow(10, value.fiveBandExponent)
+        var sigfigs = (value.sigFigs * pow(10, 2)).rounded()
         
         let band1 = Double(Int(sigfigs / 100))
         sigfigs.formTruncatingRemainder(dividingBy: 100)
         let band2 = Double(Int(sigfigs / 10))
         let band3 = sigfigs.truncatingRemainder(dividingBy: 10)
-        let band4 = pow(10, value.fiveBandExponent)
+        let band4 = pow(10, value.powerOfTen - 2)
         
         guard let digit1 = Resistor.Digit(rawValue: band1) else { fatalError("Value passed to digit 1 incorrect") }
         guard let digit2 = Resistor.Digit(rawValue: band2) else { fatalError("Value passed to digit 2 incorrect") }
