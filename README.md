@@ -6,6 +6,7 @@
 * Easy to use API for creating resistors
 * E-Series standards fuctionality
 * Tolerance and Temperature Coefficient Calculations
+* **Swift playground** file full of example code
 
 ## Usage
 
@@ -16,4 +17,4 @@
 * Swift 5.3
 
 ## License
-Resistance is released under MIT license. See LICENCE for details.
+Resistance is released under the MIT license. See LICENCE for details.
