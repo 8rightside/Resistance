@@ -16,21 +16,28 @@ extension Double {
         return Int(digits) - trailingZeros
     }
     
-    var sigFigs: Self {
+    var sigFigs: Double {
         let digits = floor(log10(self))
         return self / pow(10, digits)
     }
     
-    var powerOfTen: Self {
+    var powerOfTen: Double {
         floor(log10(self))
     }
     
-    func sigFigsRounded(by sigFigs: Int) -> Self {
-        let roundedSigFigs = (self.sigFigs * pow(10, Double(sigFigs) - 1)).rounded()
-        return roundedSigFigs / pow(10, Double(sigFigs) - 1) * pow(10, self.powerOfTen)
+    var hundredsDecade: Double {
+        let sigfigs = self.sigFigs
+        let decade100To1000 = sigfigs * pow(10, 2)
+        return decade100To1000.rounded()
+    }
+    
+    func sigFigsRounded(by sigFigCount: Int) -> Self {
+        let roundedSigFigs = (self.sigFigs * pow(10, Double(sigFigCount) - 1)).rounded()
+        return roundedSigFigs / pow(10, Double(sigFigCount) - 1) * pow(10, self.powerOfTen)
     }
 }
 
-let value: Double = 0.135
-let result = value.sigFigsRounded(by: 2)
-
+let value: Double = 4701
+let e6 = E6Series()
+let inPreferedValues = e6.containsPreferedValue(value)
+let nextPreferedValue = e6.nextValueUp(from: value)

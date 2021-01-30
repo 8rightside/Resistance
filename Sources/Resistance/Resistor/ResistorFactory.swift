@@ -181,7 +181,7 @@ public struct ResistorFactory {
 // MARK:- Internal Methods
 extension ResistorFactory {
     private func calculateFourBand(from value: Double, tolerance: Resistor.Tolerance) -> Resistor {
-        var sigfigs = (value.sigFigs * pow(10, 2)).rounded()
+        var sigfigs = value.hundredsDecade
         
         let band1 = Double(Int(sigfigs / 100))
         sigfigs.formTruncatingRemainder(dividingBy: 100)
@@ -196,7 +196,7 @@ extension ResistorFactory {
     }
     
     private func calculateFiveBand(from value: Double, tolerance: Resistor.Tolerance, coefficient: Resistor.Coefficient? = nil) -> Resistor {
-        var sigfigs = (value.sigFigs * pow(10, 2)).rounded()
+        var sigfigs = value.hundredsDecade
         
         let band1 = Double(Int(sigfigs / 100))
         sigfigs.formTruncatingRemainder(dividingBy: 100)
