@@ -19,7 +19,14 @@
 
 ## Usage
 ### Creating a resistor
-To create a resistor 
+Likely the most common thing you'll want to do is create a `Resistor`. Whether that be from specifiying the bands or by passing a value it couldn't be easier.
+```
+import Resistance
+
+let fourBand: Resistor = .fourBand(.brown, .black, .red, .gold)
+let fiveBand: Resistor = .fiveBand(.brown, .black, .black, .brown, .gold)
+let sixBand: Resistor = .sixBand(.brown, .black, .black, .brown, .gold, .brown)
+```
 
 
 ## Installing
