@@ -23,9 +23,10 @@ Likely the most common thing you'll want to do is create a `Resistor`. Whether t
 ```swift
 import Resistance
 
-let fourBand: Resistor = .fourBand(.brown, .black, .red, .gold)
-let fiveBand: Resistor = .fiveBand(.brown, .black, .black, .brown, .gold)
-let sixBand: Resistor = .sixBand(.brown, .black, .black, .brown, .gold, .brown)
+// To create using bands
+let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
+let fiveBand = Resistor.fiveBand(.brown, .black, .black, .brown, .gold)
+let sixBand = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
 ```
 
 

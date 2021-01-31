@@ -67,3 +67,11 @@ let result1 = e12.nextValueDown(from: value)
 let result2 = e12.nearestPreferedValue(to: value)
 
 let result3 = nextValueUp(from: value)
+
+
+// To create using bands
+let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
+let fiveBand = Resistor.fiveBand(.brown, .black, .black, .brown, .gold)
+let sixBand = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
+
+
