@@ -1,3 +1,9 @@
+/**
+ *  Resistance
+ *  Copyright (c) Matt Malenko 2021
+ *  MIT license, see LICENSE file for details
+ */
+
 // MARK: Four Band Failable Create
 
 

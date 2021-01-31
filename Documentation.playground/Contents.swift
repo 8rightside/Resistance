@@ -37,7 +37,33 @@ extension Double {
     }
 }
 
-let value: Double = 4701
-let e6 = E6Series()
-let inPreferedValues = e6.containsPreferedValue(value)
-let nextPreferedValue = e6.nextValueUp(from: value)
+let preferedValues = [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820]
+
+func containsPreferedValue(_ value: Double) -> Bool {
+    guard value.sigFigsCount < 4 else { return false }
+    let sigfigs = value.hundredsDecade
+    return preferedValues.contains(Int(sigfigs))
+}
+
+
+
+func nextValueUp(from value: Double) -> Double {
+    let sigFigs = value.hundredsDecade
+    var pv = preferedValues
+    if !containsPreferedValue(sigFigs) {
+        pv.append(Int(sigFigs))
+        pv.sort()
+    }
+    let index = pv.firstIndex(of: Int(sigFigs))!
+    let nextIndex = (index + 1) % pv.count
+    let nextUpSigFigs = pv[nextIndex]
+    let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+    return Double(nextUpSigFigs) * pow(10, exp)
+}
+
+let value: Double = 110
+let e12 = E12Series()
+let result1 = e12.nextValueDown(from: value)
+let result2 = e12.nearestPreferedValue(to: value)
+
+let result3 = nextValueUp(from: value)

@@ -1,3 +1,9 @@
+/**
+ *  Resistance
+ *  Copyright (c) Matt Malenko 2021
+ *  MIT license, see LICENSE file for details
+ */
+
 import Foundation
 
 /// Type representing a four, five, or six banded `Resistor`

@@ -1,3 +1,9 @@
+/**
+*  Resistance
+*  Copyright (c) Matt Malenko 2021
+*  MIT license, see LICENSE file for details
+*/
+
 import Foundation
 
 public protocol ESeriesProtocol {
@@ -26,7 +32,23 @@ extension ESeriesProtocol {
     ///     - rounding: Rounding method to use
     /// - Returns: Nearest `ESeries` value
     public func nearestPreferedValue(to value: Double, rounding: ESeriesRoundingType = .auto) -> Double {
-        0
+        if containsPreferedValue(value) { return value }
+        switch rounding {
+            case .up:
+                return nextValueUp(from: value)
+            case .down:
+                return nextValueDown(from: value)
+            case .auto:
+                let nextUp = nextValueUp(from: value)
+                let nextDown = nextValueDown(from: value)
+                let diffUp = abs(value - nextUp)
+                let diffDown = abs(value - nextDown)
+                if diffUp <= diffDown {
+                    return nextUp
+                } else {
+                    return nextDown
+                }
+        }
     }
     
     /// Returns a `Double` representing the next `ESeries` value up from the one passed
@@ -34,22 +56,17 @@ extension ESeriesProtocol {
     ///     - from: Value to test
     /// - Returns: Next `ESeries` value up
     public func nextValueUp(from value: Double) -> Double {
-        let sigFigs = Int(value.hundredsDecade)
-        if let index = preferedValues.firstIndex(of: sigFigs) {
-            let nextIndex = (index + 1) % preferedValues.count
-            let nextUpSigFigs = preferedValues[nextIndex]
-            let exp = index + 1 >= preferedValues.count ? value.powerOfTen - 1 : value.powerOfTen - 2
-            return Double(nextUpSigFigs) * pow(10, exp)
-        } else {
-            var preferedValuesCopy = preferedValues
-            preferedValuesCopy.append(sigFigs)
-            preferedValuesCopy.sort()
-            let index = preferedValuesCopy.firstIndex(of: sigFigs)!
-            let nextIndex = (index + 1) % preferedValuesCopy.count
-            let nextUpSigFigs = preferedValuesCopy[nextIndex]
-            let exp = index + 1 >= preferedValuesCopy.count ? value.powerOfTen - 1 : value.powerOfTen - 2
-            return Double(nextUpSigFigs) * pow(10, exp)
+        let sigFigs = value.hundredsDecade
+        var pv = preferedValues
+        if !containsPreferedValue(sigFigs) {
+            pv.append(Int(sigFigs))
+            pv.sort()
         }
+        let index = pv.firstIndex(of: Int(sigFigs))!
+        let nextIndex = (index + 1) % pv.count
+        let nextUpSigFigs = pv[nextIndex]
+        let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+        return Double(nextUpSigFigs) * pow(10, exp)
     }
     
     /// Returns a `Double` representing the next `ESeries` value down from the one passed
@@ -57,6 +74,17 @@ extension ESeriesProtocol {
     ///     - from: Value to test
     /// - Returns: Next `ESeries` value down
     public func nextValueDown(from value: Double) -> Double {
-        0
+        let sigFigs = value.hundredsDecade
+        var pv: [Int] = preferedValues.reversed()
+        if !containsPreferedValue(sigFigs) {
+            pv.append(Int(sigFigs))
+            pv.sort()
+            pv.reverse()
+        }
+        let index = pv.firstIndex(of: Int(sigFigs))!
+        let nextIndex = (index + 1) % pv.count
+        let nextUpSigFigs = pv[nextIndex]
+        let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+        return Double(nextUpSigFigs) * pow(10, exp)
     }
 }
