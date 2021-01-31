@@ -20,7 +20,7 @@
 ## Usage
 ### Creating a resistor
 Likely the most common thing you'll want to do is create a `Resistor`. Whether that be from specifiying the bands or by passing a value it couldn't be easier.
-```
+```swift
 import Resistance
 
 let fourBand: Resistor = .fourBand(.brown, .black, .red, .gold)
