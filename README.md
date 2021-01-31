@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="logo.png" width="500" alt=“Ink” />
+    <img src="logo.png" width="100%" alt=“Ink” />
 </p>
 
 **Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use whilst still providing plenty of features.
