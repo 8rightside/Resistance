@@ -8,7 +8,7 @@
 * Easy to use API for creating resistors
 * E-Series standards fuctionality
 * Tolerance and Temperature Coefficient Calculations
-* **Swift Playground** full of example code
+* Swift Playground full of example code
 
 ## Usage
 
