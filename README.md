@@ -17,7 +17,9 @@
 - Tolerance and temperature coefficient calculations
 - Swift Playground full of example code
 
-## Usage
+### Creating a resistor
+To create a resistor 
+
 
 ## Installing
 
