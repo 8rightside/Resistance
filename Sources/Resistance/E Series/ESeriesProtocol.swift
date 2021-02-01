@@ -8,7 +8,7 @@ import Foundation
 
 public protocol ESeriesProtocol {
     /// The prefered values for this `Resistor` from the 100–1000 decade
-    var preferedValues: [Int] { get }
+    var preferedValues: Set<Int> { get }
 }
 
 public enum ESeriesRoundingType {
@@ -58,14 +58,13 @@ extension ESeriesProtocol {
     public func nextValueUp(from value: Double) -> Double {
         let sigFigs = value.hundredsDecade
         var pv = preferedValues
-        if !containsPreferedValue(sigFigs) {
-            pv.append(Int(sigFigs))
-            pv.sort()
-        }
-        let index = pv.firstIndex(of: Int(sigFigs))!
-        let nextIndex = (index + 1) % pv.count
-        let nextUpSigFigs = pv[nextIndex]
-        let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+        pv.insert(Int(sigFigs))
+        let pvSorted = pv.sorted()
+        
+        let index = pvSorted.firstIndex(of: Int(sigFigs))!
+        let nextIndex = (index + 1) % pvSorted.count
+        let nextUpSigFigs = pvSorted[nextIndex]
+        let exp = index + 1 >= pvSorted.count ? value.powerOfTen - 1 : value.powerOfTen - 2
         return Double(nextUpSigFigs) * pow(10, exp)
     }
     
@@ -75,16 +74,14 @@ extension ESeriesProtocol {
     /// - Returns: Next `ESeries` value down
     public func nextValueDown(from value: Double) -> Double {
         let sigFigs = value.hundredsDecade
-        var pv: [Int] = preferedValues.reversed()
-        if !containsPreferedValue(sigFigs) {
-            pv.append(Int(sigFigs))
-            pv.sort()
-            pv.reverse()
-        }
-        let index = pv.firstIndex(of: Int(sigFigs))!
-        let nextIndex = (index + 1) % pv.count
-        let nextUpSigFigs = pv[nextIndex]
-        let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+        var pv = preferedValues
+        pv.insert(Int(sigFigs))
+        let pvSorted: [Int] = pv.sorted().reversed()
+        
+        let index = pvSorted.firstIndex(of: Int(sigFigs))!
+        let nextIndex = (index + 1) % pvSorted.count
+        let nextUpSigFigs = pvSorted[nextIndex]
+        let exp = index + 1 >= pvSorted.count ? value.powerOfTen - 1 : value.powerOfTen - 2
         return Double(nextUpSigFigs) * pow(10, exp)
     }
 }

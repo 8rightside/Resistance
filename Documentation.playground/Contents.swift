@@ -37,41 +37,17 @@ extension Double {
     }
 }
 
+
+
+
 let preferedValues = [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820]
 
-func containsPreferedValue(_ value: Double) -> Bool {
-    guard value.sigFigsCount < 4 else { return false }
-    let sigfigs = value.hundredsDecade
-    return preferedValues.contains(Int(sigfigs))
-}
 
 
 
-func nextValueUp(from value: Double) -> Double {
-    let sigFigs = value.hundredsDecade
-    var pv = preferedValues
-    if !containsPreferedValue(sigFigs) {
-        pv.append(Int(sigFigs))
-        pv.sort()
-    }
-    let index = pv.firstIndex(of: Int(sigFigs))!
-    let nextIndex = (index + 1) % pv.count
-    let nextUpSigFigs = pv[nextIndex]
-    let exp = index + 1 >= pv.count ? value.powerOfTen - 1 : value.powerOfTen - 2
-    return Double(nextUpSigFigs) * pow(10, exp)
-}
-
-let value: Double = 110
+let value: Double = 5420
 let e12 = E12Series()
-let result1 = e12.nextValueDown(from: value)
-let result2 = e12.nearestPreferedValue(to: value)
 
-let result3 = nextValueUp(from: value)
-
-
-// To create using bands
-let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
-let fiveBand = Resistor.fiveBand(.brown, .black, .black, .brown, .gold)
-let sixBand = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
+let result = e12.nearestPreferedValue(to: value)
 
 
