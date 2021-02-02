@@ -17,6 +17,7 @@ public enum ESeriesRoundingType {
 
 extension ESeriesProtocol {
     /// Returns a `Boolean` indicating whether the value is in this `ESeries`
+    /// - Complexity: O(1)
     /// - Parameters:
     ///     - value: The value to test
     /// - Returns: `true` if the value is in the `ESeries`; otherwise `false`
@@ -77,6 +78,22 @@ extension ESeriesProtocol {
         var pv = preferedValues
         pv.insert(Int(sigFigs))
         let pvSorted: [Int] = pv.sorted().reversed()
+        
+        let index = pvSorted.firstIndex(of: Int(sigFigs))!
+        let nextIndex = (index + 1) % pvSorted.count
+        let nextUpSigFigs = pvSorted[nextIndex]
+        let exp = index + 1 >= pvSorted.count ? value.powerOfTen - 1 : value.powerOfTen - 2
+        return Double(nextUpSigFigs) * pow(10, exp)
+    }
+}
+
+// MARK:- Internal
+extension ESeriesProtocol {
+    private func calculateNextValue(from value: Double, in set: Set<Int>) -> Double {
+        let sigFigs = value.hundredsDecade
+        var prefValues = set
+        prefValues.insert(Int(sigFigs))
+        let pvSorted = prefValues.sorted()
         
         let index = pvSorted.firstIndex(of: Int(sigFigs))!
         let nextIndex = (index + 1) % pvSorted.count

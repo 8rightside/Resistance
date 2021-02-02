@@ -50,4 +50,3 @@ let e12 = E12Series()
 
 let result = e12.nearestPreferedValue(to: value)
 
-
