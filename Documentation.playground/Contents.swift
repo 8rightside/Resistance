@@ -45,8 +45,10 @@ let preferedValues = [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820
 
 
 
-let value: Double = 5420
+let value: Double = 560
 let e12 = E12Series()
 
-let result = e12.nearestPreferedValue(to: value)
+let up = e12.nextValueUp(from: value)
+let down = e12.nextValueDown(from: value) 
+
 
