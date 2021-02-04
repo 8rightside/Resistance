@@ -13,7 +13,7 @@
 **Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use whilst still providing plenty of features including:
 
 - Easy to use API for creating resistors
-- E-Series standards fuctionality
+- E-Series standards functionality
 - Tolerance and temperature coefficient calculations
 - Swift Playground full of example code
 
