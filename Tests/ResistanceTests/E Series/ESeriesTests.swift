@@ -6,27 +6,40 @@
 
 // MARK: Contains Prefered Value
 extension ESeriesTests {
-    func test_containsPreferedValue_returnsTrue() {
-        
+    func test_containsPreferedValue_returnsTrue_withFractional() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(4.7)
+        XCTAssertTrue(result)
     }
     
-    func test_containsPreferedValue_returnsFalse() {
-        
-    }
-}
-
-// MARK:- Nearest Prefered Value
-extension ESeriesTests {
-    func test_nearestPreferedValue_roundingAuto() {
-        
+    func test_containsPreferedValue_returnsTrue_with2Digits() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(33)
+        XCTAssertTrue(result)
     }
     
-    func test_nearestPreferedValue_roundingUp() {
-        
+    func test_containsPreferedValue_returnsTrue_with5Digits() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(68000)
+        XCTAssertTrue(result)
     }
     
-    func test_nearestPreferedValue_roundingDown() {
-        
+    func test_containsPreferedValue_returnsFalse_withFractional() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(4.6)
+        XCTAssertFalse(result)
+    }
+    
+    func test_containsPreferedValue_returnsFalse_with2Digits() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(23)
+        XCTAssertFalse(result)
+    }
+    
+    func test_containsPreferedValue_returnsFalse_with5Digits() {
+        let sut = E12Series()
+        let result = sut.containsPreferedValue(12345)
+        XCTAssertFalse(result)
     }
 }
 
@@ -51,11 +64,11 @@ import XCTest
 final class ESeriesTests: XCTestCase {
     
     static var allTests = [
-        ("test_containsPreferedValue_returnsTrue",  test_containsPreferedValue_returnsTrue),
-        ("test_containsPreferedValue_returnsFalse", test_containsPreferedValue_returnsFalse),
-        
-        ("test_nearestPreferedValue_roundingAuto",  test_nearestPreferedValue_roundingAuto),
-        ("test_nearestPreferedValue_roundingUp",    test_nearestPreferedValue_roundingUp),
-        ("test_nearestPreferedValue_roundingDown",  test_nearestPreferedValue_roundingDown),
+        ("test_containsPreferedValue_returnsTrue_withFractional",   test_containsPreferedValue_returnsTrue_withFractional),
+        ("test_containsPreferedValue_returnsTrue_with2Digits",      test_containsPreferedValue_returnsTrue_with2Digits),
+        ("test_containsPreferedValue_returnsTrue_with5Digits",      test_containsPreferedValue_returnsTrue_with5Digits),
+        ("test_containsPreferedValue_returnsFalse_withFractional",  test_containsPreferedValue_returnsFalse_withFractional),
+        ("test_containsPreferedValue_returnsFalse_with2Digits",     test_containsPreferedValue_returnsFalse_with2Digits),
+        ("test_containsPreferedValue_returnsFalse_with5Digits",     test_containsPreferedValue_returnsFalse_with5Digits),
     ]
 }
