@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <playground version='6.0' target-platform='ios' display-mode='rendered' buildActiveScheme='true'>
     <pages>
-        <page name='Welcome'/>
+        <page name='Overview'/>
         <page name='Resistor Type'/>
-        <page name='Resistor Factory'/>
+        <page name='Using ResistorFactory'/>
+        <page name='Resistor Properties'/>
+        <page name='Tolerance and TempCo Ranges'/>
+        <page name='Using ESeries'/>
     </pages>
 </playground>

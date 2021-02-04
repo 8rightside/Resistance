@@ -161,18 +161,10 @@ extension ResistorFactory {
     }
 }
 
-// MARK:- Nested Types
+// MARK:- Error Types
 extension ResistorFactory {
     public enum ResistorError: Error {
         case lowValueError, highValueError, inValidValueError
-    }
-    
-    public enum ESeries {
-        case e6, e12, e24, e48, e192
-    }
-    
-    public enum RoundingType {
-        case up, down, auto
     }
 }
 

@@ -4,6 +4,7 @@
 *  MIT license, see LICENSE file for details
 */
 
+// MARK:- API
 import Foundation
 
 public protocol ESeriesProtocol {
