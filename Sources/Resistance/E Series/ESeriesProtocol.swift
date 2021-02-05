@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol ESeriesProtocol {
-    /// The prefered values for this `Resistor` from the 100–1000 decade
-    var preferedValues: Set<Int> { get }
+    /// The preferred values for this `Resistor` from the 100–1000 decade
+    var preferredValues: Set<Int> { get }
 }
 
 extension ESeriesProtocol {
@@ -18,10 +18,10 @@ extension ESeriesProtocol {
     /// - Parameters:
     ///     - value: The value to test
     /// - Returns: `true` if the value is in the `ESeries`; otherwise `false`
-    public func containsPreferedValue(_ value: Double) -> Bool {
+    public func containsPreferredValue(_ value: Double) -> Bool {
         guard value.sigFigsCount < 4 else { return false }
         let sigfigs = value.hundredsDecade
-        return preferedValues.contains(Int(sigfigs))
+        return preferredValues.contains(Int(sigfigs))
     }
     
     /// Returns a `Double` representing the next `ESeries` value up from the one passed
@@ -45,7 +45,7 @@ extension ESeriesProtocol {
 extension ESeriesProtocol {
     private func calculateNextValue(from value: Double, reverseSorted: Bool = false) -> Double {
         let sigFigs = value.hundredsDecade
-        var prefValues = preferedValues
+        var prefValues = preferredValues
         prefValues.insert(Int(sigFigs))
         let pvSorted = prefValues.sorted(by: reverseSorted ? { $0 > $1 } : { $0 < $1 } )
         

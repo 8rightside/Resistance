@@ -7,23 +7,23 @@
 import Foundation
 
 public struct E6Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 150, 220, 330, 470, 680]
+    public let preferredValues: Set<Int> = [100, 150, 220, 330, 470, 680]
     public init() {}
 }
 
 public struct E12Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820]
+    public let preferredValues: Set<Int> = [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820]
     public init() {}
 }
 
 public struct E24Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300,
+    public let preferredValues: Set<Int> = [100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300,
                           330, 360, 390, 430, 470, 510, 560, 620, 680, 720, 820, 910]
     public init() {}
 }
 
 public struct E48Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 105, 110, 115, 121, 127, 133, 140, 147, 154, 162, 169,
+    public let preferredValues: Set<Int> = [100, 105, 110, 115, 121, 127, 133, 140, 147, 154, 162, 169,
                           178, 187, 196, 205, 215, 226, 237, 249, 261, 274, 287, 301,
                           316, 332, 348, 365, 383, 402, 422, 442, 464, 487, 511, 536,
                           562, 590, 619, 649, 681, 715, 750, 787, 825, 866, 909, 953]
@@ -31,7 +31,7 @@ public struct E48Series: ESeriesProtocol {
 }
 
 public struct E96Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 102, 105, 107, 110, 113, 115, 118, 121, 124, 127, 130,
+    public let preferredValues: Set<Int> = [100, 102, 105, 107, 110, 113, 115, 118, 121, 124, 127, 130,
                           133, 137, 140, 143, 147, 150, 154, 158, 162, 165, 169, 174,
                           178, 182, 187, 191, 196, 200, 205, 210, 215, 221, 226, 232,
                           237, 243, 249, 255, 261, 267, 274, 280, 287, 294, 301, 309,
@@ -43,7 +43,7 @@ public struct E96Series: ESeriesProtocol {
 }
 
 public struct E192Series: ESeriesProtocol {
-    public let preferedValues: Set<Int> = [100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114,
+    public let preferredValues: Set<Int> = [100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114,
                           115, 117, 118, 120, 121, 123, 124, 126, 127, 129, 130, 132,
                           133, 135, 137, 138, 140, 142, 143, 145, 147, 149, 150, 152,
                           154, 156, 158, 160, 162, 164, 165, 167, 169, 172, 174, 176,
@@ -61,3 +61,4 @@ public struct E192Series: ESeriesProtocol {
                           866, 876, 887, 898, 909, 920, 931, 942, 953, 965, 976, 988]
     public init() {}
 }
+

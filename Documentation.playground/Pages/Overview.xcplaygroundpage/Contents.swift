@@ -7,5 +7,5 @@
  * [Using ResistorFactory](Using%20ResistorFactory)
  * [Resistor Properties](Resistor%20Properties)
  * [Tolerance and TempCo Ranges](Tolerance%20and%20TempCo%20Ranges)
- * [Using Eseries](Using%20ESeries)
+ * [Using ESeries](Using%20ESeries)
  */

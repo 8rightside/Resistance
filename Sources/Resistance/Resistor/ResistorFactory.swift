@@ -146,7 +146,7 @@ extension ResistorFactory {
     ///     - resistor: The `Resistor` to convert from
     ///     - tolerance: Tolerance rating of the `Resistor`
     ///     - coefficient: Temperature coefficient rating of the `Resistor`
-    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passeed
+    /// - Note: If the tolerance parameter is omitted the tolerance rating of the passed
     /// `Resistor` will be used. If the coefficient parameter is omitted either the coefficient
     /// rating of the passed `Resistor` or a default of Brown will be used
     /// - Returns: A six banded `Resistor` representing the conversion

@@ -2,7 +2,7 @@
 import Resistance
 /*:
  # The Resistor type
- The most basic, and likely the thing you'll want to do most often, is to create a resistor. A `Resistor` is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by an enums. The following demonstates how simple it is to create a new resistor variable.
+ The most basic, and likely the thing you'll want to do most often, is to create a resistor. A `Resistor` is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by an enums. The following demonstrates how simple it is to create a new resistor variable.
  
  ### Four Band Resistor
  To create a four band `resistor` just pass the two digit bands followed by the multiplier and tolerance bands
@@ -19,7 +19,7 @@ let fiveBand2 = Resistor.fiveBand(.yellow, .violet, .black, .red, .gold)
 let fiveBand3 = Resistor.fiveBand(.blue, .grey, .black, .black, .gold)
 /*:
  ### Six Band Resistor
- Creating a six band `resistor` is the same as creating a five band with an extra band at the end for the temparature coefficient value
+ Creating a six band `resistor` is the same as creating a five band with an extra band at the end for the temperature coefficient value
  */
 let sixBand1 = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
 let sixBand2 = Resistor.sixBand(.yellow, .violet, .blue, .red, .gold, .brown)
