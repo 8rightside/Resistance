@@ -57,7 +57,7 @@ public enum Resistor {
         }
     }
     
-    /// The optional cooefficient rating of the `Resistor` if it has one
+    /// The optional coefficient rating of the `Resistor` if it has one
     public var coefficient: Coefficient? {
         if case .sixBand(_, _, _, _, _, let tempCo) = self {
             return tempCo
@@ -91,7 +91,7 @@ extension Resistor: CustomStringConvertible {
     ///
     /// Calling this property directly is discouraged. Instead, convert a
     /// `Resistor` instance to a string by using the `String(describing:)`
-    /// initializer.
+    /// initialiser.
     ///
     ///     let resistor = Resistor.fiveBand(.brown, .green, .yellow, .brown, .gold)
     ///     let string = String(describing: resistor)
