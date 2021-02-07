@@ -68,25 +68,4 @@ let sixBandCoefficientValue = sixBandCoefficient?.rawValue
 let fourBandResistance = fourBand.value
 let fiveBandResistance = fiveBand.value
 let sixBandResistance = sixBand.value
-/*:
-### toleranceValueRange
- The `toleranceValueRange` property of a `Resistor` returns a `Range<Double>` representing
- all the values this `Resistor` covers, calculated using its `tolerance` rating.
- */
-let fourBandToleranceValueRange = fourBand.toleranceValueRange
-let fiveBandToleranceValueRange = fiveBand.toleranceValueRange
-let sixBandToleranceValueRange = sixBand.toleranceValueRange
-/*:
-### coefficientValueRange(tempChange:)
- The `coefficientValueRange` property of a `Resistor` returns a `Range<Double>` representing
- the change in resistance from the specified `tempChange` using this `Resistor`'s `coefficient` rating.
- 
- - Note:
- Because four and five band `Resistor`s don't have a `coefficient` rating this function will assume
- a rating of 0, and as such will just return a `Range<Double>` with an upper and lower bound the same
- as the `Resistor`s nominal `value`.
- */
-let fourBandCoefficientValueRange = fourBand.coefficientValueRange(tempChange: 5)
-let fiveBandCoefficientValueRange = fiveBand.coefficientValueRange(tempChange: 5)
-let sixBandCoefficientValueRange = sixBand.coefficientValueRange(tempChange: 5)
 //: [Using ResistorFactory >](@next)

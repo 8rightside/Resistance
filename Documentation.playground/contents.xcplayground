@@ -4,8 +4,8 @@
         <page name='Overview'/>
         <page name='Resistor Type'/>
         <page name='Resistor Properties'/>
-        <page name='Using ResistorFactory'/>
         <page name='Tolerance and TempCo Ranges'/>
+        <page name='The ResistorFactory'/>
         <page name='Using ESeries'/>
     </pages>
 </playground>

@@ -1,4 +1,4 @@
-//: [< Resistor Properties](@previous)
+//: [< Tolerance and TempCo Ranges](@previous)
 import Resistance
 /*:
  # Using ResistorFactory
@@ -133,4 +133,4 @@ do { _ = try factory.makeFourBandOrFail(resistor: threeSigFigResistor) }
 catch { _ = error }
 
 let threeSigFigResistorRounded = factory.makeFourBand(resistor: threeSigFigResistor)
-//:[Tolerance and TempCo Ranges >](@next)
+//:[Using ESeries >](@next)
