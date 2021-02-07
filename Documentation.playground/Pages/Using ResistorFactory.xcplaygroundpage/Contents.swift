@@ -43,7 +43,11 @@ let sixBand = try? factory.makeSixBandOrFail(value: 321)
  There is also an optional parameter for the above functions that allows you to specify
  a tolerance rating for the returned `Resistor` with the default being `.gold`.
  */
+let fourBandDefaultTolerance = try? factory.makeFourBandOrFail(value: 4500)
+let goldTolerance = fourBandDefaultTolerance?.tolerance
+
 let fourBandLowTolerance = try? factory.makeFourBandOrFail(value: 4500, tolerance: .blue)
+let blueTolerance = fourBandLowTolerance?.tolerance
 /*:
  And when using the makeSixBandOrFail function there is another optional parameter for
  specifying the temperature coefficient rating with the
@@ -92,7 +96,11 @@ let sixBandResistor = factory.makeSixBand(resistor: fiveBandResistor)
  `Resistor` and use that for the tolerance rating of the newly created `Resistor`. You
  can however, override this by specifying a new rating to use.
  */
+let fiveBandWithSameTolerance = factory.makeFiveBand(resistor: fourBandResistor)
+let sameTolerance = fiveBandWithSameTolerance.tolerance
+
 let fiveBandWithDifferentTolerance = factory.makeFiveBand(resistor: fourBandResistor, tolerance: .yellow)
+let differentTolerance = fiveBandWithDifferentTolerance.tolerance
 /*:
  The makeSixBand conversion function will by default, create a six band `Resistor` with a
  temperature coefficient rating of `.brown` if a four or five band `Resistor` is passed in.
@@ -100,5 +108,29 @@ let fiveBandWithDifferentTolerance = factory.makeFiveBand(resistor: fourBandResi
  default instead. As with the tolerance rating this can be overridden by specifying a new
  rating to use.
  */
+let fourBandNoCoefficient = Resistor.fourBand(.green, .blue, .red, .gold)
+let sixBandYellowCoefficient = Resistor.sixBand(.orange, .orange, .black, .brown, .gold, .yellow)
 
+let sixBandDefaultCoefficient = factory.makeSixBand(resistor: fourBandNoCoefficient)
+let brownCoefficient = sixBandDefaultCoefficient.coefficient
+
+let sixBandSameCoefficient = factory.makeSixBand(resistor: sixBandYellowCoefficient)
+let yellowCoefficient = sixBandSameCoefficient.coefficient
+
+let sixBandNewCoefficient = factory.makeSixBand(resistor: sixBandYellowCoefficient, coefficient: .blue)
+let blueCoefficient = sixBandNewCoefficient.coefficient
+/*:
+ - Note:
+ Because a five or six band `Resistor` have three significant digits they can potentially
+ represent a value that cannot be represented by a four band `Resistor`. Because of this
+ the conversion functions offer two variants for creating four band `Resistor`'s. One
+ that throws an error if it can't represent the value and one that rounds the value to one
+ that can be represented.
+ */
+let threeSigFigResistor = Resistor.fiveBand(.brown, .red, .orange, .black, .gold)
+
+do { _ = try factory.makeFourBandOrFail(resistor: threeSigFigResistor) }
+catch { _ = error }
+
+let threeSigFigResistorRounded = factory.makeFourBand(resistor: threeSigFigResistor)
 //:[Tolerance and TempCo Ranges >](@next)
