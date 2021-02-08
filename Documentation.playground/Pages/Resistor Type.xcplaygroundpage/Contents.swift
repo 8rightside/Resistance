@@ -24,5 +24,5 @@ let fiveBand3 = Resistor.fiveBand(.blue, .grey, .black, .black, .gold)
 let sixBand1 = Resistor.sixBand(.brown, .black, .black, .brown, .gold, .brown)
 let sixBand2 = Resistor.sixBand(.yellow, .violet, .blue, .red, .gold, .brown)
 let sixBand3 = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
-//:[Using ResistorFactory >](@next)
+//:[Resistor Properties >](@next)
 

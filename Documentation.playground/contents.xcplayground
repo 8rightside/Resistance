@@ -5,7 +5,10 @@
         <page name='Resistor Type'/>
         <page name='Resistor Properties'/>
         <page name='Tolerance and TempCo Ranges'/>
-        <page name='The ResistorFactory'/>
-        <page name='Using ESeries'/>
+        <page name='ResistorFactory Round Functions'/>
+        <page name='ResistorFactory Failable Functions'/>
+        <page name='ResistorFactory Conversion Functions'/>
+        <page name='ESeriesProtocol'/>
+        <page name='ESeries Functions'/>
     </pages>
 </playground>

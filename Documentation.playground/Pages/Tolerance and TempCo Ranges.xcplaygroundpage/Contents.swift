@@ -34,4 +34,4 @@ let withinResistanceFluxRange = coefficientValueRange.contains(4701)
  */
 let noResistanceFlux = fourBand.coefficientValueRange(tempChange: 5)
 let isSameResistance = noResistanceFlux.upperBound == fourBand.value && noResistanceFlux.lowerBound == fourBand.value
-//: [The ResistorFactory >](@next)
+//: [ResistorFactory Round Functions >](@next)

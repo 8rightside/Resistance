@@ -1,7 +1,7 @@
 //: [< Tolerance and TempCo Ranges](@previous)
 import Resistance
 /*:
- # Using ResistorFactory
+ # ResistorFactory Round Functions
  
  Sometimes you'll want to create a `Resistor` from a value rather than coloured bands.
  When this is the case, you're going to want to use `ResistorFactory`.
@@ -133,4 +133,4 @@ do { _ = try factory.makeFourBandOrFail(resistor: threeSigFigResistor) }
 catch { _ = error }
 
 let threeSigFigResistorRounded = factory.makeFourBand(resistor: threeSigFigResistor)
-//:[Using ESeries >](@next)
+//:[ResistorFactory Failable Functions >](@next)

@@ -11,6 +11,13 @@ let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
 let fiveBand = Resistor.fiveBand(.yellow, .violet, .black, .brown, .brown)
 let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .red, .brown)
 /*:
+ ### value
+ To get the resistance value the `Resistor` represents just call `value` on any `Resistor`.
+ */
+let fourBandResistance = fourBand.value
+let fiveBandResistance = fiveBand.value
+let sixBandResistance = sixBand.value
+/*:
  ### digits
  Access to the significant figure bands is gained through the `digits` property which
  returns an array containing either two or three `digit`'s depending on whether a four,
@@ -61,11 +68,4 @@ let sixBandToleranceValue = sixBandTolerance.rawValue
 let fourBandCoefficientValue = fourBandCoefficient?.rawValue
 let fiveBandCoefficientValue = fiveBandCoefficient?.rawValue
 let sixBandCoefficientValue = sixBandCoefficient?.rawValue
-/*:
- ### value
- To get the resistance value the `Resistor` represents just call `value` on any `Resistor`.
- */
-let fourBandResistance = fourBand.value
-let fiveBandResistance = fiveBand.value
-let sixBandResistance = sixBand.value
-//: [Using ResistorFactory >](@next)
+//: [Tolerance and TempCo Ranges >](@next)
