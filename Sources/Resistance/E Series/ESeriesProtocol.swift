@@ -23,7 +23,7 @@ extension ESeriesProtocol {
         let sigfigs = value.hundredsDecade
         return preferredValues.contains(Int(sigfigs))
     }
-    
+     
     /// Returns a `Double` representing the next `ESeries` value up from the one passed
     /// - Parameters:
     ///     - from: Value to test
