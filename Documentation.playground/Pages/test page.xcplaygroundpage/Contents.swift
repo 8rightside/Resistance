@@ -1,16 +1,13 @@
 import Resistance
 
-let fourBand = Resistor.fourBand(.green, .blue, .red, .gold)
 
-let resistanceValue = fourBand.value            // 5600
-print(fourBand.digits)                          // [green, blue]
-print(fourBand.multiplier)                      // red
-print(fourBand.tolerance)                       // gold
+let fourBand = Resistor.fourBand(.brown, .black, .orange, .gold)
+let sixBand = Resistor.sixBand(.yellow, .violet, .black, .brown, .gold, .brown)
 
-let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
-print(sixBand.coefficient!)                     // brown
+let toleranceValueRange = fourBand.toleranceValueRange
+print(toleranceValueRange.upperBound)           // 10500.0
+print(toleranceValueRange.lowerBound)           // 9500.0
 
-print(fourBand.digits.map(\.rawValue))               // [5, 6]
-print(fourBand.multiplier.rawValue)                  // 100
-print(fourBand.tolerance.rawValue)                   // 0.05
-print(sixBand.coefficient!.rawValue)                 // 100
+let coefficientValueRange = sixBand.coefficientValueRange(tempChange: 5)
+print(coefficientValueRange.upperBound)         // 4702.35
+print(coefficientValueRange.lowerBound)         // 4697.65

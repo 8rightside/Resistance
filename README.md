@@ -18,7 +18,7 @@
 - Swift Playground full of example code
 
 ## Usage
-### Creating a resistor
+### Creating a `Resistor`
 The most basic, and likely the thing you'll want to do most often, is to create a resistor. A Resistor is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by enums. The following demonstrates how simple it is to create a new resistor variable.
 ```swift
 let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
@@ -26,7 +26,7 @@ let fiveBand = Resistor.fiveBand(.yellow, .violet, .black, .red, .gold)
 let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
 ```
 
-### Resistor Properties
+### `Resistor` Properties
 The Resistor type is implemented using an enum with associated values for the digit, multiplier and tolerance rating. These associated values can be pulled out in the usual way with a switch statement, but  it's much easier to use the built in properties to do so.
 ```swift
 let fourBand = Resistor.fourBand(.green, .blue, .red, .gold)
@@ -43,6 +43,20 @@ print(fourBand.digits.map(\.rawValue))          // [5.0, 6.0]
 print(fourBand.multiplier.rawValue)             // 100.0
 print(fourBand.tolerance.rawValue)              // 0.05
 print(sixBand.coefficient!.rawValue)            // 100.0
+```
+### Calculating Tolerance and Temperature Coefficient Ranges
+The Resistor type also contains two members for working out common resistance calculations. Both return a Range<Double> meaning you can make use of all the functions Range provides.
+```swift
+let fourBand = Resistor.fourBand(.brown, .black, .orange, .gold)
+let sixBand = Resistor.sixBand(.yellow, .violet, .black, .brown, .gold, .brown)
+
+let toleranceValueRange = fourBand.toleranceValueRange
+print(toleranceValueRange.upperBound)           // 10500.0
+print(toleranceValueRange.lowerBound)           // 9500.0
+
+let coefficientValueRange = sixBand.coefficientValueRange(tempChange: 5)
+print(coefficientValueRange.upperBound)         // 4702.35
+print(coefficientValueRange.lowerBound)         // 4697.65
 ```
 
 ## Installing
