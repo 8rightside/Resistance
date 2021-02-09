@@ -19,7 +19,7 @@
 
 ## Usage
 ### Creating a resistor
-The most basic, and likely the thing you'll want to do most often, is to create a resistor. A Resistor is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by an enums. The following demonstrates how simple it is to create a new resistor variable.
+The most basic, and likely the thing you'll want to do most often, is to create a resistor. A Resistor is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by enums. The following demonstrates how simple it is to create a new resistor variable.
 ```swift
 let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
 let fiveBand = Resistor.fiveBand(.yellow, .violet, .black, .red, .gold)

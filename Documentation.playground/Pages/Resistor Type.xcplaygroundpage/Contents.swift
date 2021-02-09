@@ -2,7 +2,7 @@
 import Resistance
 /*:
  # The Resistor type
- The most basic, and likely the thing you'll want to do most often, is to create a resistor. A `Resistor` is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by an enums. The following demonstrates how simple it is to create a new resistor variable.
+ The most basic, and likely the thing you'll want to do most often, is to create a resistor. A `Resistor` is represented using an enum with associated values for the digit, multiplier and tolerance bands, themselves represented by enums. The following demonstrates how simple it is to create a new resistor variable.
  
  ### Four Band Resistor
  To create a four band `resistor` just pass the two digit bands followed by the multiplier and tolerance bands
