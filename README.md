@@ -31,10 +31,18 @@ The Resistor type is implemented using an enum with associated values for the di
 ```swift
 let fourBand = Resistor.fourBand(.green, .blue, .red, .gold)
 
-let resistanceValue = fourBand.value        // 5600
-let digitBands = fourBand.digits            // [green, blue]
-let multiplierBand = fourBand.multiplier    // red
-let toleranceBand = fourBand.tolerance      // gold
+let resistanceValue = fourBand.value                        // 5600
+let digitBands = fourBand.digits                            // [green, blue]
+let multiplierBand = fourBand.multiplier                    // red
+let toleranceBand = fourBand.tolerance                      // gold
+
+let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
+let coefficientBand = sixBand.coefficient!                  // brown
+
+let digitsRawValues = digitBands.map(\.rawValue)            // [5, 6]
+let multiplierRawValue = multiplierBand.rawValue            // 100
+let toleranceRawValue = toleranceBand.rawValue              // 0.05
+let coefficientRawValue = coefficientBand.rawValue          // 100
 ```
 
 ## Installing
