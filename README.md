@@ -39,10 +39,10 @@ print(fourBand.tolerance)                       // gold
 let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
 print(sixBand.coefficient!)                     // brown
 
-print(digitBands.map(\.rawValue))               // [5, 6]
-print(multiplierBand.rawValue)                  // 100
-print(toleranceBand.rawValue)                   // 0.05
-print(coefficientBand.rawValue)                 // 100
+print(fourBand.digits.map(\.rawValue))          // [5.0, 6.0]
+print(fourBand.multiplier.rawValue)             // 100.0
+print(fourBand.tolerance.rawValue)              // 0.05
+print(sixBand.coefficient!.rawValue)            // 100.0
 ```
 
 ## Installing
