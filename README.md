@@ -12,10 +12,11 @@
 
 **Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use whilst still providing plenty of features including:
 
-- Easy to use API for creating resistors
+- Easy to use API
+- Support for four, five, and six band resistors
 - E-Series standards functionality
 - Tolerance and temperature coefficient calculations
-- Swift Playground full of example code
+- Swift Playground documentation
 
 ## Usage
 ### Creating a Resistor
@@ -67,6 +68,8 @@ print(coefficientValueRange.lowerBound)         // 4697.65
 
 ### E-Series functionality
 
+## Swift Playground Documentation
+`Resistance` includes a Swift Playground file with detailed instructions and runnable example code to make it easy to learn. 
 
 ## Installing
 `Resistance` is distributed using the [Swift Package Manager](https://swift.org/package-manager/). To import it using Xcode, follow 
