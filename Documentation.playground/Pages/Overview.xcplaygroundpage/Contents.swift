@@ -8,6 +8,7 @@
  * [ResistorFactory Conversion Functions](ResistorFactory%20Conversion%20Functions)
  * [ESeriesProtocol](ESeriesProtocol)
  * [ESeries Functions](ESeries%20Functions)
+ * [Example Uses Cases](Example%20Use%20Cases)
  
  ![Resistance](logo.png)
  

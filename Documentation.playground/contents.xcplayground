@@ -10,5 +10,6 @@
         <page name='ResistorFactory Conversion Functions'/>
         <page name='ESeriesProtocol'/>
         <page name='ESeries Functions'/>
+        <page name='Example Use Cases'/>
     </pages>
 </playground>
