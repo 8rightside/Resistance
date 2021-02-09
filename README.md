@@ -75,7 +75,7 @@ this [official guide](https://developer.apple.com/documentation/xcode/adding_pac
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/johnsundell/ink.git", from: "0.1.0")
+        .package(url: "https://github.com/8rightside/resistance.git", from: "0.1.0")
     ],
     ...
 )
