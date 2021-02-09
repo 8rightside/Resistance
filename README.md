@@ -70,7 +70,7 @@ print(coefficientValueRange.lowerBound)         // 4697.65
 
 ## Installing
 `Resistance` is distributed using the [Swift Package Manager](https://swift.org/package-manager/). To import it using Xcode, follow 
-this [official guide](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app). Or add it as a dependency within your Package.swift manifest:
+this [guide](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app). Or add it as a dependency within your Package.swift manifest:
 ```swift
 let package = Package(
     ...
@@ -85,7 +85,7 @@ let package = Package(
 ```
 Don't forget to import it where needed.
 ```swift
-import Publish
+import Resistance
 ```
 
 ## Requirements
