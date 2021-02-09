@@ -78,7 +78,7 @@ let package = Package(
         .package(url: "https://github.com/8rightside/resistance.git", from: "1.0.0")
     ],
     targets: [
-        .target( name: "YourTarget", dependencies: ["SwiftSoup"]),
+        .target( name: "YourTarget", dependencies: ["Resistance"]),
     ]
     ...
 )
