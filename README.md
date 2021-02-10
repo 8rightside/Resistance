@@ -81,14 +81,29 @@ print(roundedUpFourBand)                        // 460 Ω
 print(sixBand)                                  // 450 Ω
 
 do {
-    let failedFiveBand = try factory.makeFiveBandOrFail(value: 1234, tolerance: .silver)
+    let tooManyDigits = try factory.makeFiveBandOrFail(value: 1234, tolerance: .silver)
 } catch {
     print(error)                                // invalidValueError
 }
 ```
 
 ### Converting Resistors
+The `ResistorFactory` functions have a variant that takes a `Resistor` as their first parameter instead of a `Double`.
+This allows you to use them for converting between the different `Resistor` types.
 
+By default, the conversion functions will take the tolerance rating – and `coefficient` where necessary – from the passed in `Resistor` and use these for the ratings of the newly created `Resistor`. You can however, override these by specifying different ones.
+```swift
+let factory = ResistorFactory()
+
+let fourBandResistor = Resistor.fourBand(.brown, .black, .red, .gold)
+
+let fiveBandResistor = factory.makeFiveBand(resistor: fourBandResistor)
+let sixBandResistor = factory.makeSixBand(resistor: fiveBandResistor, coefficient: .yellow)
+
+print(fourBandResistor)                         // 1 KΩ
+print(fiveBandResistor)                         // 1 KΩ
+print(sixBandResistor)                          // 1 KΩ
+```
 
 ### E-Series functionality
 
