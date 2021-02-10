@@ -16,7 +16,7 @@ extension ResistorFactory {
     public func makeFourBandOrFail(value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
         guard value >= 0.1 else { throw ResistorError.lowValueError }
         guard value <= 99_000_000_000 else { throw ResistorError.highValueError }
-        guard value.sigFigsCount < 3 else { throw ResistorError.inValidValueError }
+        guard value.sigFigsCount < 3 else { throw ResistorError.invalidValueError }
         
         return calculateFourBand(from: value, tolerance: tolerance)
     }
@@ -73,7 +73,7 @@ extension ResistorFactory {
     public func makeFiveBandOrFail(value: Double, tolerance: Resistor.Tolerance = .gold) throws -> Resistor {
         guard value >= 1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
-        guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
+        guard value.sigFigsCount < 4 else { throw ResistorError.invalidValueError }
         
         return calculateFiveBand(from: value, tolerance: tolerance)
     }
@@ -121,7 +121,7 @@ extension ResistorFactory {
     public func makeSixBandOrFail(value: Double, tolerance: Resistor.Tolerance = .gold, coefficient: Resistor.Coefficient = .brown) throws -> Resistor {
         guard value >= 1 else { throw ResistorError.lowValueError }
         guard value <= 999_000_000_000 else { throw ResistorError.highValueError }
-        guard value.sigFigsCount < 4 else { throw ResistorError.inValidValueError }
+        guard value.sigFigsCount < 4 else { throw ResistorError.invalidValueError }
         
         return calculateFiveBand(from: value, tolerance: tolerance, coefficient: coefficient)
     }
@@ -164,7 +164,7 @@ extension ResistorFactory {
 // MARK:- Error Types
 extension ResistorFactory {
     public enum ResistorError: Error {
-        case lowValueError, highValueError, inValidValueError
+        case lowValueError, highValueError, invalidValueError
     }
 }
 

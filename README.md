@@ -88,8 +88,8 @@ do {
 ```
 
 ### Converting Resistors
-The `ResistorFactory` functions have a variant that takes a `Resistor` as their first parameter instead of a `Double`.
-This allows you to use them for converting between the different `Resistor` types.
+For converting between the different `Resistor` types, `ResistorFactory` contains functions that take a `Resistor` as their first parameter 
+and return a new one of the specified type with the same value as the one passed in.
 
 By default, the conversion functions will take the tolerance rating – and `coefficient` where necessary – from the passed in `Resistor` and use these for the ratings of the newly created `Resistor`. You can however, override these by specifying different ones.
 ```swift
@@ -106,10 +106,29 @@ print(sixBandResistor)                          // 1 KΩ
 ```
 
 ### E-Series functionality
+`Resistance` provides support for the use of the [E-Series standard set of preferred values](https://en.wikipedia.org/wiki/E_series_of_preferred_numbers). This functionality comes in the form of the `ESeriesProtocol`.
+There are already implementations for all the common sets of preferred values and using them if fairly straightforward.
+```swift
+let fiveBandResistor = Resistor.fiveBand(.blue, .green, .black, .brown, .gold)
+let value = fiveBandResistor.value
+print(value)                                    // 6500.0
+
+let e6 = E6Series()
+print(e6.preferredValues.sorted())              // [100, 150, 220, 330, 470, 680]
+
+let valueInSeries = e6.containsPreferredValue(value)
+print(valueInSeries)                            // false
+
+let nextUp = e6.nextValueUp(from: value)
+let nextDown = e6.nextValueDown(from: value)
+    
+print(nextUp)                                   // 6800.0
+print(nextDown)                                 // 4700.0
+```
+
 
 ## Swift Playground Documentation
-`Resistance` includes a Swift Playground file with detailed instructions and runnable example code 
-to make it easy to learn. 
+If you'd like a more comprehensive overview of the API, `Resistance` includes a Swift Playground file in the Package with detailed instructions and runnable example code to make it easy to learn. 
 
 ## Installing
 `Resistance` is distributed using the [Swift Package Manager](https://swift.org/package-manager/). To import it using Xcode, follow 
