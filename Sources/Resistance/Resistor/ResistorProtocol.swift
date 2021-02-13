@@ -6,18 +6,18 @@
 
 import Foundation
 
-public protocol NewResistor: CustomStringConvertible {
+public protocol ResistorProtocol: CustomStringConvertible {
     /// The resistance value of the represented `Resistor`
     var value: Double { get }
-    /// A `Resistor.Digit` array containing the digit bands of the `Resistor`
-    var digits: [Resistor.Digit] { get }
-    /// The multiplier band of the `Resistor`
-    var multiplier: Resistor.Multiplier { get }
-    /// The tolerance rating of the `Resistor` represented as a decimal
-    var tolerance: Resistor.Tolerance { get }
+    /// A `Digit` array containing the digit bands of the `Resistor`
+    var digits: [Digit] { get }
+    /// The `Multiplier` band of the `Resistor`
+    var multiplier: Multiplier { get }
+    /// The `Tolerance` rating of the `Resistor` represented as a decimal
+    var tolerance: Tolerance { get }
 }
 
-extension NewResistor {
+extension ResistorProtocol {
     /// `Range` representing the values the `Resistor` covers
     public var toleranceValueRange: Range<Double> {
         let lowerBound = value - value * tolerance.rawValue
