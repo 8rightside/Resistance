@@ -20,7 +20,7 @@ public struct SixBandResistor: ResistorProtocol {
         [digit1, digit2, digit3]
     }
     
-    public init(digit1: Digit, digit2: Digit, digit3: Digit, multiplier: Multiplier, tolerance: Tolerance, coefficient: Coefficient = .brown) {
+    public init(digit1: Digit, digit2: Digit, digit3: Digit, multiplier: Multiplier, tolerance: Tolerance, coefficient: Coefficient) {
         self.digit1 = digit1
         self.digit2 = digit2
         self.digit3 = digit3
