@@ -60,6 +60,187 @@ extension SixBandResistorTests {
     }
 }
 
+// MARK:- Tolerance Value Range
+extension SixBandResistorTests {
+    func test_toleranceValueRange_gold() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1050)
+        XCTAssertEqual(result.lowerBound, 950)
+    }
+    
+    func test_toleranceValueRange_silver() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .silver, coefficient: .brown)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1100)
+        XCTAssertEqual(result.lowerBound, 900)
+    }
+    
+    func test_toleranceValueRange_brown() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .brown, coefficient: .brown)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1010)
+        XCTAssertEqual(result.lowerBound, 990)
+    }
+}
+
+// MARK: - Coefficient Value Range
+
+
+// MARK: 100 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR100() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 997.5)
+        XCTAssertEqual(result.upperBound, 1002.5)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR100() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 995)
+        XCTAssertEqual(result.upperBound, 1005)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR100() {
+        let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 990)
+        XCTAssertEqual(result.upperBound, 1010)
+    }
+}
+
+// MARK: 50 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR50() {
+        let resistor = SixBandResistor(digit1: .red, digit2: .red, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .red)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 2197.25)
+        XCTAssertEqual(result.upperBound, 2202.75)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR50() {
+        let resistor = SixBandResistor(digit1: .red, digit2: .red, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .red)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 2194.5)
+        XCTAssertEqual(result.upperBound, 2205.5)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR50() {
+        let resistor = SixBandResistor(digit1: .red, digit2: .red, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .red)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 2189)
+        XCTAssertEqual(result.upperBound, 2211)
+    }
+}
+
+// MARK: 25 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR25() {
+        let resistor = SixBandResistor(digit1: .yellow, digit2: .violet, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .yellow)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 4697.0625)
+        XCTAssertEqual(result.upperBound, 4702.9375)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR25() {
+        let resistor = SixBandResistor(digit1: .yellow, digit2: .violet, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .yellow)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 4694.125)
+        XCTAssertEqual(result.upperBound, 4705.875)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR25() {
+        let resistor = SixBandResistor(digit1: .yellow, digit2: .violet, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .yellow)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 4688.25)
+        XCTAssertEqual(result.upperBound, 4711.75)
+    }
+}
+
+// MARK: 15 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR15() {
+        let resistor = SixBandResistor(digit1: .orange, digit2: .orange, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .orange)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 3298.7625)
+        XCTAssertEqual(result.upperBound, 3301.2375)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR15() {
+        let resistor = SixBandResistor(digit1: .orange, digit2: .orange, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .orange)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 3297.525)
+        XCTAssertEqual(result.upperBound, 3302.475)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR15() {
+        let resistor = SixBandResistor(digit1: .orange, digit2: .orange, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .orange)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 3295.05)
+        XCTAssertEqual(result.upperBound, 3304.95)
+    }
+}
+
+// MARK: 10 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR10() {
+        let resistor = SixBandResistor(digit1: .blue, digit2: .grey, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .blue)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 6798.3)
+        XCTAssertEqual(result.upperBound, 6801.7)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR10() {
+        let resistor = SixBandResistor(digit1: .blue, digit2: .grey, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .blue)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 6796.6)
+        XCTAssertEqual(result.upperBound, 6803.4)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR10() {
+        let resistor = SixBandResistor(digit1: .blue, digit2: .grey, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .blue)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 6793.2)
+        XCTAssertEqual(result.upperBound, 6806.8)
+    }
+}
+
+// MARK: 5 TempCo
+extension SixBandResistorTests {
+    func test_coefficientValueRange_tempChange25_TCR5() {
+        let resistor = SixBandResistor(digit1: .green, digit2: .blue, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .violet)
+        let result = resistor.coefficientValueRange(tempChange: 25)
+        XCTAssertEqual(result.lowerBound, 5599.3)
+        XCTAssertEqual(result.upperBound, 5600.7)
+    }
+    
+    func test_coefficientValueRange_tempChange50_TCR5() {
+        let resistor = SixBandResistor(digit1: .green, digit2: .blue, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .violet)
+        let result = resistor.coefficientValueRange(tempChange: 50)
+        XCTAssertEqual(result.lowerBound, 5598.6)
+        XCTAssertEqual(result.upperBound, 5601.4)
+    }
+    
+    func test_coefficientValueRange_tempChange100_TCR5() {
+        let resistor = SixBandResistor(digit1: .green, digit2: .blue, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .violet)
+        let result = resistor.coefficientValueRange(tempChange: 100)
+        XCTAssertEqual(result.lowerBound, 5597.2)
+        XCTAssertEqual(result.upperBound, 5602.8)
+    }
+}
+
+// MARK:- Convenience Inits
+extension SixBandResistorTests {
+    
+}
+
+// MARK:- Failable Inits
+extension SixBandResistorTests {
+    
+}
+
 // MARK:- Internal
 import XCTest
 import Resistance
@@ -77,5 +258,33 @@ final class SixBandResistorTests: XCTestCase {
         ("test_description_6digit",     test_description_6digit),
         ("test_description_7digit",     test_description_7digit),
         ("test_description_10digit",    test_description_10digit),
+        
+        ("test_toleranceValueRange_gold",   test_toleranceValueRange_gold),
+        ("test_toleranceValueRange_silver", test_toleranceValueRange_silver),
+        ("test_toleranceValueRange_brown",  test_toleranceValueRange_brown),
+        
+        ("test_coefficientValueRange_tempChange25_TCR100",  test_coefficientValueRange_tempChange25_TCR100),
+        ("test_coefficientValueRange_tempChange50_TCR100",  test_coefficientValueRange_tempChange50_TCR100),
+        ("test_coefficientValueRange_tempChange100_TCR100", test_coefficientValueRange_tempChange100_TCR100),
+                
+        ("test_coefficientValueRange_tempChange25_TCR50",   test_coefficientValueRange_tempChange25_TCR50),
+        ("test_coefficientValueRange_tempChange50_TCR50",   test_coefficientValueRange_tempChange50_TCR50),
+        ("test_coefficientValueRange_tempChange100_TCR50",  test_coefficientValueRange_tempChange100_TCR50),
+                
+        ("test_coefficientValueRange_tempChange25_TCR25",   test_coefficientValueRange_tempChange25_TCR25),
+        ("test_coefficientValueRange_tempChange50_TCR25",   test_coefficientValueRange_tempChange50_TCR25),
+        ("test_coefficientValueRange_tempChange100_TCR25",  test_coefficientValueRange_tempChange100_TCR25),
+                
+        ("test_coefficientValueRange_tempChange25_TCR15",   test_coefficientValueRange_tempChange25_TCR15),
+        ("test_coefficientValueRange_tempChange50_TCR15",   test_coefficientValueRange_tempChange50_TCR15),
+        ("test_coefficientValueRange_tempChange100_TCR15",  test_coefficientValueRange_tempChange100_TCR15),
+                
+        ("test_coefficientValueRange_tempChange25_TCR10",   test_coefficientValueRange_tempChange25_TCR10),
+        ("test_coefficientValueRange_tempChange50_TCR10",   test_coefficientValueRange_tempChange50_TCR10),
+        ("test_coefficientValueRange_tempChange100_TCR10",  test_coefficientValueRange_tempChange100_TCR10),
+                
+        ("test_coefficientValueRange_tempChange25_TCR5",    test_coefficientValueRange_tempChange25_TCR5),
+        ("test_coefficientValueRange_tempChange50_TCR5",    test_coefficientValueRange_tempChange50_TCR5),
+        ("test_coefficientValueRange_tempChange100_TCR5",   test_coefficientValueRange_tempChange100_TCR5),
     ]
 }

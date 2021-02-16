@@ -60,6 +60,40 @@ extension FourBandResistorTests {
     }
 }
 
+// MARK:- Tolerance Value Range
+extension FourBandResistorTests {
+    func test_toleranceValueRange_gold() {
+        let resistor = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .gold)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1050)
+        XCTAssertEqual(result.lowerBound, 950)
+    }
+    
+    func test_toleranceValueRange_silver() {
+        let resistor = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .silver)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1100)
+        XCTAssertEqual(result.lowerBound, 900)
+    }
+    
+    func test_toleranceValueRange_brown() {
+        let resistor = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .brown)
+        let result = resistor.toleranceValueRange
+        XCTAssertEqual(result.upperBound, 1010)
+        XCTAssertEqual(result.lowerBound, 990)
+    }
+}
+
+// MARK:- Convenience Inits
+extension FourBandResistorTests {
+    
+}
+
+// MARK:- Failable Inits
+extension FourBandResistorTests {
+    
+}
+
 // MARK:- Internal
 import XCTest
 import Resistance
@@ -77,5 +111,9 @@ final class FourBandResistorTests: XCTestCase {
         ("test_description_6digit",     test_description_6digit),
         ("test_description_7digit",     test_description_7digit),
         ("test_description_10digit",    test_description_10digit),
+        
+        ("test_toleranceValueRange_gold",   test_toleranceValueRange_gold),
+        ("test_toleranceValueRange_silver", test_toleranceValueRange_silver),
+        ("test_toleranceValueRange_brown",  test_toleranceValueRange_brown),
     ]
 }
