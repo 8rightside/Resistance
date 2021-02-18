@@ -84,14 +84,153 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Convenience Inits
+// MARK:- Init Value Tolerance
 extension FourBandResistorTests {
+    func test_init_value_belowMin() {
+        let resistor = FourBandResistor(value: 0.05)
+        XCTAssertEqual(resistor.digits, [.brown, .black])
+        XCTAssertEqual(resistor.multiplier, .silver)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
     
+    func test_init_value_fractional() {
+        let resistor = FourBandResistor(value: 4.7, tolerance: .silver)
+        XCTAssertEqual(resistor.digits, [.yellow, .violet])
+        XCTAssertEqual(resistor.multiplier, .gold)
+        XCTAssertEqual(resistor.tolerance, .silver)
+    }
+    
+    func test_init_value_5digits() {
+        let resistor = FourBandResistor(value: 56789)
+        XCTAssertEqual(resistor.digits, [.green, .violet])
+        XCTAssertEqual(resistor.multiplier, .orange)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+    
+    func test_init_value_8digits() {
+        let resistor = FourBandResistor(value: 12345678, tolerance: .blue)
+        XCTAssertEqual(resistor.digits, [.brown, .red])
+        XCTAssertEqual(resistor.multiplier, .blue)
+        XCTAssertEqual(resistor.tolerance, .blue)
+    }
+    
+    func test_init_value_aboveMax() {
+        let resistor = FourBandResistor(value: 999_999_999_999)
+        XCTAssertEqual(resistor.digits, [.white, .white])
+        XCTAssertEqual(resistor.multiplier, .white)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
 }
 
-// MARK:- Failable Inits
+// MARK:- Init Resistor Tolerance
 extension FourBandResistorTests {
+    func test_init_resistor_4Band() {
+        let resistor = FourBandResistor(value: 3300)
+        let sut = FourBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.orange, .orange])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
     
+    func test_init_resistor_5Band() {
+        let resistor = FiveBandResistor(value: 47000)
+        let sut = FourBandResistor(resistor: resistor, tolerance: .yellow)
+        XCTAssertEqual(sut.digits, [.yellow, .violet])
+        XCTAssertEqual(sut.multiplier, .orange)
+        XCTAssertEqual(sut.tolerance, .yellow)
+    }
+    
+    func test_init_resistor_5Band3SigFigs() {
+        let resistor = FiveBandResistor(value: 67800)
+        let sut = FourBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.blue, .grey])
+        XCTAssertEqual(sut.multiplier, .orange)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
+    
+    func test_init_resistor_6Band() {
+        let resistor = SixBandResistor(value: 5.6)
+        let sut = FourBandResistor(resistor: resistor, tolerance: .green)
+        XCTAssertEqual(sut.digits, [.green, .blue])
+        XCTAssertEqual(sut.multiplier, .gold)
+        XCTAssertEqual(sut.tolerance, .green)
+    }
+    
+    func test_init_resistor_6Band3SigFigs() {
+        let resistor = SixBandResistor(value: 4.23)
+        let sut = FourBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.yellow, .red])
+        XCTAssertEqual(sut.multiplier, .gold)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
+}
+
+// MARK:- Init Exact Value Tolerance
+extension FourBandResistorTests {
+    func test_init_exactValue_belowMin() throws {
+        XCTAssertThrowsError(try FourBandResistor(exactValue: 0.05))
+    }
+    
+    func test_init_exactValue_fractional() throws {
+        let resistor = try FourBandResistor(exactValue: 4.7, tolerance: .silver)
+        XCTAssertEqual(resistor.digits, [.yellow, .violet])
+        XCTAssertEqual(resistor.multiplier, .gold)
+        XCTAssertEqual(resistor.tolerance, .silver)
+    }
+    
+    func test_init_exactValue_5digits() {
+        XCTAssertThrowsError(try FourBandResistor(exactValue: 56789))
+    }
+    
+    func test_init_exactValue_8digits() throws {
+        let resistor = try FourBandResistor(exactValue: 12000000, tolerance: .blue)
+        XCTAssertEqual(resistor.digits, [.brown, .red])
+        XCTAssertEqual(resistor.multiplier, .blue)
+        XCTAssertEqual(resistor.tolerance, .blue)
+    }
+    
+    func test_init_exactValue_aboveMax() {
+        XCTAssertThrowsError(try FourBandResistor(exactValue: 999_999_999_999))
+    }
+}
+
+// MARK:- Init Exact Resistor Tolerance
+extension FourBandResistorTests {
+    func test_init_exactResistor_4Band() throws {
+        let resistor = FourBandResistor(value: 3300)
+        let sut = try FourBandResistor(exactResistor: resistor)
+        XCTAssertEqual(sut.digits, [.orange, .orange])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
+    
+    func test_init_exactResistor_5Band() throws {
+        let resistor = FiveBandResistor(value: 47000)
+        let sut = try FourBandResistor(exactResistor: resistor, tolerance: .yellow)
+        XCTAssertEqual(sut.digits, [.yellow, .violet])
+        XCTAssertEqual(sut.multiplier, .orange)
+        XCTAssertEqual(sut.tolerance, .yellow)
+    }
+    
+    func test_init_exactResistor_5Band3SigFigs() {
+        let resistor = FiveBandResistor(value: 67800)
+        XCTAssertThrowsError(try FourBandResistor(exactResistor: resistor))
+        
+    }
+    
+    func test_init_exactResistor_6Band() throws {
+        let resistor = SixBandResistor(value: 5.6)
+        let sut = try FourBandResistor(exactResistor: resistor, tolerance: .green)
+        XCTAssertEqual(sut.digits, [.green, .blue])
+        XCTAssertEqual(sut.multiplier, .gold)
+        XCTAssertEqual(sut.tolerance, .green)
+    }
+    
+    func test_init_exactResistor_6Band3SigFigs() {
+        let resistor = SixBandResistor(value: 4.23)
+        XCTAssertThrowsError(try FourBandResistor(exactResistor: resistor))
+        
+    }
 }
 
 // MARK:- Internal
@@ -115,5 +254,24 @@ final class FourBandResistorTests: XCTestCase {
         ("test_toleranceValueRange_gold",   test_toleranceValueRange_gold),
         ("test_toleranceValueRange_silver", test_toleranceValueRange_silver),
         ("test_toleranceValueRange_brown",  test_toleranceValueRange_brown),
+        
+        ("test_init_value_belowMin",    test_init_value_belowMin),
+        ("test_init_value_fractional",  test_init_value_fractional),
+        ("test_init_value_5digits",     test_init_value_5digits),
+        ("test_init_value_8digits",     test_init_value_8digits),
+        ("test_init_value_aboveMax",    test_init_value_aboveMax),
+        
+        ("test_init_resistor_4Band",            test_init_resistor_4Band),
+        ("test_init_resistor_5Band",            test_init_resistor_5Band),
+        ("test_init_resistor_5Band3SigFigs",    test_init_resistor_5Band3SigFigs),
+        ("test_init_resistor_6Band",            test_init_resistor_6Band),
+        ("test_init_resistor_6Band3SigFigs",    test_init_resistor_6Band3SigFigs),
+        
+        ("test_init_exactValue_belowMin",   test_init_exactValue_belowMin),
+        ("test_init_exactValue_fractional", test_init_exactValue_fractional),
+        ("test_init_exactValue_5digits",    test_init_exactValue_5digits),
+        ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
+        ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
+        
     ]
 }

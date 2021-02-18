@@ -231,13 +231,51 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Convenience Inits
+// MARK:- Init Value Tolerance
 extension SixBandResistorTests {
+    func test_init_value_belowMin() {
+        let resistor = SixBandResistor(value: 0.5)
+        XCTAssertEqual(resistor.digits, [.brown, .black, .black])
+        XCTAssertEqual(resistor.multiplier, .silver)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+    
+    func test_init_value_fractional() {
+        let resistor = SixBandResistor(value: 6.781, tolerance: .yellow)
+        XCTAssertEqual(resistor.digits, [.blue, .violet, .grey])
+        XCTAssertEqual(resistor.multiplier, .silver)
+        XCTAssertEqual(resistor.tolerance, .yellow)
+    }
+    
+    func test_init_value_5digits() {
+        let resistor = SixBandResistor(value: 12300)
+        XCTAssertEqual(resistor.digits, [.brown, .red, .orange])
+        XCTAssertEqual(resistor.multiplier, .red)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+    
+    func test_init_value_8digits() {
+        let resistor = SixBandResistor(value: 98765412, tolerance: .violet)
+        XCTAssertEqual(resistor.digits, [.white, .grey, .grey])
+        XCTAssertEqual(resistor.multiplier, .green)
+        XCTAssertEqual(resistor.tolerance, .violet)
+    }
+    
+    func test_init_value_aboveMax() {
+        let resistor = SixBandResistor(value: 999_999_999_999)
+        XCTAssertEqual(resistor.digits, [.white, .white, .white])
+        XCTAssertEqual(resistor.multiplier, .white)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+}
+
+// MARK:- Init Resistor Tolerance
+extension FourBandResistorTests {
     
 }
 
-// MARK:- Failable Inits
-extension SixBandResistorTests {
+// MARK:- Init Exact Value Tolerance
+extension FourBandResistorTests {
     
 }
 
@@ -286,5 +324,11 @@ final class SixBandResistorTests: XCTestCase {
         ("test_coefficientValueRange_tempChange25_TCR5",    test_coefficientValueRange_tempChange25_TCR5),
         ("test_coefficientValueRange_tempChange50_TCR5",    test_coefficientValueRange_tempChange50_TCR5),
         ("test_coefficientValueRange_tempChange100_TCR5",   test_coefficientValueRange_tempChange100_TCR5),
+        
+        ("test_init_value_belowMin",    test_init_value_belowMin),
+        ("test_init_value_fractional",  test_init_value_fractional),
+        ("test_init_value_5digits",     test_init_value_5digits),
+        ("test_init_value_8digits",     test_init_value_8digits),
+        ("test_init_value_aboveMax",    test_init_value_aboveMax),
     ]
 }

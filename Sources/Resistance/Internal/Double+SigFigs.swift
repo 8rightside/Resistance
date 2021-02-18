@@ -7,11 +7,12 @@
 import Foundation
 
 extension Double {
+    // can only count up to 14 sig figs reliably due to double limitations
     var sigFigsCount: Int {
-        guard self >= 1 else { return 0 }
         guard self != 1 else { return 1 }
-        let digits = ceil(log10(self))
-        var value = self
+        var value = self * pow(10, 3)       // allow checking of values to 3 decimal places
+        value = trunc(value)                // get rid of the floating point garbage
+        let digits = ceil(log10(value))
         var trailingZeros = 0
         while value.truncatingRemainder(dividingBy: 10) == 0 {
             value /= 10

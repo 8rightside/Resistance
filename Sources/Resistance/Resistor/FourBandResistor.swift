@@ -33,7 +33,7 @@ extension FourBandResistor {
     }
     
     public init(resistor: ResistorProtocol, tolerance: Tolerance = .gold) {
-        self.init(value: resistor.value, tolerance: .silver)
+        self.init(value: resistor.value, tolerance: tolerance)
     }
 }
 

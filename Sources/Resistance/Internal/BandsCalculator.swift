@@ -17,7 +17,7 @@ extension BandsCalculator {
     static func fourBandColorsOrFail(value: Double) throws -> (digit1: Digit, digit2: Digit, multiplier: Multiplier) {
         guard value >= fourBandMin else { throw ResistorError.lowValueError }
         guard value <= fourBandMax else { throw ResistorError.highValueError }
-        guard value.sigFigsCount < 3 else { throw ResistorError.invalidValueError }
+        guard value.sigFigsCount <= 2 else { throw ResistorError.invalidValueError }
         
         return calculateFourBandColors(value: value)
     }
@@ -28,7 +28,7 @@ extension BandsCalculator {
     static func fiveBandColors(value: Double) -> (digit1: Digit, digit2: Digit, digit3: Digit, multiplier: Multiplier) {
         guard value >= fiveBandMin else { return calculateFiveBandColors(value: fiveBandMin) }
         guard value <= fiveBandMax else { return calculateFiveBandColors(value: fiveBandMax) }
-        let rounded = value.sigFigsRounded(by: 2)
+        let rounded = value.sigFigsRounded(by: 3)
 
         return calculateFiveBandColors(value: rounded)
     }
@@ -36,7 +36,7 @@ extension BandsCalculator {
     static func fiveBandColorsOrFail(value: Double) throws -> (digit1: Digit, digit2: Digit, digit3: Digit, multiplier: Multiplier) {
         guard value >= fiveBandMin else { throw ResistorError.lowValueError }
         guard value <= fiveBandMax else { throw ResistorError.highValueError }
-        guard value.sigFigsCount < 3 else { throw ResistorError.invalidValueError }
+        guard value.sigFigsCount <= 3 else { throw ResistorError.invalidValueError }
         
         return calculateFiveBandColors(value: value)
     }

@@ -6,6 +6,11 @@
 
 // MARK: Sig Figs Count
 extension DoubleExtensionTests {
+    func test_sigFigsCount_decimalWith3SigFig() {
+        let result = 4.23.sigFigsCount
+        XCTAssertEqual(result, 3)
+    }
+    
     func test_sigFigsCount_with1SigFig() {
         let result = 400.0.sigFigsCount
         XCTAssertEqual(result, 1)

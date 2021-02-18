@@ -84,13 +84,51 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Convenience Inits
+// MARK:- Init Value Tolerance
 extension FiveBandResistorTests {
+    func test_init_value_belowMin() {
+        let resistor = FiveBandResistor(value: 0.5)
+        XCTAssertEqual(resistor.digits, [.brown, .black, .black])
+        XCTAssertEqual(resistor.multiplier, .silver)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+    
+    func test_init_value_fractional() {
+        let resistor = FiveBandResistor(value: 3.3, tolerance: .green)
+        XCTAssertEqual(resistor.digits, [.orange, .orange, .black])
+        XCTAssertEqual(resistor.multiplier, .silver)
+        XCTAssertEqual(resistor.tolerance, .green)
+    }
+    
+    func test_init_value_5digits() {
+        let resistor = FiveBandResistor(value: 12345)
+        XCTAssertEqual(resistor.digits, [.brown, .red, .orange])
+        XCTAssertEqual(resistor.multiplier, .red)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+    
+    func test_init_value_8digits() {
+        let resistor = FiveBandResistor(value: 98765432, tolerance: .silver)
+        XCTAssertEqual(resistor.digits, [.white, .grey, .grey])
+        XCTAssertEqual(resistor.multiplier, .green)
+        XCTAssertEqual(resistor.tolerance, .silver)
+    }
+    
+    func test_init_value_aboveMax() {
+        let resistor = FiveBandResistor(value: 9_999_999_999_999)
+        XCTAssertEqual(resistor.digits, [.white, .white, .white])
+        XCTAssertEqual(resistor.multiplier, .white)
+        XCTAssertEqual(resistor.tolerance, .gold)
+    }
+}
+
+// MARK:- Init Resistor Tolerance
+extension FourBandResistorTests {
     
 }
 
-// MARK:- Failable Inits
-extension FiveBandResistorTests {
+// MARK:- Init Exact Value Tolerance
+extension FourBandResistorTests {
     
 }
 
@@ -115,5 +153,11 @@ final class FiveBandResistorTests: XCTestCase {
         ("test_toleranceValueRange_gold",   test_toleranceValueRange_gold),
         ("test_toleranceValueRange_silver", test_toleranceValueRange_silver),
         ("test_toleranceValueRange_brown",  test_toleranceValueRange_brown),
+        
+        ("test_init_value_belowMin",    test_init_value_belowMin),
+        ("test_init_value_fractional",  test_init_value_fractional),
+        ("test_init_value_5digits",     test_init_value_5digits),
+        ("test_init_value_8digits",     test_init_value_8digits),
+        ("test_init_value_aboveMax",    test_init_value_aboveMax),
     ]
 }
