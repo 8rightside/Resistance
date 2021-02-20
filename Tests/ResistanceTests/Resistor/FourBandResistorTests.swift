@@ -273,5 +273,10 @@ final class FourBandResistorTests: XCTestCase {
         ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
         ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
         
+        ("test_init_exactResistor_4Band",           test_init_exactResistor_4Band),
+        ("test_init_exactResistor_5Band",           test_init_exactResistor_5Band),
+        ("test_init_exactResistor_5Band3SigFigs",   test_init_exactResistor_5Band3SigFigs),
+        ("test_init_exactResistor_6Band",           test_init_exactResistor_6Band),
+        ("test_init_exactResistor_6Band3SigFigs",   test_init_exactResistor_6Band3SigFigs),
     ]
 }

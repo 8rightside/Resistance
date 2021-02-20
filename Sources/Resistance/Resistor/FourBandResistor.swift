@@ -32,7 +32,7 @@ extension FourBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, multiplier: colors.multiplier, tolerance: tolerance)
     }
     
-    public init(resistor: ResistorProtocol, tolerance: Tolerance = .gold) {
+    public init<T: ResistorProtocol>(resistor: T, tolerance: Tolerance = .gold) {
         self.init(value: resistor.value, tolerance: tolerance)
     }
 }
@@ -44,7 +44,7 @@ extension FourBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, multiplier: colors.multiplier, tolerance: tolerance)
     }
     
-    public init(exactResistor: ResistorProtocol, tolerance: Tolerance = .gold) throws {
+    public init<T: ResistorProtocol>(exactResistor: T, tolerance: Tolerance = .gold) throws {
         try self.init(exactValue: exactResistor.value, tolerance: tolerance)
     }
 }

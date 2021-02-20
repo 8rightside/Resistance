@@ -33,7 +33,7 @@ extension FiveBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, digit3: colors.digit3, multiplier: colors.multiplier, tolerance: tolerance)
     }
     
-    public init(resistor: ResistorProtocol, tolerance: Tolerance = .gold) {
+    public init<T: ResistorProtocol>(resistor: T, tolerance: Tolerance = .gold) {
         self.init(value: resistor.value, tolerance: .silver)
     }
 }

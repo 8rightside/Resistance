@@ -6,26 +6,12 @@
 
 import Foundation
 
-public protocol ResistorProtocol: CustomStringConvertible {
-    /// A `Digit` array containing the digit bands of the `Resistor`
-    var digits: [Digit] { get }
-    /// The `Multiplier` band of the `Resistor`
-    var multiplier: Multiplier { get }
+public protocol ResistorProtocol: ValueCalculable, CustomStringConvertible {
     /// The `Tolerance` rating of the `Resistor` represented as a decimal
     var tolerance: Tolerance { get }
 }
 
-extension ResistorProtocol {
-    /// The resistance value of the represented `Resistor`
-    public var value: Double {
-        var count = 0.0
-        let base = digits.reversed().reduce(0.0) { result, digit in
-            defer { count += 1 }
-            return pow(10, count) * digit.rawValue + result
-        }
-        return base * multiplier.rawValue
-    }
-    
+extension ResistorProtocol {    
     /// `Range` representing the values the `Resistor` covers
     public var toleranceValueRange: Range<Double> {
         let lowerBound = value - value * tolerance.rawValue
