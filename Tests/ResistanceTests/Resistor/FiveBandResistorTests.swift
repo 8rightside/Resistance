@@ -123,13 +123,75 @@ extension FiveBandResistorTests {
 }
 
 // MARK:- Init Resistor Tolerance
-extension FourBandResistorTests {
+extension FiveBandResistorTests {
+    func test_init_resistor_4Band() {
+        let resistor = FourBandResistor(value: 3300)
+        let sut = FiveBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.orange, .orange, .black])
+        XCTAssertEqual(sut.multiplier, .brown)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
     
+    func test_init_resistor_5Band() {
+        let resistor = FiveBandResistor(value: 47000)
+        let sut = FiveBandResistor(resistor: resistor, tolerance: .yellow)
+        XCTAssertEqual(sut.digits, [.yellow, .violet, .black])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .yellow)
+    }
+    
+    func test_init_resistor_5Band3SigFigs() {
+        let resistor = FiveBandResistor(value: 67800)
+        let sut = FiveBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.blue, .violet, .grey])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
+    
+    func test_init_resistor_6Band() {
+        let resistor = SixBandResistor(value: 5.6)
+        let sut = FiveBandResistor(resistor: resistor, tolerance: .green)
+        XCTAssertEqual(sut.digits, [.green, .blue, .black])
+        XCTAssertEqual(sut.multiplier, .silver)
+        XCTAssertEqual(sut.tolerance, .green)
+    }
+    
+    func test_init_resistor_6Band3SigFigs() {
+        let resistor = SixBandResistor(value: 4.23)
+        let sut = FiveBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.yellow, .red, .orange])
+        XCTAssertEqual(sut.multiplier, .silver)
+        XCTAssertEqual(sut.tolerance, .gold)
+    }
 }
 
 // MARK:- Init Exact Value Tolerance
-extension FourBandResistorTests {
-    
+extension FiveBandResistorTests {
+    func test_init_exactValue_belowMin() throws {
+            XCTAssertThrowsError(try FiveBandResistor(exactValue: 0.05))
+        }
+        
+        func test_init_exactValue_fractional() throws {
+            let resistor = try FiveBandResistor(exactValue: 4.7, tolerance: .silver)
+            XCTAssertEqual(resistor.digits, [.yellow, .violet, .black])
+            XCTAssertEqual(resistor.multiplier, .silver)
+            XCTAssertEqual(resistor.tolerance, .silver)
+        }
+        
+        func test_init_exactValue_5digits() {
+            XCTAssertThrowsError(try FiveBandResistor(exactValue: 56789))
+        }
+        
+        func test_init_exactValue_8digits() throws {
+            let resistor = try FiveBandResistor(exactValue: 12_200_000, tolerance: .blue)
+            XCTAssertEqual(resistor.digits, [.brown, .red, .red])
+            XCTAssertEqual(resistor.multiplier, .green)
+            XCTAssertEqual(resistor.tolerance, .blue)
+        }
+        
+        func test_init_exactValue_aboveMax() {
+            XCTAssertThrowsError(try FourBandResistor(exactValue: 999_999_999_999))
+        }
 }
 
 // MARK:- Internal
@@ -159,5 +221,17 @@ final class FiveBandResistorTests: XCTestCase {
         ("test_init_value_5digits",     test_init_value_5digits),
         ("test_init_value_8digits",     test_init_value_8digits),
         ("test_init_value_aboveMax",    test_init_value_aboveMax),
+        
+        ("test_init_resistor_4Band",            test_init_resistor_4Band),
+        ("test_init_resistor_5Band",            test_init_resistor_5Band),
+        ("test_init_resistor_5Band3SigFigs",    test_init_resistor_5Band3SigFigs),
+        ("test_init_resistor_6Band",            test_init_resistor_6Band),
+        ("test_init_resistor_6Band3SigFigs",    test_init_resistor_6Band3SigFigs),
+        
+        ("test_init_exactValue_belowMin",   test_init_exactValue_belowMin),
+        ("test_init_exactValue_fractional", test_init_exactValue_fractional),
+        ("test_init_exactValue_5digits",    test_init_exactValue_5digits),
+        ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
+        ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
     ]
 }

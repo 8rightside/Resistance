@@ -270,13 +270,82 @@ extension SixBandResistorTests {
 }
 
 // MARK:- Init Resistor Tolerance
-extension FourBandResistorTests {
+extension SixBandResistorTests {
+    func test_init_resistor_4Band() {
+        let resistor = FourBandResistor(value: 3300)
+        let sut = SixBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.orange, .orange, .black])
+        XCTAssertEqual(sut.multiplier, .brown)
+        XCTAssertEqual(sut.tolerance, .gold)
+        XCTAssertEqual(sut.coefficient, .brown)
+    }
     
+    func test_init_resistor_5Band() {
+        let resistor = FiveBandResistor(value: 47000)
+        let sut = SixBandResistor(resistor: resistor, tolerance: .yellow, coefficient: .yellow)
+        XCTAssertEqual(sut.digits, [.yellow, .violet, .black])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .yellow)
+        XCTAssertEqual(sut.coefficient, .yellow)
+    }
+    
+    func test_init_resistor_5Band3SigFigs() {
+        let resistor = FiveBandResistor(value: 67800)
+        let sut = SixBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.blue, .violet, .grey])
+        XCTAssertEqual(sut.multiplier, .red)
+        XCTAssertEqual(sut.tolerance, .gold)
+        XCTAssertEqual(sut.coefficient, .brown)
+    }
+    
+    func test_init_resistor_6Band() {
+        let resistor = SixBandResistor(value: 5.6)
+        let sut = SixBandResistor(resistor: resistor, tolerance: .green, coefficient: .orange)
+        XCTAssertEqual(sut.digits, [.green, .blue, .black])
+        XCTAssertEqual(sut.multiplier, .silver)
+        XCTAssertEqual(sut.tolerance, .green)
+        XCTAssertEqual(sut.coefficient, .orange)
+    }
+    
+    func test_init_resistor_6Band3SigFigs() {
+        let resistor = SixBandResistor(value: 4.23)
+        let sut = SixBandResistor(resistor: resistor)
+        XCTAssertEqual(sut.digits, [.yellow, .red, .orange])
+        XCTAssertEqual(sut.multiplier, .silver)
+        XCTAssertEqual(sut.tolerance, .gold)
+        XCTAssertEqual(sut.coefficient, .brown)
+    }
 }
 
 // MARK:- Init Exact Value Tolerance
-extension FourBandResistorTests {
-    
+extension SixBandResistorTests {
+    func test_init_exactValue_belowMin() throws {
+            XCTAssertThrowsError(try SixBandResistor(exactValue: 0.05))
+        }
+        
+        func test_init_exactValue_fractional() throws {
+            let resistor = try SixBandResistor(exactValue: 4.7, tolerance: .silver, coefficient: .orange)
+            XCTAssertEqual(resistor.digits, [.yellow, .violet, .black])
+            XCTAssertEqual(resistor.multiplier, .silver)
+            XCTAssertEqual(resistor.tolerance, .silver)
+            XCTAssertEqual(resistor.coefficient, .orange)
+        }
+        
+        func test_init_exactValue_5digits() {
+            XCTAssertThrowsError(try SixBandResistor(exactValue: 56789))
+        }
+        
+        func test_init_exactValue_8digits() throws {
+            let resistor = try SixBandResistor(exactValue: 12_200_000, tolerance: .blue)
+            XCTAssertEqual(resistor.digits, [.brown, .red, .red])
+            XCTAssertEqual(resistor.multiplier, .green)
+            XCTAssertEqual(resistor.tolerance, .blue)
+            XCTAssertEqual(resistor.coefficient, .brown)
+        }
+        
+        func test_init_exactValue_aboveMax() {
+            XCTAssertThrowsError(try SixBandResistor(exactValue: 999_999_999_999))
+        }
 }
 
 // MARK:- Internal
@@ -330,5 +399,17 @@ final class SixBandResistorTests: XCTestCase {
         ("test_init_value_5digits",     test_init_value_5digits),
         ("test_init_value_8digits",     test_init_value_8digits),
         ("test_init_value_aboveMax",    test_init_value_aboveMax),
+        
+        ("test_init_resistor_4Band",            test_init_resistor_4Band),
+        ("test_init_resistor_5Band",            test_init_resistor_5Band),
+        ("test_init_resistor_5Band3SigFigs",    test_init_resistor_5Band3SigFigs),
+        ("test_init_resistor_6Band",            test_init_resistor_6Band),
+        ("test_init_resistor_6Band3SigFigs",    test_init_resistor_6Band3SigFigs),
+        
+        ("test_init_exactValue_belowMin",   test_init_exactValue_belowMin),
+        ("test_init_exactValue_fractional", test_init_exactValue_fractional),
+        ("test_init_exactValue_5digits",    test_init_exactValue_5digits),
+        ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
+        ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
     ]
 }
