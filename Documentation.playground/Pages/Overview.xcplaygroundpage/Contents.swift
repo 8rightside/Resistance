@@ -1,14 +1,14 @@
 /*:
  ## Overview
- * [The Resistor type](Resistor%20Type)
- * [Resistor Properties](Resistor%20Properties)
+ * [Banded Resistor Types](Banded%20Resistor%20Types)
+ * [Banded Resistor Properties](Banded%20Resistor%20Properties)
  * [Tolerance and TempCo Ranges](Tolerance%20and%20TempCo%20Ranges)
- * [ResistorFactory Round Functions](ResistorFactory%20Round%20Functions)
- * [ResistorFactory Failable Functions](ResistorFactory%20Failable%20Functions)
- * [ResistorFactory Conversion Functions](ResistorFactory%20Conversion%20Functions)
+ * [Banded Resistor Round Inits](Banded%20Resistor%20Round%20Inits)
+ * [Banded Resistor Failable Inits](Banded%20Resistor%20Failable%20Inits)
+ * [Banded Resistor Conversion Inits](Banded%20Resistor%20Conversion%20Inits)
  * [ESeriesProtocol](ESeriesProtocol)
  * [ESeries Functions](ESeries%20Functions)
- * [Example Uses Cases](Example%20Use%20Cases)
+ * [Example Uses Case](Example%20Use%20Case)
  
  ![Resistance](logo.png)
  

@@ -6,12 +6,12 @@
 
 import Foundation
 
-public protocol ResistorProtocol: ValueCalculable, CustomStringConvertible {
+public protocol BandedResistor: ValueCalculable, CustomStringConvertible {
     /// The `Tolerance` rating of the `Resistor` represented as a decimal
     var tolerance: Tolerance { get }
 }
 
-extension ResistorProtocol {    
+extension BandedResistor {    
     /// `Range` representing the values the `Resistor` covers
     public var toleranceValueRange: Range<Double> {
         let lowerBound = value - value * tolerance.rawValue
@@ -26,7 +26,7 @@ extension ResistorProtocol {
     /// `Resistor` instance to a string by using the `String(describing:)`
     /// initialiser.
     ///
-    ///     let resistor = Resistor.fiveBand(.brown, .green, .yellow, .brown, .gold)
+    ///     let resistor = FourBandResistor(value: 4700)
     ///     let string = String(describing: resistor)
     ///     print(string)
     ///     // prints 1.54 KΩ

@@ -1,18 +1,18 @@
-//: [< Resistor Type](@previous)
+//: [< Banded Resistor Types](@previous)
 import Resistance
 /*:
- # Resistor Properties
- The `Resistor` type is implemented using an enum with associated values for the digit,
- multiplier and tolerance rating. These associated values can be pulled out in the usual
- way with a switch statement, but – as will be shown – it's much easier to use the built
- in properties to do so.
+ # Banded Resistor Properties
+ The banded resistor types all adopt the `BandedResistor` protocol meaning they all expose
+ properties for their `multiplier` and `tolerance` values as well as an array containing
+ their significant `digit`'s. Additionally there is a computed property for the resistance
+ value.
  */
-let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
-let fiveBand = Resistor.fiveBand(.yellow, .violet, .black, .brown, .brown)
-let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .red, .brown)
+let fourBand = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .brown, tolerance: .gold)
+let fiveBand = FiveBandResistor(digit1: .yellow, digit2: .violet, digit3: .black, multiplier: .brown, tolerance: .gold)
+let sixBand = SixBandResistor(digit1: .blue, digit2: .grey, digit3: .red, multiplier: .red, tolerance: .gold, coefficient: .brown)
 /*:
  ### value
- To get the resistance value the `Resistor` represents just call `value` on any `Resistor`.
+ To get the resistance value the resistor represents just use the `value` computed property on any resistor.
  */
 let fourBandResistance = fourBand.value
 let fiveBandResistance = fiveBand.value
@@ -28,30 +28,28 @@ let fiveBandDigits = fiveBand.digits
 let sixBandDigits = sixBand.digits
 /*:
  ### multiplier
- To get the multiplier simply call `multiplier`.
+ To get the multiplier simply use the `multiplier` property.
  */
 let fourBandMultiplier = fourBand.multiplier
 let fiveBandMultiplier = fiveBand.multiplier
 let sixBandMultiplier = sixBand.multiplier
 /*:
  ### tolerance
- And to get the tolerance rating just call `tolerance`.
+ And to get the tolerance rating use the `tolerance` property.
  */
 let fourBandTolerance = fourBand.tolerance
 let fiveBandTolerance = fiveBand.tolerance
 let sixBandTolerance = sixBand.tolerance
 /*:
  ### coefficient
- To get the temperature coefficient rating call `coefficient` but because only a six band
- resistor can have a temp co rating this property returns an optional.
+ When using a `SixBandResistor` you'll have access to the additional `coefficient` property.
  */
-let fourBandCoefficient = fourBand.coefficient
-let fiveBandCoefficient = fiveBand.coefficient
 let sixBandCoefficient = sixBand.coefficient
 /*:
  ### rawValues
- All of the above properties are defined using enums, with each having a `rawValue` for
- its represented value. This makes it easy to get access to these values.
+ With the exception of `value`, all of the above properties are defined using enums,
+ each having a `rawValue` property for its represented value. This makes it easy
+ to gain access to these values.
  */
 let fourBandDigitValues = fourBandDigits.map(\.rawValue)
 let fiveBandDigitValues = fiveBandDigits.map(\.rawValue)
@@ -65,7 +63,5 @@ let fourBandToleranceValue = fourBandTolerance.rawValue
 let fiveBandToleranceValue = fiveBandTolerance.rawValue
 let sixBandToleranceValue = sixBandTolerance.rawValue
 
-let fourBandCoefficientValue = fourBandCoefficient?.rawValue
-let fiveBandCoefficientValue = fiveBandCoefficient?.rawValue
-let sixBandCoefficientValue = sixBandCoefficient?.rawValue
+let sixBandCoefficientValue = sixBandCoefficient.rawValue
 //: [Tolerance and TempCo Ranges >](@next)

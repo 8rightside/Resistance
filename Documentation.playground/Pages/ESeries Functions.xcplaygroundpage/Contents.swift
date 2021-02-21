@@ -39,4 +39,4 @@ let nextUp2 = e12.nextValueUp(from: nonPreferredValue)
  */
 let nextDown1 = e12.nextValueDown(from: preferredValue)
 let nextDown2 = e12.nextValueDown(from: nonPreferredValue)
-//: [Example Use Cases >](@next)
+//: [Example Use Case >](@next)  

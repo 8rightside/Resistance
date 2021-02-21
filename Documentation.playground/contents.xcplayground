@@ -2,15 +2,14 @@
 <playground version='6.0' target-platform='ios' display-mode='rendered' buildActiveScheme='true'>
     <pages>
         <page name='Overview'/>
-        <page name='Resistor Type'/>
-        <page name='Resistor Properties'/>
+        <page name='Banded Resistor Types'/>
+        <page name='Banded Resistor Properties'/>
         <page name='Tolerance and TempCo Ranges'/>
-        <page name='ResistorFactory Round Functions'/>
-        <page name='ResistorFactory Failable Functions'/>
-        <page name='ResistorFactory Conversion Functions'/>
+        <page name='Banded Resistor Round Inits'/>
+        <page name='Banded Resistor Failable Inits'/>
+        <page name='Banded Resistor Conversion Inits'/>
         <page name='ESeriesProtocol'/>
         <page name='ESeries Functions'/>
-        <page name='Example Use Cases'/>
-        <page name='test page'/>
+        <page name='Example Use Case'/>
     </pages>
 </playground>

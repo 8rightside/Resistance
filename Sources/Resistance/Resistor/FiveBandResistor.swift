@@ -6,7 +6,7 @@
 
 import Foundation
 
-public struct FiveBandResistor: ResistorProtocol {
+public struct FiveBandResistor: BandedResistor {
     let digit1: Digit
     let digit2: Digit
     let digit3: Digit
@@ -33,7 +33,7 @@ extension FiveBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, digit3: colors.digit3, multiplier: colors.multiplier, tolerance: tolerance)
     }
     
-    public init<T: ResistorProtocol>(resistor: T, tolerance: Tolerance = .gold) {
+    public init<T: BandedResistor>(resistor: T, tolerance: Tolerance = .gold) {
         self.init(value: resistor.value, tolerance: tolerance)
     }
 }
