@@ -13,7 +13,6 @@ import Resistance
  \
  This value can be represented so will return a `FourBandResistor`.
  */
-//let fourBand = try? factory.makeFourBandOrFail(value: 4500)
 let fourBand = try? FourBandResistor(exactValue: 4500)
 //: - Note: These function calls will throw errors.
 do { _ = try FourBandResistor(exactValue: 4560) }

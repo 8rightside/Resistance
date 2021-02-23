@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="logo.png" width="100%" alt=“Ink” />
+    <img src="logo.png" width="100%" alt=“Resistance” />
 </p>
 
 <p align="center">
@@ -10,8 +10,7 @@
      <img src="https://img.shields.io/badge/platforms-mac+linux-blue.svg?style=flat" alt="Mac + Linux" />
 </p>
 
-**Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use
-whilst still providing plenty of features including:
+**Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use whilst still providing plenty of features including:
 
 - An easy to use API
 - Support for four, five, and six band resistors
@@ -20,42 +19,42 @@ whilst still providing plenty of features including:
 - Swift Playground documentation
 
 ## Usage
-### Creating a Resistor
-The most basic, and likely the thing you'll want to do most often, is to create a resistor. A `Resistor` is represented using an
-enum with associated values for the digit, multiplier and tolerance bands, themselves represented by enums. The following 
-demonstrates how simple it is to create a new resistor variable.
+### Banded Resistor Types
+ The most basic, and thing you'll probably want to do most often, is to create a resistor. A `BandedResistor` is represented using a struct with properties for the `Digit`, `Multiplier` and `Tolerance` bands. These properties are each represented by an enum and passed in during initialisation. The following demonstrates how simple it is to create a new resistor type.
 ```swift
-let fourBand = Resistor.fourBand(.brown, .black, .red, .gold)
-let fiveBand = Resistor.fiveBand(.yellow, .violet, .black, .red, .gold)
-let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
+let fourBand1 = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .gold)
+
+let fiveBand1 = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold)
+
+let sixBand1 = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
 ```
 
-### Resistor Properties
-The `Resistor` type is implemented using an enum with associated values for the `digit`, `multiplier` , `tolerance` rating, 
-and `coefficient` rating. These associated values can be pulled out in the usual way with a switch statement, but it's much 
-easier to use the built in properties to do so.
+### Banded Resistor Properties
+The banded resistor types all adopt the `BandedResistor` protocol meaning they all expose properties for their `multiplier` and `tolerance` values as well as an array containing their significant `digit`'s. Additionally there is a computed property for the resistance value.
 ```swift
-let fourBand = Resistor.fourBand(.green, .blue, .red, .gold)
+let fourBand = FourBandResistor(digit1: .green, digit2: .blue, multiplier: .red, tolerance: .gold)
 
 let resistanceValue = fourBand.value            // 5600
 print(fourBand.digits)                          // [green, blue]
 print(fourBand.multiplier)                      // red
 print(fourBand.tolerance)                       // gold
 
-let sixBand = Resistor.sixBand(.blue, .grey, .black, .black, .gold, .brown)
-print(sixBand.coefficient!)                     // brown
+let sixBand = SixBandResistor(digit1: .blue, digit2: .grey, digit3: .red, multiplier: .red, tolerance: .gold, coefficient: .brown)
+
+print(sixBand.coefficient)                     // brown
 
 print(fourBand.digits.map(\.rawValue))          // [5.0, 6.0]
 print(fourBand.multiplier.rawValue)             // 100.0
 print(fourBand.tolerance.rawValue)              // 0.05
-print(sixBand.coefficient!.rawValue)            // 100.0
+print(sixBand.coefficient.rawValue)            // 100.0
 ```
+
 ### Calculating Tolerance and Temperature Coefficient Ranges
-The `Resistor` type also contains two members for working out common resistance calculations. Both return a `Range<Double>` 
-meaning you can make use of all the functions `Range` provides.
+The banded resistor types also contain a property for calculating the tolerance range. And in the case of `SixBandResistor`, a function for calculating the resistance flux range for a given temperature change. Both return a `Range<Double>` meaning you can make use of all the functions `Range` provides.
 ```swift
-let fourBand = Resistor.fourBand(.brown, .black, .orange, .gold)
-let sixBand = Resistor.sixBand(.yellow, .violet, .black, .brown, .gold, .brown)
+let fourBand = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .orange, tolerance: .gold)
+
+let sixBand = SixBandResistor(digit1: .yellow, digit2: .violet, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
 
 let toleranceValueRange = fourBand.toleranceValueRange
 print(toleranceValueRange.upperBound)           // 10500.0
@@ -67,49 +66,43 @@ print(coefficientValueRange.lowerBound)         // 4697.65
 ```
 
 ### Turning a Value into a Resistor
-Sometimes you'll want to create a `Resistor` from a value rather than coloured bands.
-When this is the case, you're going to want to use `ResistorFactory`.
+Sometimes you'll want to create a resistor from a value rather than coloured bands. When this is the case, you can use the use various other initialisers of the resistor types..
 
-Because not all values can be represented by the bands of a resistor, when using `ResistorFactory`, you have the choice to either, round the value, or throw an error, if such a value is encountered.
+Because not all values can be represented by the bands of a resistor, when using the `init(value:)` initialisers you have the choice to either, round the value, or throw and error, if such a value is encountered.
 ```swift
-let factory = ResistorFactory()
-
-let roundedUpFourBand = factory.makeFourBand(value: 456, tolerance: .silver)
-let sixBand = factory.makeSixBand(value: 454, tolerance: .silver, coefficient: .yellow)
+let roundedUpFourBand = FourBandResistor(value: 456, tolerance: .silver)
+let sixBand = SixBandResistor(value: 454, tolerance: .silver, coefficient: .yellow)
 
 print(roundedUpFourBand)                        // 460 Ω
 print(sixBand)                                  // 450 Ω
 
 do {
-    let tooManyDigits = try factory.makeFiveBandOrFail(value: 1234, tolerance: .silver)
+    let tooManyDigits = try FiveBandResistor(value: 1234, tolerance: .silver)
 } catch {
     print(error)                                // invalidValueError
 }
 ```
 
 ### Converting Resistors
-For converting between the different `Resistor` types, `ResistorFactory` contains functions that take a `Resistor` as their first parameter 
-and return a new one of the specified type with the same value as the one passed in.
+For converting between the different resistor types, you can use the `init(resistor:)` initialisers. These initialisers take another resistor as their first parameter and use the value of it to create a new one with the default tolerance of `.gold` and coefficient default of `.brown`. These defaults can be overridden by passing them along with the resistor.
 
-By default, the conversion functions will take the tolerance rating – and `coefficient` where necessary – from the passed in `Resistor` and use these for the ratings of the newly created `Resistor`. You can however, override these by specifying different ones.
 ```swift
-let factory = ResistorFactory()
+let fourBand = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .gold)
 
-let fourBandResistor = Resistor.fourBand(.brown, .black, .red, .gold)
+let fiveBand = FiveBandResistor(resistor: fourBandResistor)
+let sixBand = SixBandResistor(resistor: fiveBandResistor, coefficient: .yellow)
 
-let fiveBandResistor = factory.makeFiveBand(resistor: fourBandResistor)
-let sixBandResistor = factory.makeSixBand(resistor: fiveBandResistor, coefficient: .yellow)
-
-print(fourBandResistor)                         // 1 KΩ
-print(fiveBandResistor)                         // 1 KΩ
-print(sixBandResistor)                          // 1 KΩ
+print(fourBand)                         // 1 KΩ
+print(fiveBand)                         // 1 KΩ
+print(sixBand)                          // 1 KΩ
 ```
 
 ### E-Series functionality
-`Resistance` provides support for the use of the [E-Series standard set of preferred values](https://en.wikipedia.org/wiki/E_series_of_preferred_numbers). This functionality comes in the form of the `ESeriesProtocol`.
+`Resistance` provides support for the use of the [E-Series standard set of preferred values][1]. This functionality comes in the form of the `ESeriesProtocol`.
 There are already implementations for all the common sets of preferred values and using them if fairly straightforward.
 ```swift
-let fiveBandResistor = Resistor.fiveBand(.blue, .green, .black, .brown, .gold)
+let fiveBand = FiveBandResistor(digit1: .blue, digit2: .green, digit3: .black, multiplier: .brown, tolerance: .gold)
+
 let value = fiveBandResistor.value
 print(value)                                    // 6500.0
 
@@ -131,8 +124,8 @@ print(nextDown)                                 // 4700.0
 If you'd like a more comprehensive overview of the API, `Resistance` includes a Swift Playground file in the Package with detailed instructions and runnable example code to make it easy to learn. 
 
 ## Installing
-`Resistance` is distributed using the [Swift Package Manager](https://swift.org/package-manager/). To import it using Xcode, follow 
-this [guide](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app).
+`Resistance` is distributed using the [Swift Package Manager][2]. To import it using Xcode, follow 
+this [guide][3].
 Or add it as a dependency within your Package.swift manifest:
 ```swift
 let package = Package(
@@ -156,3 +149,7 @@ import Resistance
 
 ## License
 Resistance is released under the MIT license. See LICENCE for details.
+
+[1]:	https://en.wikipedia.org/wiki/E_series_of_preferred_numbers
+[2]:	https://swift.org/package-manager/
+[3]:	https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app

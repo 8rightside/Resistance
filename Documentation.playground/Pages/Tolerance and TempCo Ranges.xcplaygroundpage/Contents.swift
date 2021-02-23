@@ -2,11 +2,9 @@
 import Resistance
 /*:
  # Tolerance and TempCo Ranges
- The banded resistor types also contain two members for working out common resistance calculations. Both
- return a `Range<Double>` meaning you can make use of all the functions `Range` provides.
- 
  The banded resistor types also contain a property for calculating the tolerance range. And in the case
  of `SixBandResistor`, a function for calculating the resistance flux range for a given temperature change.
+ Both return a `Range<Double>` meaning you can make use of all the functions `Range` provides.
  */
 let fourBand = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .orange, tolerance: .gold)
 let fiveBand = FiveBandResistor(digit1: .white, digit2: .green, digit3: .orange, multiplier: .brown, tolerance: .brown)
