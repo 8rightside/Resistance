@@ -74,7 +74,7 @@ let roundedUpFourBand = FourBandResistor(value: 456, tolerance: .silver)
 let sixBand = SixBandResistor(value: 454, tolerance: .silver, coefficient: .yellow)
 
 print(roundedUpFourBand)                        // 460 Ω
-print(sixBand)                                  // 450 Ω
+print(sixBand)                                  // 454 Ω
 
 do {
     let tooManyDigits = try FiveBandResistor(value: 1234, tolerance: .silver)
