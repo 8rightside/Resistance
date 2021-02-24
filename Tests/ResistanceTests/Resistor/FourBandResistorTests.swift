@@ -233,6 +233,33 @@ extension FourBandResistorTests {
     }
 }
 
+// MARK:- Decade Functions
+extension FourBandResistorTests {
+    func test_decadeUp() {
+        let sut = FourBandResistor(digit1: .brown, digit2: .red, multiplier: .orange, tolerance: .gold)
+        let result = sut.decadeUp()
+        XCTAssertEqual(result.multiplier, .yellow)
+    }
+    
+    func test_decadeUp_Max() {
+        let sut = FourBandResistor(digit1: .brown, digit2: .red, multiplier: .white, tolerance: .gold)
+        let result = sut.decadeUp()
+        XCTAssertEqual(result.multiplier, .white)
+    }
+    
+    func test_decadeDown() {
+        let sut = FourBandResistor(digit1: .brown, digit2: .red, multiplier: .orange, tolerance: .gold)
+        let result = sut.decadeDown()
+        XCTAssertEqual(result.multiplier, .red)
+    }
+    
+    func test_decadeDown_Min() {
+        let sut = FourBandResistor(digit1: .brown, digit2: .red, multiplier: .silver, tolerance: .gold)
+        let result = sut.decadeDown()
+        XCTAssertEqual(result.multiplier, .silver)
+    }
+}
+
 // MARK:- Internal
 import XCTest
 import Resistance
@@ -278,5 +305,10 @@ final class FourBandResistorTests: XCTestCase {
         ("test_init_exactResistor_5Band3SigFigs",   test_init_exactResistor_5Band3SigFigs),
         ("test_init_exactResistor_6Band",           test_init_exactResistor_6Band),
         ("test_init_exactResistor_6Band3SigFigs",   test_init_exactResistor_6Band3SigFigs),
+        
+        ("test_decadeUp",       test_decadeUp),
+        ("test_decadeUp_Max",   test_decadeUp_Max),
+        ("test_decadeDown",     test_decadeDown),
+        ("test_decadeDown_Min", test_decadeDown_Min),
     ]
 }

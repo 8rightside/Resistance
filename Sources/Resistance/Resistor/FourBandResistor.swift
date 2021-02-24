@@ -48,3 +48,16 @@ extension FourBandResistor {
         try self.init(exactValue: exactResistor.value, tolerance: tolerance)
     }
 }
+
+// MARK:- Multiplier Functions
+extension FourBandResistor {
+    public func decadeUp() -> FourBandResistor {
+        guard multiplier != .white else { return self }
+        return .init(value: value * 10)
+    }
+    
+    public func decadeDown() -> FourBandResistor {
+        guard multiplier != .silver else { return self }
+        return .init(value: value / 10)
+    }
+}

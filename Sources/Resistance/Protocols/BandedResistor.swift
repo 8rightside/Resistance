@@ -9,6 +9,8 @@ import Foundation
 public protocol BandedResistor: ValueCalculable, CustomStringConvertible {
     /// The `Tolerance` rating of the `Resistor` represented as a decimal
     var tolerance: Tolerance { get }
+    func decadeUp() -> Self
+    func decadeDown() -> Self
 }
 
 extension BandedResistor {    

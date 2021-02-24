@@ -348,6 +348,33 @@ extension SixBandResistorTests {
         }
 }
 
+// MARK:- Decade Functions
+extension SixBandResistorTests {
+    func test_decadeUp() {
+        let sut = SixBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold, coefficient: .brown)
+        let result = sut.decadeUp()
+        XCTAssertEqual(result.multiplier, .yellow)
+    }
+    
+    func test_decadeUp_Max() {
+        let sut = SixBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .white, tolerance: .gold, coefficient: .brown)
+        let result = sut.decadeUp()
+        XCTAssertEqual(result.multiplier, .white)
+    }
+    
+    func test_decadeDown() {
+        let sut = SixBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold, coefficient: .brown)
+        let result = sut.decadeDown()
+        XCTAssertEqual(result.multiplier, .red)
+    }
+    
+    func test_decadeDown_Min() {
+        let sut = SixBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .silver, tolerance: .gold, coefficient: .brown)
+        let result = sut.decadeDown()
+        XCTAssertEqual(result.multiplier, .silver)
+    }
+}
+
 // MARK:- Internal
 import XCTest
 import Resistance
@@ -411,5 +438,10 @@ final class SixBandResistorTests: XCTestCase {
         ("test_init_exactValue_5digits",    test_init_exactValue_5digits),
         ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
         ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
+        
+        ("test_decadeUp",       test_decadeUp),
+        ("test_decadeUp_Max",   test_decadeUp_Max),
+        ("test_decadeDown",     test_decadeDown),
+        ("test_decadeDown_Min", test_decadeDown_Min),
     ]
 }

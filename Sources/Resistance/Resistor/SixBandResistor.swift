@@ -60,3 +60,16 @@ extension SixBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, digit3: colors.digit3, multiplier: colors.multiplier, tolerance: tolerance, coefficient: coefficient)
     }
 }
+
+// MARK:- Multiplier Functions
+extension SixBandResistor {
+    public func decadeUp() -> SixBandResistor {
+        guard multiplier != .white else { return self }
+        return .init(value: value * 10)
+    }
+    
+    public func decadeDown() -> SixBandResistor {
+        guard multiplier != .silver else { return self }
+        return .init(value: value / 10)
+    }
+}

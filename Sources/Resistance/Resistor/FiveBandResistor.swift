@@ -45,3 +45,16 @@ extension FiveBandResistor {
         self.init(digit1: colors.digit1, digit2: colors.digit2, digit3: colors.digit3, multiplier: colors.multiplier, tolerance: tolerance)
     }
 }
+
+// MARK:- Multiplier Functions
+extension FiveBandResistor {
+    public func decadeUp() -> FiveBandResistor {
+        guard multiplier != .white else { return self }
+        return .init(value: value * 10)
+    }
+    
+    public func decadeDown() -> FiveBandResistor {
+        guard multiplier != .silver else { return self }
+        return .init(value: value / 10)
+    }
+}
