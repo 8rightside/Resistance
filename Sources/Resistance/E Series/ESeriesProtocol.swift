@@ -23,6 +23,15 @@ extension ESeriesProtocol {
         let sigfigs = value.hundredsDecade
         return preferredValues.contains(Int(sigfigs))
     }
+    
+    /// Returns a `Boolean` indicating whether the resistors value is in this `ESeries`
+    /// - Complexity: O(1)
+    /// - Parameters:
+    ///     - resistor: The resistor to test
+    /// - Returns: `true` if the resistors value is in the `ESeries`; otherwise `false`
+    public func containsPreferredValue<T: BandedResistor>(_ resistor: T) -> Bool {
+        containsPreferredValue(resistor.value)
+    }
      
     /// Returns a `Double` representing the next `ESeries` value up from the one passed
     /// - Parameters:
@@ -32,12 +41,28 @@ extension ESeriesProtocol {
         calculateNextValue(from: value)
     }
     
+    /// Returns a `Double` representing the next `ESeries` value up from the one passed
+    /// - Parameters:
+    ///     - from: Resistor to test
+    /// - Returns: Next `ESeries` value up
+    public func nextValueUp<T: BandedResistor>(from resistor: T) -> Double {
+        calculateNextValue(from: resistor.value)
+    }
+    
     /// Returns a `Double` representing the next `ESeries` value down from the one passed
     /// - Parameters:
     ///     - from: Value to test
     /// - Returns: Next `ESeries` value down
     public func nextValueDown(from value: Double) -> Double {
         calculateNextValue(from: value, reverseSorted: true)
+    }
+    
+    /// Returns a `Double` representing the next `ESeries` value down from the one passed
+    /// - Parameters:
+    ///     - from: Resistor to test
+    /// - Returns: Next `ESeries` value down
+    public func nextValueDown<T: BandedResistor>(from resistor: T) -> Double {
+        calculateNextValue(from: resistor.value, reverseSorted: true)
     }
 }
 

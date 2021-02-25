@@ -8,38 +8,56 @@
 extension ESeriesTests {
     func test_containsPreferredValue_returnsTrue_withFractional() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(4.7)
-        XCTAssertTrue(result)
+        let resistor = FourBandResistor(value: 4.7)
+        let result1 = sut.containsPreferredValue(4.7)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertTrue(result1)
+        XCTAssertTrue(result2)
     }
     
     func test_containsPreferredValue_returnsTrue_with2Digits() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(33)
-        XCTAssertTrue(result)
+        let resistor = FiveBandResistor(value: 33)
+        let result1 = sut.containsPreferredValue(33)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertTrue(result1)
+        XCTAssertTrue(result2)
     }
     
     func test_containsPreferredValue_returnsTrue_with5Digits() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(68000)
-        XCTAssertTrue(result)
+        let resistor = SixBandResistor(value: 68000)
+        let result1 = sut.containsPreferredValue(68000)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertTrue(result1)
+        XCTAssertTrue(result2)
     }
     
     func test_containsPreferredValue_returnsFalse_withFractional() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(4.6)
-        XCTAssertFalse(result)
+        let resistor = FourBandResistor(value: 4.6)
+        let result1 = sut.containsPreferredValue(4.6)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertFalse(result1)
+        XCTAssertFalse(result2)
     }
     
     func test_containsPreferredValue_returnsFalse_with2Digits() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(23)
-        XCTAssertFalse(result)
+        let resistor = FiveBandResistor(value: 23)
+        let result1 = sut.containsPreferredValue(23)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertFalse(result1)
+        XCTAssertFalse(result2)
     }
     
     func test_containsPreferredValue_returnsFalse_with5Digits() {
         let sut = E12Series()
-        let result = sut.containsPreferredValue(12345)
-        XCTAssertFalse(result)
+        let resistor = SixBandResistor(value: 12345)
+        let result1 = sut.containsPreferredValue(12345)
+        let result2 = sut.containsPreferredValue(resistor)
+        XCTAssertFalse(result1)
+        XCTAssertFalse(result2)
     }
 }
 
@@ -47,26 +65,38 @@ extension ESeriesTests {
 extension ESeriesTests {
     func test_nextValueUp_with2Digits_notInSeries() {
         let sut = E24Series()
-        let result = sut.nextValueUp(from: 53)
-        XCTAssertEqual(result, 56)
+        let resistor = FourBandResistor(value: 53)
+        let result1 = sut.nextValueUp(from: 53)
+        let result2 = sut.nextValueUp(from: resistor)
+        XCTAssertEqual(result1, 56)
+        XCTAssertEqual(result2, 56)
     }
     
     func test_nextValueUp_with5Digits_notInSeries() {
         let sut = E24Series()
-        let result = sut.nextValueUp(from: 45000)
-        XCTAssertEqual(result, 47000)
+        let resistor = FiveBandResistor(value: 45000)
+        let result1 = sut.nextValueUp(from: 45000)
+        let result2 = sut.nextValueUp(from: resistor)
+        XCTAssertEqual(result1, 47000)
+        XCTAssertEqual(result2, 47000)
     }
     
     func test_nextValueUp_with2Digits_inSeries() {
         let sut = E24Series()
-        let result = sut.nextValueUp(from: 33)
-        XCTAssertEqual(result, 36)
+        let resistor = SixBandResistor(value: 33)
+        let result1 = sut.nextValueUp(from: 33)
+        let result2 = sut.nextValueUp(from: resistor)
+        XCTAssertEqual(result1, 36)
+        XCTAssertEqual(result2, 36)
     }
     
     func test_nextValueUp_with5Digits_inSeries() {
         let sut = E24Series()
-        let result = sut.nextValueUp(from: 62000)
-        XCTAssertEqual(result, 68000)
+        let resistor = FourBandResistor(value: 62000)
+        let result1 = sut.nextValueUp(from: 62000)
+        let result2 = sut.nextValueUp(from: resistor)
+        XCTAssertEqual(result1, 68000)
+        XCTAssertEqual(result2, 68000)
     }
 }
 
@@ -74,26 +104,38 @@ extension ESeriesTests {
 extension ESeriesTests {
     func test_nextValueDown_with2Digits_notInSeries() {
         let sut = E24Series()
-        let result = sut.nextValueDown(from: 53)
-        XCTAssertEqual(result, 51)
+        let resistor = FourBandResistor(value: 53)
+        let result1 = sut.nextValueDown(from: 53)
+        let result2 = sut.nextValueDown(from: resistor)
+        XCTAssertEqual(result1, 51)
+        XCTAssertEqual(result2, 51)
     }
     
     func test_nextValueDown_with5Digits_notInSeries() {
         let sut = E24Series()
-        let result = sut.nextValueDown(from: 45000)
-        XCTAssertEqual(result, 43000)
+        let resistor = FiveBandResistor(value: 45000)
+        let result1 = sut.nextValueDown(from: 45000)
+        let result2 = sut.nextValueDown(from: resistor)
+        XCTAssertEqual(result1, 43000)
+        XCTAssertEqual(result2, 43000)
     }
     
     func test_nextValueDown_with2Digits_inSeries() {
         let sut = E24Series()
-        let result = sut.nextValueDown(from: 33)
-        XCTAssertEqual(result, 30)
+        let resistor = SixBandResistor(value: 33)
+        let result1 = sut.nextValueDown(from: 33)
+        let result2 = sut.nextValueDown(from: resistor)
+        XCTAssertEqual(result1, 30)
+        XCTAssertEqual(result2, 30)
     }
     
     func test_nextValueDown_with5Digits_inSeries() {
         let sut = E24Series()
-        let result = sut.nextValueDown(from: 62000)
-        XCTAssertEqual(result, 56000)
+        let resistor = FourBandResistor(value: 62000)
+        let result1 = sut.nextValueDown(from: 62000)
+        let result2 = sut.nextValueDown(from: resistor)
+        XCTAssertEqual(result1, 56000)
+        XCTAssertEqual(result2, 56000)
     }
 }
 
