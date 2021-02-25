@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Swift-5.3-blue.svg" />
+    <img src="https://img.shields.io/badge/Swift-5.3-blue?logo=swift&logoColor=white" />
     <a href="https://swift.org/package-manager">
-        <img src="https://img.shields.io/badge/swiftpm-compatible-blue.svg?style=flat" alt="Swift Package Manager" />
+        <img src="https://img.shields.io/badge/SwiftPM-compatible-blue" alt="Swift Package Manager" />
     </a>
-     <img src="https://img.shields.io/badge/platforms-mac+linux-blue.svg?style=flat" alt="Mac + Linux" />
+     <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20Linux-blue" alt="iOS Mac Linux" />
 </p>
 
 **Resistance** is a Swift library for creating and manipulating resistors and their values. It was designed to be easy to use whilst still providing plenty of features including:
