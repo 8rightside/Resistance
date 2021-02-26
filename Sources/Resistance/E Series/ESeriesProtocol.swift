@@ -29,7 +29,7 @@ extension ESeriesProtocol {
     /// - Parameters:
     ///     - resistor: The resistor to test
     /// - Returns: `true` if the resistors value is in the `ESeries`; otherwise `false`
-    public func containsPreferredValue<T: BandedResistor>(_ resistor: T) -> Bool {
+    public func containsPreferredValue<T: ValueCalculable>(_ resistor: T) -> Bool {
         containsPreferredValue(resistor.value)
     }
      
@@ -45,7 +45,7 @@ extension ESeriesProtocol {
     /// - Parameters:
     ///     - from: Resistor to test
     /// - Returns: Next `ESeries` value up
-    public func nextValueUp<T: BandedResistor>(from resistor: T) -> Double {
+    public func nextValueUp<T: ValueCalculable>(from resistor: T) -> Double {
         calculateNextValue(from: resistor.value)
     }
     
@@ -61,7 +61,7 @@ extension ESeriesProtocol {
     /// - Parameters:
     ///     - from: Resistor to test
     /// - Returns: Next `ESeries` value down
-    public func nextValueDown<T: BandedResistor>(from resistor: T) -> Double {
+    public func nextValueDown<T: ValueCalculable>(from resistor: T) -> Double {
         calculateNextValue(from: resistor.value, reverseSorted: true)
     }
 }
