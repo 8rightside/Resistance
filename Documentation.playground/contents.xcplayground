@@ -4,6 +4,7 @@
         <page name='Overview'/>
         <page name='Banded Resistor Types'/>
         <page name='Banded Resistor Properties'/>
+        <page name='Changing Decade'/>
         <page name='Tolerance and TempCo Ranges'/>
         <page name='Banded Resistor Round Inits'/>
         <page name='Banded Resistor Failable Inits'/>

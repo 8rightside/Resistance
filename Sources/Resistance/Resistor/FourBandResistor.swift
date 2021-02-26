@@ -53,11 +53,11 @@ extension FourBandResistor {
 extension FourBandResistor {
     public func decadeUp() -> FourBandResistor {
         guard multiplier != .white else { return self }
-        return .init(value: value * 10)
+        return .init(value: value * 10, tolerance: tolerance)
     }
     
     public func decadeDown() -> FourBandResistor {
         guard multiplier != .silver else { return self }
-        return .init(value: value / 10)
+        return .init(value: value / 10, tolerance: tolerance)
     }
 }

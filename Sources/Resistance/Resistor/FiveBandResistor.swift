@@ -50,11 +50,11 @@ extension FiveBandResistor {
 extension FiveBandResistor {
     public func decadeUp() -> FiveBandResistor {
         guard multiplier != .white else { return self }
-        return .init(value: value * 10)
+        return .init(value: value * 10, tolerance: tolerance)
     }
     
     public func decadeDown() -> FiveBandResistor {
         guard multiplier != .silver else { return self }
-        return .init(value: value / 10)
+        return .init(value: value / 10, tolerance: tolerance)
     }
 }

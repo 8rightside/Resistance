@@ -22,8 +22,8 @@ let resistor3Value = fourBand3.value
 //: You want to make sure it's in the E24 standard set.
 let e24 = E24Series()
 
-if !e24.containsPreferredValue(resistor3Value) {
-    let preferredValue = e24.nextValueUp(from: fourBand3.value)
+if !e24.containsPreferredValue(fourBand3) {
+    let preferredValue = e24.nextValueUp(from: fourBand3)
     fourBand3 = FourBandResistor(value: preferredValue, tolerance: .silver)
 }
 //: You want it as a five band resistor but with a tighter tolerance.

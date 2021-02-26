@@ -1,4 +1,4 @@
-//: [< Banded Resistor Properties](@previous)
+//: [< Changing Decade](@previous)
 import Resistance
 /*:
  # Tolerance and TempCo Ranges

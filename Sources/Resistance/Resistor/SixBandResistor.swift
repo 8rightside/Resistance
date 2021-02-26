@@ -65,11 +65,11 @@ extension SixBandResistor {
 extension SixBandResistor {
     public func decadeUp() -> SixBandResistor {
         guard multiplier != .white else { return self }
-        return .init(value: value * 10)
+        return .init(value: value * 10, tolerance: tolerance, coefficient: coefficient)
     }
     
     public func decadeDown() -> SixBandResistor {
         guard multiplier != .silver else { return self }
-        return .init(value: value / 10)
+        return .init(value: value / 10, tolerance: tolerance, coefficient: coefficient)
     }
 }

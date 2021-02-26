@@ -64,4 +64,4 @@ let fiveBandToleranceValue = fiveBandTolerance.rawValue
 let sixBandToleranceValue = sixBandTolerance.rawValue
 
 let sixBandCoefficientValue = sixBandCoefficient.rawValue
-//: [Tolerance and TempCo Ranges >](@next)
+//: [Changing Decade >](@next)
