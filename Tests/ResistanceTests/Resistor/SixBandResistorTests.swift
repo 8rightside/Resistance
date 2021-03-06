@@ -375,6 +375,31 @@ extension SixBandResistorTests {
     }
 }
 
+// MARK:- Conversion Functions
+extension SixBandResistorTests {
+    func test_convertToFourBand() {
+        let sut = SixBandResistor(value: 6800, tolerance: .green, coefficient: .yellow)
+        let result = sut.convertToFourBand()
+        XCTAssertEqual(result.value, 6800)
+        XCTAssertEqual(result.tolerance, .green)
+    }
+    
+    func test_convertToFiveBand() {
+        let sut = SixBandResistor(value: 6800, tolerance: .green, coefficient: .yellow)
+        let result = sut.convertToFiveBand()
+        XCTAssertEqual(result.value, 6800)
+        XCTAssertEqual(result.tolerance, .green)
+    }
+    
+    func test_convertToSixBand() {
+        let sut = SixBandResistor(value: 6800, tolerance: .green, coefficient: .yellow)
+        let result = sut.convertToSixBand()
+        XCTAssertEqual(result.value, 6800)
+        XCTAssertEqual(result.tolerance, .green)
+        XCTAssertEqual(result.coefficient, .yellow)
+    }
+}
+
 // MARK:- Internal
 import XCTest
 import Resistance
@@ -443,5 +468,9 @@ final class SixBandResistorTests: XCTestCase {
         ("test_decadeUp_Max",   test_decadeUp_Max),
         ("test_decadeDown",     test_decadeDown),
         ("test_decadeDown_Min", test_decadeDown_Min),
+        
+        ("test_convertToFourBand",  test_convertToFourBand),
+        ("test_convertToFiveBand",  test_convertToFiveBand),
+        ("test_convertToSixBand",   test_convertToSixBand),
     ]
 }

@@ -9,11 +9,13 @@ import Foundation
 public protocol BandedResistor: ValueCalculable, CustomStringConvertible {
     /// The `Tolerance` rating of the `Resistor` represented as a decimal
     var tolerance: Tolerance { get }
+    /// A new resistor with the value multiplied by 10
     func decadeUp() -> Self
+    /// A new resistor withe value divided by 10
     func decadeDown() -> Self
 }
 
-extension BandedResistor {    
+extension BandedResistor {
     /// `Range` representing the values the `Resistor` covers
     public var toleranceValueRange: Range<Double> {
         let lowerBound = value - value * tolerance.rawValue
@@ -21,7 +23,36 @@ extension BandedResistor {
         return lowerBound..<upperBound
     }
     
-    // MARK: Custom String Convertible
+    /// Creates a `FourBandResistor` with the same value and `tolerance` as self.
+    /// - Returns: `FourBandResistor` with the same value and `tolerance` as self.
+    public func convertToFourBand() -> FourBandResistor {
+        if let fourBand = self as? FourBandResistor {
+            return fourBand
+        }
+        return FourBandResistor(resistor: self, tolerance: self.tolerance)
+    }
+    
+    /// Creates a `FiveBandResistor` with the same value and `tolerance` as self.
+    /// - Returns: `FiveBandResistor` with the same value and `tolerance` as self.
+    public func convertToFiveBand() -> FiveBandResistor {
+        if let fiveBand = self as? FiveBandResistor {
+            return fiveBand
+        }
+        return FiveBandResistor(resistor: self, tolerance: self.tolerance)
+    }
+    
+    /// Creates a `SixBandResistor` with the same value, `tolerance`, and `coefficient` as self.
+    /// - Returns: `SixBandResistor` with the same value, `tolerance`, and `coefficient` as self.
+    public func convertToSixBand(addingCoefficient coefficient: Coefficient = .brown) -> SixBandResistor {
+        if let sixBand = self as? SixBandResistor {
+            return sixBand
+        }
+        return SixBandResistor(resistor: self, tolerance: self.tolerance, coefficient: coefficient)
+    }
+}
+
+// MARK: Custom String Convertible
+extension BandedResistor {
     /// A textual representation of this instance.
     ///
     /// Calling this property directly is discouraged. Instead, convert a
