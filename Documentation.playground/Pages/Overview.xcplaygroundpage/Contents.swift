@@ -7,6 +7,7 @@
  * [Banded Resistor Round Inits](Banded%20Resistor%20Round%20Inits)
  * [Banded Resistor Failable Inits](Banded%20Resistor%20Failable%20Inits)
  * [Banded Resistor Conversion Inits](Banded%20Resistor%20Conversion%20Inits)
+ * [Conversion Functions](Conversion%20Functions)
  * [ESeriesProtocol](ESeriesProtocol)
  * [ESeries Functions](ESeries%20Functions)
  * [Example Uses Case](Example%20Use%20Case)

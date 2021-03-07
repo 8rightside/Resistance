@@ -1,4 +1,4 @@
-//: [< Banded Resistor Conversion Inits](@previous)
+//: [< Conversion Functions](@previous)
 import Resistance
 /*:
  # ESeriesProtocol

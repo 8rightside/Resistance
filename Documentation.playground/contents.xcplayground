@@ -9,6 +9,7 @@
         <page name='Banded Resistor Round Inits'/>
         <page name='Banded Resistor Failable Inits'/>
         <page name='Banded Resistor Conversion Inits'/>
+        <page name='Conversion Functions'/>
         <page name='ESeriesProtocol'/>
         <page name='ESeries Functions'/>
         <page name='Example Use Case'/>
