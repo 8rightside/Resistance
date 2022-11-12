@@ -49,6 +49,20 @@ extension BandedResistor {
         }
         return SixBandResistor(resistor: self, tolerance: self.tolerance, coefficient: coefficient)
     }
+    
+    /// Returns the value of the next resistor up from the passed E Series
+    /// - Parameter eSeries: E Series from which to get next value
+    /// - Returns: `Double` representing next value up
+    public func nextValueUp(inSeries eSeries: ESeriesProtocol) -> Double {
+        return eSeries.nextValueUp(from: self)
+    }
+    
+    /// Returns the value of the next resistor down from the pass E Series
+    /// - Parameter eSeries: E Series from which to get next value
+    /// - Returns: `Double` representing next value down
+    public func nextValueDown(inSeries eSeries: ESeriesProtocol) -> Double {
+        return eSeries.nextValueDown(from: self)
+    }
 }
 
 // MARK: Custom String Convertible

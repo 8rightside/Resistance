@@ -41,7 +41,7 @@ public struct SixBandResistor: BandedResistor {
     }
 }
 
-// MARK:- Convenience Inits
+// MARK: - Convenience Inits
 extension SixBandResistor {
     public init(value: Double, tolerance: Tolerance = .gold, coefficient: Coefficient = .brown) {
         let colors = BandsCalculator.fiveBandColors(value: value)
@@ -53,7 +53,7 @@ extension SixBandResistor {
     }
 }
 
-// MARK:- Failable Inits
+// MARK: - Failable Inits
 extension SixBandResistor {
     public init(exactValue: Double, tolerance: Tolerance = .gold, coefficient: Coefficient = .brown) throws {
         let colors = try BandsCalculator.fiveBandColorsOrFail(value: exactValue)
@@ -61,7 +61,7 @@ extension SixBandResistor {
     }
 }
 
-// MARK:- Multiplier Functions
+// MARK: - Multiplier Functions
 extension SixBandResistor {
     public func decadeUp() -> SixBandResistor {
         guard multiplier != .white else { return self }

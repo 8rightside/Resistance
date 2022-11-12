@@ -61,7 +61,7 @@ extension ESeriesTests {
     }
 }
 
-// MARK:- Next Value Up
+// MARK: - Next Value Up
 extension ESeriesTests {
     func test_nextValueUp_with2Digits_notInSeries() {
         let sut = E24Series()
@@ -100,7 +100,7 @@ extension ESeriesTests {
     }
 }
 
-// MARK:- Next Value Down
+// MARK: - Next Value Down
 extension ESeriesTests {
     func test_nextValueDown_with2Digits_notInSeries() {
         let sut = E24Series()
@@ -139,7 +139,7 @@ extension ESeriesTests {
     }
 }
 
-// MARK:- Internal
+// MARK: - Internal
 import XCTest
 @testable import Resistance
 

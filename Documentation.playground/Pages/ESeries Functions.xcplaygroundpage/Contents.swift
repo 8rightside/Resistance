@@ -42,4 +42,14 @@ let nextUp2 = e12.nextValueUp(from: nonPreferredValue)
  */
 let nextDown1 = e12.nextValueDown(from: preferredValue)
 let nextDown2 = e12.nextValueDown(from: nonPreferredValue)
+/*:
+ ### nextValue Convenience Functions
+ In addition all of the `Resistor` types contain convenience functions for calculating the next
+ value up or down for a given `ESeries`.
+ */
+let inSeries = FourBandResistor(value: 4700)
+let nextUpInSeries = inSeries.nextValueUp(inSeries: E24Series())
+
+let notInSeries = FiveBandResistor(value: 570)
+let nextDownInSeries = notInSeries.nextValueDown(inSeries: E24Series())
 //: [Example Use Case >](@next)  

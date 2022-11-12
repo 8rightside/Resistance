@@ -6,7 +6,7 @@
 
 import Foundation
 
-// MARK:- Properties
+// MARK: - Properties
 public struct FourBandResistor: BandedResistor {
     let digit1: Digit
     let digit2: Digit
@@ -25,7 +25,7 @@ public struct FourBandResistor: BandedResistor {
     }
 }
 
-// MARK:- Convenience Inits
+// MARK: - Convenience Inits
 extension FourBandResistor {
     public init(value: Double, tolerance: Tolerance = .gold) {
         let colors = BandsCalculator.fourBandColors(value: value)
@@ -37,7 +37,7 @@ extension FourBandResistor {
     }
 }
 
-// MARK:- Failable Inits
+// MARK: - Failable Inits
 extension FourBandResistor {
     public init(exactValue: Double, tolerance: Tolerance = .gold) throws {
         let colors = try BandsCalculator.fourBandColorsOrFail(value: exactValue)
@@ -49,7 +49,7 @@ extension FourBandResistor {
     }
 }
 
-// MARK:- Multiplier Functions
+// MARK: - Multiplier Functions
 extension FourBandResistor {
     public func decadeUp() -> FourBandResistor {
         guard multiplier != .white else { return self }

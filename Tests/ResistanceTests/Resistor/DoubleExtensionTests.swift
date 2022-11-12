@@ -44,7 +44,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Sig Figs
+// MARK: - Sig Figs
 extension DoubleExtensionTests {
     func test_sigFigs_1Digit() {
         let value: Double = 4
@@ -77,7 +77,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Power Of Ten
+// MARK: - Power Of Ten
 extension DoubleExtensionTests {
     func test_powerOfTen_1Digit() {
         let value: Double = 4
@@ -100,7 +100,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Hundreds Decade
+// MARK: - Hundreds Decade
 extension DoubleExtensionTests {
     func test_hundredsDecade_1Digit() {
         let value: Double = 4
@@ -128,7 +128,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Sig Figs Rounded
+// MARK: - Sig Figs Rounded
 extension DoubleExtensionTests {
     func test_sigFigsRounded_by1_5Digits() {
         let value1: Double = 12457
@@ -166,7 +166,7 @@ extension DoubleExtensionTests {
     }
 }
 
-// MARK:- Internal
+// MARK: - Internal
 import XCTest
 @testable import Resistance
 

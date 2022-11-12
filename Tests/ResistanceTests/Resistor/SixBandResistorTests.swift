@@ -4,7 +4,7 @@
  *  MIT license, see LICENSE file for details
 */
 
-// MARK:- Resistance Value
+// MARK: - Resistance Value
 extension SixBandResistorTests {
     func test_value_min() {
         let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold, coefficient: .brown)
@@ -32,7 +32,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Description
+// MARK: - Description
 extension SixBandResistorTests {
     func test_description_1digit() {
         let resistor = SixBandResistor(digit1: .grey, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold, coefficient: .brown)
@@ -60,7 +60,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Tolerance Value Range
+// MARK: - Tolerance Value Range
 extension SixBandResistorTests {
     func test_toleranceValueRange_gold() {
         let resistor = SixBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold, coefficient: .brown)
@@ -231,7 +231,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Init Value Tolerance
+// MARK: - Init Value Tolerance
 extension SixBandResistorTests {
     func test_init_value_belowMin() {
         let resistor = SixBandResistor(value: 0.5)
@@ -269,7 +269,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Init Resistor Tolerance
+// MARK: - Init Resistor Tolerance
 extension SixBandResistorTests {
     func test_init_resistor_4Band() {
         let resistor = FourBandResistor(value: 3300)
@@ -317,7 +317,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Init Exact Value Tolerance
+// MARK: - Init Exact Value Tolerance
 extension SixBandResistorTests {
     func test_init_exactValue_belowMin() throws {
             XCTAssertThrowsError(try SixBandResistor(exactValue: 0.05))
@@ -348,7 +348,7 @@ extension SixBandResistorTests {
         }
 }
 
-// MARK:- Decade Functions
+// MARK: - Decade Functions
 extension SixBandResistorTests {
     func test_decadeUp() {
         let sut = SixBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold, coefficient: .brown)
@@ -375,7 +375,7 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Conversion Functions
+// MARK: - Conversion Functions
 extension SixBandResistorTests {
     func test_convertToFourBand() {
         let sut = SixBandResistor(value: 6800, tolerance: .green, coefficient: .yellow)
@@ -400,7 +400,22 @@ extension SixBandResistorTests {
     }
 }
 
-// MARK:- Internal
+// MARK: - Next Value Functions
+extension SixBandResistorTests {
+    func test_nextValueUp() {
+        let sut = SixBandResistor(value: 79)
+        let result = sut.nextValueUp(inSeries: E48Series())
+        XCTAssertEqual(result, 82.5)
+    }
+    
+    func test_nextValueDown() {
+        let sut = SixBandResistor(value: 79)
+        let result = sut.nextValueDown(inSeries: E48Series())
+        XCTAssertEqual(result, 78.7)
+    }
+}
+
+// MARK: - Internal
 import XCTest
 import Resistance
 
