@@ -4,7 +4,7 @@
 *  MIT license, see LICENSE file for details
 */
 
-// MARK:- API
+// MARK: - API
 import Foundation
 
 public protocol ESeriesProtocol {
@@ -66,7 +66,7 @@ extension ESeriesProtocol {
     }
 }
 
-// MARK:- Internal
+// MARK: - Internal
 extension ESeriesProtocol {
     private func calculateNextValue(from value: Double, reverseSorted: Bool = false) -> Double {
         let sigFigs = value.hundredsDecade

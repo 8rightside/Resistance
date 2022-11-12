@@ -4,7 +4,7 @@
  *  MIT license, see LICENSE file for details
 */
 
-// MARK:- Four Band
+// MARK: - Four Band
 extension BandsCalculator {
     static func fourBandColors(value: Double) -> (digit1: Digit, digit2: Digit, multiplier: Multiplier) {
         guard value >= fourBandMin else { return calculateFourBandColors(value: fourBandMin) }
@@ -23,7 +23,7 @@ extension BandsCalculator {
     }
 }
 
-// MARK:- Five Band
+// MARK: - Five Band
 extension BandsCalculator {
     static func fiveBandColors(value: Double) -> (digit1: Digit, digit2: Digit, digit3: Digit, multiplier: Multiplier) {
         guard value >= fiveBandMin else { return calculateFiveBandColors(value: fiveBandMin) }
@@ -42,18 +42,18 @@ extension BandsCalculator {
     }
 }
 
-// MARK:- Internal
+// MARK: - Internal
 import Foundation
 
 enum BandsCalculator {
-// MARK:- Constants
+// MARK: - Constants
     static let fourBandMin: Double = 0.1
     static let fourBandMax: Double = 99_000_000_000
     static let fiveBandMin: Double = 1
     static let fiveBandMax: Double = 999_000_000_000
 }
 
-// MARK:- Functions
+// MARK: - Functions
 extension BandsCalculator {
     private static func calculateFourBandColors(value: Double) -> (digit1: Digit, digit2: Digit, multiplier: Multiplier) {
         var sigfigs = value.hundredsDecade

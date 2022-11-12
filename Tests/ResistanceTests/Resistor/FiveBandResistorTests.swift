@@ -4,7 +4,7 @@
  *  MIT license, see LICENSE file for details
 */
 
-// MARK:- Resistance Value
+// MARK: - Resistance Value
 extension FiveBandResistorTests {
     func test_value_min() {
         let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
@@ -32,7 +32,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Description
+// MARK: - Description
 extension FiveBandResistorTests {
     func test_description_1digit() {
         let resistor = FiveBandResistor(digit1: .grey, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
@@ -60,7 +60,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Tolerance Value Range
+// MARK: - Tolerance Value Range
 extension FiveBandResistorTests {
     func test_toleranceValueRange_gold() {
         let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold)
@@ -84,7 +84,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Init Value Tolerance
+// MARK: - Init Value Tolerance
 extension FiveBandResistorTests {
     func test_init_value_belowMin() {
         let resistor = FiveBandResistor(value: 0.5)
@@ -122,7 +122,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Init Resistor Tolerance
+// MARK: - Init Resistor Tolerance
 extension FiveBandResistorTests {
     func test_init_resistor_4Band() {
         let resistor = FourBandResistor(value: 3300)
@@ -165,7 +165,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Init Exact Value Tolerance
+// MARK: - Init Exact Value Tolerance
 extension FiveBandResistorTests {
     func test_init_exactValue_belowMin() throws {
             XCTAssertThrowsError(try FiveBandResistor(exactValue: 0.05))
@@ -194,7 +194,7 @@ extension FiveBandResistorTests {
         }
 }
 
-// MARK:- Decade Functions
+// MARK: - Decade Functions
 extension FiveBandResistorTests {
     func test_decadeUp() {
         let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold)
@@ -221,7 +221,7 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Conversion Functions
+// MARK: - Conversion Functions
 extension FiveBandResistorTests {
     func test_convertToFourBand() {
         let sut = FiveBandResistor(value: 2200, tolerance: .orange)
@@ -246,7 +246,22 @@ extension FiveBandResistorTests {
     }
 }
 
-// MARK:- Internal
+// MARK: - Next Value Functions
+extension FiveBandResistorTests {
+    func test_nextValueUp() {
+        let sut = FiveBandResistor(value: 5500)
+        let result = sut.nextValueUp(inSeries: E24Series())
+        XCTAssertEqual(result, 5600)
+    }
+    
+    func test_nextValueDown() {
+        let sut = FiveBandResistor(value: 5500)
+        let result = sut.nextValueDown(inSeries: E24Series())
+        XCTAssertEqual(result, 5100)
+    }
+}
+
+// MARK: - Internal
 import XCTest
 import Resistance
 

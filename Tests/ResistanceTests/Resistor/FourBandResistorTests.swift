@@ -4,7 +4,7 @@
  *  MIT license, see LICENSE file for details
 */
 
-// MARK:- Resistance Value
+// MARK: - Resistance Value
 extension FourBandResistorTests {
     func test_value_min() {
         let resistor = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .silver, tolerance: .silver)
@@ -32,7 +32,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Description
+// MARK: - Description
 extension FourBandResistorTests {
     func test_description_1digit() {
         let resistor = FourBandResistor(digit1: .grey, digit2: .black, multiplier: .gold, tolerance: .silver)
@@ -60,7 +60,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Tolerance Value Range
+// MARK: - Tolerance Value Range
 extension FourBandResistorTests {
     func test_toleranceValueRange_gold() {
         let resistor = FourBandResistor(digit1: .brown, digit2: .black, multiplier: .red, tolerance: .gold)
@@ -84,7 +84,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Init Value Tolerance
+// MARK: - Init Value Tolerance
 extension FourBandResistorTests {
     func test_init_value_belowMin() {
         let resistor = FourBandResistor(value: 0.05)
@@ -122,7 +122,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Init Resistor Tolerance
+// MARK: - Init Resistor Tolerance
 extension FourBandResistorTests {
     func test_init_resistor_4Band() {
         let resistor = FourBandResistor(value: 3300)
@@ -165,7 +165,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Init Exact Value Tolerance
+// MARK: - Init Exact Value Tolerance
 extension FourBandResistorTests {
     func test_init_exactValue_belowMin() throws {
         XCTAssertThrowsError(try FourBandResistor(exactValue: 0.05))
@@ -194,7 +194,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Init Exact Resistor Tolerance
+// MARK: - Init Exact Resistor Tolerance
 extension FourBandResistorTests {
     func test_init_exactResistor_4Band() throws {
         let resistor = FourBandResistor(value: 3300)
@@ -233,7 +233,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Decade Functions
+// MARK: - Decade Functions
 extension FourBandResistorTests {
     func test_decadeUp() {
         let sut = FourBandResistor(digit1: .brown, digit2: .red, multiplier: .orange, tolerance: .gold)
@@ -260,7 +260,7 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Conversion Functions
+// MARK: - Conversion Functions
 extension FourBandResistorTests {
     func test_convertToFourBand() {
         let sut = FourBandResistor(value: 3300, tolerance: .yellow)
@@ -285,7 +285,22 @@ extension FourBandResistorTests {
     }
 }
 
-// MARK:- Internal
+// MARK: - Next Value Functions
+extension FourBandResistorTests {
+    func test_nextValueUp() {
+        let sut = FourBandResistor(value: 3100)
+        let result = sut.nextValueUp(inSeries: E12Series())
+        XCTAssertEqual(result, 3300)
+    }
+    
+    func test_nextValueDown() {
+        let sut = FourBandResistor(value: 3100)
+        let result = sut.nextValueDown(inSeries: E12Series())
+        XCTAssertEqual(result, 2700)
+    }
+}
+
+// MARK: - Internal
 import XCTest
 import Resistance
 

@@ -61,7 +61,7 @@ extension BandedResistor {
     /// - Parameter eSeries: E Series from which to get next value
     /// - Returns: `Double` representing next value down
     public func nextValueDown(inSeries eSeries: ESeriesProtocol) -> Double {
-        return eSeries.nextValueUp(from: self)
+        return eSeries.nextValueDown(from: self)
     }
 }
 
