@@ -96,7 +96,7 @@ print(sixBand)                          // 1 KΩ
 
 ### E-Series functionality
 `Resistance` provides support for the use of the [E-Series standard set of preferred values][1]. This functionality comes in the form of the `ESeriesProtocol`.
-There are already implementations for all the common sets of preferred values and using them if fairly straightforward.
+There are already implementations for all the common sets of preferred values and using them is fairly straightforward.
 ```swift
 let fiveBand = FiveBandResistor(digit1: .blue, digit2: .green, digit3: .black, multiplier: .brown, tolerance: .gold)
 
