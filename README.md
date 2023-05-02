@@ -63,7 +63,7 @@ print(coefficientValueRange.lowerBound)         // 4697.65
 ```
 
 ### Turning a Value into a Resistor
-Sometimes you'll want to create a resistor from a value rather than coloured bands. When this is the case, you can use the various other initialisers of the resistor types..
+Sometimes you'll want to create a resistor from a value rather than coloured bands. When this is the case, you can use the various other initialisers of the resistor types.
 
 Because not all values can be represented by the bands of a resistor, when using the `init(value:)` initialisers you have the choice to either, round the value, or throw and error, if such a value is encountered.
 ```swift
