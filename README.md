@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/Swift-5.3-blue?logo=swift&logoColor=white" />
+    <img src="https://img.shields.io/badge/Swift-6.0-blue?logo=swift&logoColor=white" />
     <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20Linux-blue" alt="iOS Mac Linux" />
 </p>
 
