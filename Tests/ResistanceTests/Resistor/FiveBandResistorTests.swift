@@ -4,310 +4,314 @@
  *  MIT license, see LICENSE file for details
 */
 
-// MARK: - Resistance Value
-extension FiveBandResistorTests {
-    func test_value_min() {
-        let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
-        XCTAssertEqual(resistor.value, 1)
-    }
-    
-    func test_value_max() {
-        let resistor = FiveBandResistor(digit1: .white, digit2: .white, digit3: .white, multiplier: .white, tolerance: .gold)
-        XCTAssertEqual(resistor.value, 999_000_000_000)
-    }
-    
-    func test_value_fractional() {
-        let resistor = FiveBandResistor(digit1: .blue, digit2: .grey, digit3: .red, multiplier: .silver, tolerance: .gold)
-        XCTAssertEqual(resistor.value, 6.82)
-    }
-    
-    func test_value_3digits() {
-        let resistor = FiveBandResistor(digit1: .white, digit2: .black, digit3: .brown, multiplier: .black, tolerance: .gold)
-        XCTAssertEqual(resistor.value, 901)
-    }
-    
-    func test_value_5digits() {
-        let resistor = FiveBandResistor(digit1: .orange, digit2: .orange, digit3: .black, multiplier: .red, tolerance: .gold)
-        XCTAssertEqual(resistor.value, 33000)
-    }
-}
-
-// MARK: - Description
-extension FiveBandResistorTests {
-    func test_description_1digit() {
-        let resistor = FiveBandResistor(digit1: .grey, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
-        XCTAssertEqual(resistor.description, "8 Ω")
-    }
-    
-    func test_description_4digit() {
-        let resistor = FiveBandResistor(digit1: .green, digit2: .blue, digit3: .black, multiplier: .brown, tolerance: .gold)
-        XCTAssertEqual(resistor.description, "5.6 KΩ")
-    }
-    
-    func test_description_6digit() {
-        let resistor = FiveBandResistor(digit1: .yellow, digit2: .black, digit3: .black, multiplier: .orange, tolerance: .gold)
-        XCTAssertEqual(resistor.description, "400 KΩ")
-    }
-    
-    func test_description_7digit() {
-        let resistor = FiveBandResistor(digit1: .orange, digit2: .white, digit3: .black, multiplier: .yellow, tolerance: .gold)
-        XCTAssertEqual(resistor.description, "3.9 MΩ")
-    }
-    
-    func test_description_10digit() {
-        let resistor = FiveBandResistor(digit1: .red, digit2: .black, digit3: .black, multiplier: .violet, tolerance: .gold)
-        XCTAssertEqual(resistor.description, "2 GΩ")
-    }
-}
-
-// MARK: - Tolerance Value Range
-extension FiveBandResistorTests {
-    func test_toleranceValueRange_gold() {
-        let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold)
-        let result = resistor.toleranceValueRange
-        XCTAssertEqual(result.upperBound, 1050)
-        XCTAssertEqual(result.lowerBound, 950)
-    }
-    
-    func test_toleranceValueRange_silver() {
-        let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .silver)
-        let result = resistor.toleranceValueRange
-        XCTAssertEqual(result.upperBound, 1100)
-        XCTAssertEqual(result.lowerBound, 900)
-    }
-    
-    func test_toleranceValueRange_brown() {
-        let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .brown)
-        let result = resistor.toleranceValueRange
-        XCTAssertEqual(result.upperBound, 1010)
-        XCTAssertEqual(result.lowerBound, 990)
-    }
-}
-
-// MARK: - Init Value Tolerance
-extension FiveBandResistorTests {
-    func test_init_value_belowMin() {
-        let resistor = FiveBandResistor(value: 0.5)
-        XCTAssertEqual(resistor.digits, [.brown, .black, .black])
-        XCTAssertEqual(resistor.multiplier, .silver)
-        XCTAssertEqual(resistor.tolerance, .gold)
-    }
-    
-    func test_init_value_fractional() {
-        let resistor = FiveBandResistor(value: 3.3, tolerance: .green)
-        XCTAssertEqual(resistor.digits, [.orange, .orange, .black])
-        XCTAssertEqual(resistor.multiplier, .silver)
-        XCTAssertEqual(resistor.tolerance, .green)
-    }
-    
-    func test_init_value_5digits() {
-        let resistor = FiveBandResistor(value: 12345)
-        XCTAssertEqual(resistor.digits, [.brown, .red, .orange])
-        XCTAssertEqual(resistor.multiplier, .red)
-        XCTAssertEqual(resistor.tolerance, .gold)
-    }
-    
-    func test_init_value_8digits() {
-        let resistor = FiveBandResistor(value: 98765432, tolerance: .silver)
-        XCTAssertEqual(resistor.digits, [.white, .grey, .grey])
-        XCTAssertEqual(resistor.multiplier, .green)
-        XCTAssertEqual(resistor.tolerance, .silver)
-    }
-    
-    func test_init_value_aboveMax() {
-        let resistor = FiveBandResistor(value: 9_999_999_999_999)
-        XCTAssertEqual(resistor.digits, [.white, .white, .white])
-        XCTAssertEqual(resistor.multiplier, .white)
-        XCTAssertEqual(resistor.tolerance, .gold)
-    }
-}
-
-// MARK: - Init Resistor Tolerance
-extension FiveBandResistorTests {
-    func test_init_resistor_4Band() {
-        let resistor = FourBandResistor(value: 3300)
-        let sut = FiveBandResistor(resistor: resistor)
-        XCTAssertEqual(sut.digits, [.orange, .orange, .black])
-        XCTAssertEqual(sut.multiplier, .brown)
-        XCTAssertEqual(sut.tolerance, .gold)
-    }
-    
-    func test_init_resistor_5Band() {
-        let resistor = FiveBandResistor(value: 47000)
-        let sut = FiveBandResistor(resistor: resistor, tolerance: .yellow)
-        XCTAssertEqual(sut.digits, [.yellow, .violet, .black])
-        XCTAssertEqual(sut.multiplier, .red)
-        XCTAssertEqual(sut.tolerance, .yellow)
-    }
-    
-    func test_init_resistor_5Band3SigFigs() {
-        let resistor = FiveBandResistor(value: 67800)
-        let sut = FiveBandResistor(resistor: resistor)
-        XCTAssertEqual(sut.digits, [.blue, .violet, .grey])
-        XCTAssertEqual(sut.multiplier, .red)
-        XCTAssertEqual(sut.tolerance, .gold)
-    }
-    
-    func test_init_resistor_6Band() {
-        let resistor = SixBandResistor(value: 5.6)
-        let sut = FiveBandResistor(resistor: resistor, tolerance: .green)
-        XCTAssertEqual(sut.digits, [.green, .blue, .black])
-        XCTAssertEqual(sut.multiplier, .silver)
-        XCTAssertEqual(sut.tolerance, .green)
-    }
-    
-    func test_init_resistor_6Band3SigFigs() {
-        let resistor = SixBandResistor(value: 4.23)
-        let sut = FiveBandResistor(resistor: resistor)
-        XCTAssertEqual(sut.digits, [.yellow, .red, .orange])
-        XCTAssertEqual(sut.multiplier, .silver)
-        XCTAssertEqual(sut.tolerance, .gold)
-    }
-}
-
-// MARK: - Init Exact Value Tolerance
-extension FiveBandResistorTests {
-    func test_init_exactValue_belowMin() throws {
-            XCTAssertThrowsError(try FiveBandResistor(exactValue: 0.05))
-        }
-        
-        func test_init_exactValue_fractional() throws {
-            let resistor = try FiveBandResistor(exactValue: 4.7, tolerance: .silver)
-            XCTAssertEqual(resistor.digits, [.yellow, .violet, .black])
-            XCTAssertEqual(resistor.multiplier, .silver)
-            XCTAssertEqual(resistor.tolerance, .silver)
-        }
-        
-        func test_init_exactValue_5digits() {
-            XCTAssertThrowsError(try FiveBandResistor(exactValue: 56789))
-        }
-        
-        func test_init_exactValue_8digits() throws {
-            let resistor = try FiveBandResistor(exactValue: 12_200_000, tolerance: .blue)
-            XCTAssertEqual(resistor.digits, [.brown, .red, .red])
-            XCTAssertEqual(resistor.multiplier, .green)
-            XCTAssertEqual(resistor.tolerance, .blue)
-        }
-        
-        func test_init_exactValue_aboveMax() {
-            XCTAssertThrowsError(try FourBandResistor(exactValue: 999_999_999_999))
-        }
-}
-
-// MARK: - Decade Functions
-extension FiveBandResistorTests {
-    func test_decadeUp() {
-        let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold)
-        let result = sut.decadeUp()
-        XCTAssertEqual(result.multiplier, .yellow)
-    }
-    
-    func test_decadeUp_Max() {
-        let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .white, tolerance: .gold)
-        let result = sut.decadeUp()
-        XCTAssertEqual(result.multiplier, .white)
-    }
-    
-    func test_decadeDown() {
-        let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold)
-        let result = sut.decadeDown()
-        XCTAssertEqual(result.multiplier, .red)
-    }
-    
-    func test_decadeDown_Min() {
-        let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .silver, tolerance: .gold)
-        let result = sut.decadeDown()
-        XCTAssertEqual(result.multiplier, .silver)
-    }
-}
-
-// MARK: - Conversion Functions
-extension FiveBandResistorTests {
-    func test_convertToFourBand() {
-        let sut = FiveBandResistor(value: 2200, tolerance: .orange)
-        let result = sut.convertToFourBand()
-        XCTAssertEqual(result.value, 2200)
-        XCTAssertEqual(result.tolerance, .orange)
-    }
-    
-    func test_convertToFiveBand() {
-        let sut = FiveBandResistor(value: 2200, tolerance: .orange)
-        let result = sut.convertToFiveBand()
-        XCTAssertEqual(result.value, 2200)
-        XCTAssertEqual(result.tolerance, .orange)
-    }
-    
-    func test_convertToSixBand() {
-        let sut = FiveBandResistor(value: 2200, tolerance: .orange)
-        let result = sut.convertToSixBand(addingCoefficient: .red)
-        XCTAssertEqual(result.value, 2200)
-        XCTAssertEqual(result.tolerance, .orange)
-        XCTAssertEqual(result.coefficient, .red)
-    }
-}
-
-// MARK: - Next Value Functions
-extension FiveBandResistorTests {
-    func test_nextValueUp() {
-        let sut = FiveBandResistor(value: 5500)
-        let result = sut.nextValueUp(inSeries: E24Series())
-        XCTAssertEqual(result, 5600)
-    }
-    
-    func test_nextValueDown() {
-        let sut = FiveBandResistor(value: 5500)
-        let result = sut.nextValueDown(inSeries: E24Series())
-        XCTAssertEqual(result, 5100)
-    }
-}
-
-// MARK: - Internal
-import XCTest
+import Testing
 import Resistance
 
-final class FiveBandResistorTests: XCTestCase {
-    static var allTests = [
-        ("test_value_min",          test_value_min),
-        ("test_value_max",          test_value_max),
-        ("test_value_fractional",   test_value_fractional),
-        ("test_value_3digits",      test_value_3digits),
-        ("test_value_5digits",      test_value_5digits),
+@Suite("Five Band Resistor Tests")
+struct FiveBandResistorTests {
+    
+    // MARK: Resistance Value
+    @Suite("Resistance Value")
+    struct ResistanceValue {
+        @Test("Minimum value")
+        static func value_min() {
+            let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
+            #expect(resistor.value == 1)
+        }
         
-        ("test_description_1digit",     test_description_1digit),
-        ("test_description_4digit",     test_description_4digit),
-        ("test_description_6digit",     test_description_6digit),
-        ("test_description_7digit",     test_description_7digit),
-        ("test_description_10digit",    test_description_10digit),
+        @Test("Maximum value")
+        static func value_max() {
+            let resistor = FiveBandResistor(digit1: .white, digit2: .white, digit3: .white, multiplier: .white, tolerance: .gold)
+            #expect(resistor.value == 999_000_000_000)
+        }
         
-        ("test_toleranceValueRange_gold",   test_toleranceValueRange_gold),
-        ("test_toleranceValueRange_silver", test_toleranceValueRange_silver),
-        ("test_toleranceValueRange_brown",  test_toleranceValueRange_brown),
+        @Test("Fractional value")
+        static func value_fractional() {
+            let resistor = FiveBandResistor(digit1: .blue, digit2: .grey, digit3: .red, multiplier: .silver, tolerance: .gold)
+            #expect(resistor.value == 6.82)
+        }
         
-        ("test_init_value_belowMin",    test_init_value_belowMin),
-        ("test_init_value_fractional",  test_init_value_fractional),
-        ("test_init_value_5digits",     test_init_value_5digits),
-        ("test_init_value_8digits",     test_init_value_8digits),
-        ("test_init_value_aboveMax",    test_init_value_aboveMax),
+        @Test("3 digit value")
+        static func value_3digits() {
+            let resistor = FiveBandResistor(digit1: .white, digit2: .black, digit3: .brown, multiplier: .black, tolerance: .gold)
+            #expect(resistor.value == 901)
+        }
         
-        ("test_init_resistor_4Band",            test_init_resistor_4Band),
-        ("test_init_resistor_5Band",            test_init_resistor_5Band),
-        ("test_init_resistor_5Band3SigFigs",    test_init_resistor_5Band3SigFigs),
-        ("test_init_resistor_6Band",            test_init_resistor_6Band),
-        ("test_init_resistor_6Band3SigFigs",    test_init_resistor_6Band3SigFigs),
+        @Test("5 digit value")
+        static func value_5digits() {
+            let resistor = FiveBandResistor(digit1: .orange, digit2: .orange, digit3: .black, multiplier: .red, tolerance: .gold)
+            #expect(resistor.value == 33000)
+        }
+    }
+    
+    // MARK: Descripion
+    @Suite("Description")
+    struct Description {
         
-        ("test_init_exactValue_belowMin",   test_init_exactValue_belowMin),
-        ("test_init_exactValue_fractional", test_init_exactValue_fractional),
-        ("test_init_exactValue_5digits",    test_init_exactValue_5digits),
-        ("test_init_exactValue_8digits",    test_init_exactValue_8digits),
-        ("test_init_exactValue_aboveMax",   test_init_exactValue_aboveMax),
+        @Test("Description with 1 digit")
+        static func description_1digit() {
+            let resistor = FiveBandResistor(digit1: .grey, digit2: .black, digit3: .black, multiplier: .silver, tolerance: .gold)
+            #expect(resistor.description == "8 Ω")
+        }
         
-        ("test_decadeUp",       test_decadeUp),
-        ("test_decadeUp_Max",   test_decadeUp_Max),
-        ("test_decadeDown",     test_decadeDown),
-        ("test_decadeDown_Min", test_decadeDown_Min),
+        @Test("Description with 4 digits")
+        static func description_4digit() {
+            let resistor = FiveBandResistor(digit1: .green, digit2: .blue, digit3: .black, multiplier: .brown, tolerance: .gold)
+            #expect(resistor.description == "5.6 KΩ")
+        }
         
-        ("test_convertToFourBand",  test_convertToFourBand),
-        ("test_convertToFiveBand",  test_convertToFiveBand),
-        ("test_convertToSixBand",   test_convertToSixBand),
-    ]
+        @Test("Description with 6 digits")
+        static func description_6digit() {
+            let resistor = FiveBandResistor(digit1: .yellow, digit2: .black, digit3: .black, multiplier: .orange, tolerance: .gold)
+            #expect(resistor.description == "400 KΩ")
+        }
+        
+        @Test("Description with 7 digits")
+        static func description_7digit() {
+            let resistor = FiveBandResistor(digit1: .orange, digit2: .white, digit3: .black, multiplier: .yellow, tolerance: .gold)
+            #expect(resistor.description == "3.9 MΩ")
+        }
+        
+        @Test("Description with 10 digits")
+        static func description_10digit() {
+            let resistor = FiveBandResistor(digit1: .red, digit2: .black, digit3: .black, multiplier: .violet, tolerance: .gold)
+            #expect(resistor.description == "2 GΩ")
+        }
+    }
+    
+    // MARK: Tolerance Value Range
+    @Suite("Tolerance Value Range")
+    struct ToleranceValueRange {
+        
+        @Test("toleranceValueRange with gold band")
+        static func toleranceValueRange_gold() {
+            let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .gold)
+            let result = resistor.toleranceValueRange
+            #expect(result.upperBound == 1050)
+            #expect(result.lowerBound == 950)
+        }
+        
+        @Test("toleranceValueRange with silver band")
+        static func toleranceValueRange_silver() {
+            let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .silver)
+            let result = resistor.toleranceValueRange
+            #expect(result.upperBound == 1100)
+            #expect(result.lowerBound == 900)
+        }
+        
+        @Test("toleranceValueRange with brown band")
+        static func toleranceValueRange_brown() {
+            let resistor = FiveBandResistor(digit1: .brown, digit2: .black, digit3: .black, multiplier: .brown, tolerance: .brown)
+            let result = resistor.toleranceValueRange
+            #expect(result.upperBound == 1010)
+            #expect(result.lowerBound == 990)
+        }
+    }
+    
+    // MARK: Init Value Tolerance
+    @Suite("Init Value Tolerance")
+    struct InitValueTolerance {
+        
+        @Test("Init with value below min")
+        static func init_value_belowMin() {
+            let resistor = FiveBandResistor(value: 0.5)
+            #expect(resistor.digits == [.brown, .black, .black])
+            #expect(resistor.multiplier == .silver)
+            #expect(resistor.tolerance  == .gold)
+        }
+        
+        @Test("Init with fractional value")
+        static func init_value_fractional() {
+            let resistor = FiveBandResistor(value: 3.3, tolerance: .green)
+            #expect(resistor.digits == [.orange, .orange, .black])
+            #expect(resistor.multiplier == .silver)
+            #expect(resistor.tolerance == .green)
+        }
+        
+        @Test("Init with 5 digits")
+        static func init_value_5digits() {
+            let resistor = FiveBandResistor(value: 12345)
+            #expect(resistor.digits == [.brown, .red, .orange])
+            #expect(resistor.multiplier == .red)
+            #expect(resistor.tolerance == .gold)
+        }
+        
+        @Test("Init with 8 digits")
+        static func init_value_8digits() {
+            let resistor = FiveBandResistor(value: 98765432, tolerance: .silver)
+            #expect(resistor.digits == [.white, .grey, .grey])
+            #expect(resistor.multiplier == .green)
+            #expect(resistor.tolerance == .silver)
+        }
+        
+        @Test("Init with value above max")
+        static func init_value_aboveMax() {
+            let resistor = FiveBandResistor(value: 9_999_999_999_999)
+            #expect(resistor.digits == [.white, .white, .white])
+            #expect(resistor.multiplier == .white)
+            #expect(resistor.tolerance == .gold)
+        }
+    }
+    
+    // MARK: Init Resistor Tolerance
+    @Suite("Init Resistor Tolerance")
+    struct InitResistorTolerance {
+        
+        @Test("Init from 4 band resistor`")
+        static func init_resistor_4Band() {
+            let resistor = FourBandResistor(value: 3300)
+            let sut = FiveBandResistor(resistor: resistor)
+            #expect(sut.digits == [.orange, .orange, .black])
+            #expect(sut.multiplier == .brown)
+            #expect(sut.tolerance == .gold)
+        }
+        
+        @Test("Init from 5 band resistor")
+        static func init_resistor_5Band() {
+            let resistor = FiveBandResistor(value: 47000)
+            let sut = FiveBandResistor(resistor: resistor, tolerance: .yellow)
+            #expect(sut.digits == [.yellow, .violet, .black])
+            #expect(sut.multiplier == .red)
+            #expect(sut.tolerance == .yellow)
+        }
+        
+        @Test("Init from 5 band resistor with 3 sig figs")
+        static func init_resistor_5Band3SigFigs() {
+            let resistor = FiveBandResistor(value: 67800)
+            let sut = FiveBandResistor(resistor: resistor)
+            #expect(sut.digits == [.blue, .violet, .grey])
+            #expect(sut.multiplier == .red)
+            #expect(sut.tolerance == .gold)
+        }
+        
+        @Test("Init from 6 band resistor")
+        static func init_resistor_6Band() {
+            let resistor = SixBandResistor(value: 5.6)
+            let sut = FiveBandResistor(resistor: resistor, tolerance: .green)
+            #expect(sut.digits == [.green, .blue, .black])
+            #expect(sut.multiplier == .silver)
+            #expect(sut.tolerance == .green)
+        }
+        
+        @Test("Init from 6 band resistor with 3 sig figs")
+        static func init_resistor_6Band3SigFigs() {
+            let resistor = SixBandResistor(value: 4.23)
+            let sut = FiveBandResistor(resistor: resistor)
+            #expect(sut.digits == [.yellow, .red, .orange])
+            #expect(sut.multiplier == .silver)
+            #expect(sut.tolerance == .gold)
+        }
+    }
+    
+    // MARK: Init Exact Value Tolerance
+    @Suite("Init Exact Value Tolerance")
+    struct InitExactValueTolerance {
+        
+        @Test("exactValue throws error for below min")
+        static func init_exactValue_belowMin() throws {
+            #expect(throws: (any Error).self) { try FiveBandResistor(exactValue: 0.05) }
+        }
+        
+        @Test("Init exactValue with fractional")
+        static func init_exactValue_fractional() throws {
+            let resistor = try FiveBandResistor(exactValue: 4.7, tolerance: .silver)
+            #expect(resistor.digits == [.yellow, .violet, .black])
+            #expect(resistor.multiplier == .silver)
+            #expect(resistor.tolerance == .silver)
+        }
+        
+        @Test("Init exactValue with 5 digits throws error")
+        static func init_exactValue_5digits() {
+            #expect(throws: (any Error).self) { try FiveBandResistor(exactValue: 56789) }
+        }
+        
+        @Test("Init exactValue with 8 digits")
+        static func init_exactValue_8digits() throws {
+            let resistor = try FiveBandResistor(exactValue: 12_200_000, tolerance: .blue)
+            #expect(resistor.digits == [.brown, .red, .red])
+            #expect(resistor.multiplier == .green)
+            #expect(resistor.tolerance == .blue)
+        }
+        
+        @Test("Init exactValue throws error for above max")
+        static func init_exactValue_aboveMax() {
+            #expect(throws: (any Error).self) { try FourBandResistor(exactValue: 999_999_999_999) }
+        }
+    }
+    
+    // MARK: Decade Functions
+    @Suite("Decade Functions")
+    struct DecadeFunctions {
+        
+        @Test("decadeUp")
+        static func decadeUp() {
+            let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold)
+            #expect(sut.decadeUp().multiplier == .yellow)
+        }
+        
+        @Test("decadeUp max value")
+        static func decadeUp_Max() {
+            let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .white, tolerance: .gold)
+            #expect(sut.decadeUp().multiplier == .white)
+        }
+        
+        @Test("decadeDown")
+        static func decadeDown() {
+            let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .orange, tolerance: .gold)
+            #expect(sut.decadeDown().multiplier == .red)
+        }
+        
+        @Test("decadeDown min value")
+        static func decadeDown_Min() {
+            let sut = FiveBandResistor(digit1: .brown, digit2: .red, digit3: .orange, multiplier: .silver, tolerance: .gold)
+            #expect(sut.decadeDown().multiplier == .silver)
+        }
+    }
+    
+    // MARK: Conversion Functions
+    @Suite("Conversion Functions")
+    struct ConversionFunctions {
+        
+        @Test("convertToFourBand")
+        static func convertToFourBand() {
+            let sut = FiveBandResistor(value: 2200, tolerance: .orange)
+            let result = sut.convertToFourBand()
+            #expect(result.value == 2200)
+            #expect(result.tolerance == .orange)
+        }
+        
+        @Test("convertToFiveBand")
+        static func convertToFiveBand() {
+            let sut = FiveBandResistor(value: 2200, tolerance: .orange)
+            let result = sut.convertToFiveBand()
+            #expect(result.value == 2200)
+            #expect(result.tolerance == .orange)
+        }
+        
+        @Test("convertToSixBand")
+        static func convertToSixBand() {
+            let sut = FiveBandResistor(value: 2200, tolerance: .orange)
+            let result = sut.convertToSixBand(addingCoefficient: .red)
+            #expect(result.value == 2200)
+            #expect(result.tolerance == .orange)
+            #expect(result.coefficient == .red)
+        }
+    }
+    
+    // MARK: Next Value Functions
+    @Suite("Next Value Functions")
+    struct NextValueFunctions {
+        
+        @Test("nextValueUp")
+        static func nextValueUp() {
+            let sut = FiveBandResistor(value: 5500)
+            #expect(sut.nextValueUp(inSeries: E24Series()) == 5600)
+        }
+        
+        @Test("nextValueDown")
+        static func nextValueDown() {
+            let sut = FiveBandResistor(value: 5500)
+            #expect(sut.nextValueDown(inSeries: E24Series()) == 5100)
+        }
+    }
 }

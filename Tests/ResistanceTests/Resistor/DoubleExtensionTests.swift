@@ -1,208 +1,159 @@
 /**
  *  Resistance
- *  Copyright (c) Matt Malenko 2021
+ *  Copyright (c) Matt Malenko 2024
  *  MIT license, see LICENSE file for details
  */
 
-// MARK: Sig Figs Count
-extension DoubleExtensionTests {
-    func test_sigFigsCount_decimalWith3SigFig() {
-        let result = 4.23.sigFigsCount
-        XCTAssertEqual(result, 3)
-    }
-    
-    func test_sigFigsCount_with1SigFig() {
-        let result = 400.0.sigFigsCount
-        XCTAssertEqual(result, 1)
-    }
-    
-    func test_sigFigsCount_with2SigFig() {
-        let result = 46_000.0.sigFigsCount
-        XCTAssertEqual(result, 2)    }
-    
-    func test_sigFigsCount_with3SigFig() {
-        let result = 432.0.sigFigsCount
-        XCTAssertEqual(result, 3)    }
-    
-    func test_sigFigsCount_with4SigFig() {
-        let result = 7071.0.sigFigsCount
-        XCTAssertEqual(result, 4)    }
-    
-    func test_sigFigsCount_with5SigFig() {
-        let result = 40_001.0.sigFigsCount
-        XCTAssertEqual(result, 5)
-    }
-    
-    func test_sigFigsCount_with6SigFig() {
-        let result = 40_0001.0.sigFigsCount
-        XCTAssertEqual(result, 6)
-    }
-    
-    func test_sigFigsCount_with7SigFig() {
-        let result = 47_856_010.0.sigFigsCount
-        XCTAssertEqual(result, 7)
-    }
-}
+import Testing
 
-// MARK: - Sig Figs
-extension DoubleExtensionTests {
-    func test_sigFigs_1Digit() {
-        let value: Double = 4
-        XCTAssertEqual(value.sigFigs, 4.0)
-    }
-    
-    func test_sigFigs_5Digits() {
-        let value: Double = 12345
-        XCTAssertEqual(value.sigFigs, 1.2345)
-    }
-    
-    func test_sigFigs_5DigitsWithTrailingZeros() {
-        let value: Double = 54000
-        XCTAssertEqual(value.sigFigs, 5.4)
-    }
-    
-    func test_sigFigs_5DigitsWithMidZeros() {
-        let value: Double = 44002
-        XCTAssertEqual(value.sigFigs, 4.4002)
-    }
-    
-    func test_sigFigs_DecimalNumber() {
-        let value: Double = 45.35
-        XCTAssertEqual(value.sigFigs, 4.535)
-    }
-    
-    func test_sigFigs_DecimalNumberMidZeros() {
-        let value: Double = 602.303
-        XCTAssertEqual(value.sigFigs, 6.02303)
-    }
-}
-
-// MARK: - Power Of Ten
-extension DoubleExtensionTests {
-    func test_powerOfTen_1Digit() {
-        let value: Double = 4
-        XCTAssertEqual(value.powerOfTen, 0)
-    }
-    
-    func test_powerOfTen_5Digits() {
-        let value: Double = 65485
-        XCTAssertEqual(value.powerOfTen, 4)
-    }
-    
-    func test_powerOfTen_Fractional() {
-        let value: Double = 0.03
-        XCTAssertEqual(value.powerOfTen, -2)
-    }
-    
-    func test_powerOfTen_DecimalNumber() {
-        let value: Double = 453.1
-        XCTAssertEqual(value.powerOfTen, 2)
-    }
-}
-
-// MARK: - Hundreds Decade
-extension DoubleExtensionTests {
-    func test_hundredsDecade_1Digit() {
-        let value: Double = 4
-        XCTAssertEqual(value.hundredsDecade, 400)
-    }
-    
-    func test_hundredsDecade_3Digits() {
-        let value: Double = 423
-        XCTAssertEqual(value.hundredsDecade, 423)
-    }
-    
-    func test_hundredsDecade_5Digits() {
-        let value: Double = 44560
-        XCTAssertEqual(value.hundredsDecade, 446)
-    }
-    
-    func test_hundredsDecade_Fractional() {
-        let value: Double = 0.52
-        XCTAssertEqual(value.hundredsDecade, 520)
-    }
-    
-    func test_hundredsDecade_DecimalNumber() {
-        let value: Double = 4.56
-        XCTAssertEqual(value.hundredsDecade, 456)
-    }
-}
-
-// MARK: - Sig Figs Rounded
-extension DoubleExtensionTests {
-    func test_sigFigsRounded_by1_5Digits() {
-        let value1: Double = 12457
-        let value2: Double = 15234
-        XCTAssertEqual(value1.sigFigsRounded(by: 1), 10000)
-        XCTAssertEqual(value2.sigFigsRounded(by: 1), 20000)
-    }
-    
-    func test_sigFigsRounded_by2_5Digits() {
-        let value1: Double = 12457
-        let value2: Double = 15234
-        XCTAssertEqual(value1.sigFigsRounded(by: 2), 12000)
-        XCTAssertEqual(value2.sigFigsRounded(by: 2), 15000)
-    }
-    
-    func test_sigFigsRounded_by3_5Digits() {
-        let value1: Double = 12457
-        let value2: Double = 15234
-        XCTAssertEqual(value1.sigFigsRounded(by: 3), 12500)
-        XCTAssertEqual(value2.sigFigsRounded(by: 3), 15200)
-    }
-    
-    func test_sigFigsRounded_by2_5DigitDecimal() {
-        let value1: Double = 124.57
-        let value2: Double = 152.34
-        XCTAssertEqual(value1.sigFigsRounded(by: 2), 120)
-        XCTAssertEqual(value2.sigFigsRounded(by: 2), 150)
-    }
-    
-    func test_sigFigsRounded_by2_Fractional() {
-        let value1: Double = 0.2457
-        let value2: Double = 0.5234
-        XCTAssertEqual(value1.sigFigsRounded(by: 2), 0.25)
-        XCTAssertEqual(value2.sigFigsRounded(by: 2), 0.52)
-    }
-}
-
-// MARK: - Internal
-import XCTest
 @testable import Resistance
 
-final class DoubleExtensionTests: XCTestCase {
+@Suite("Double Extention Tests")
+struct DoubleExtentionTests {
     
-    static var allTests = [
-        ("test_sigFigsCount_with1SigFig", test_sigFigsCount_with1SigFig),
-        ("test_sigFigsCount_with2SigFig", test_sigFigsCount_with2SigFig),
-        ("test_sigFigsCount_with3SigFig", test_sigFigsCount_with3SigFig),
-        ("test_sigFigsCount_with4SigFig", test_sigFigsCount_with4SigFig),
-        ("test_sigFigsCount_with5SigFig", test_sigFigsCount_with5SigFig),
-        ("test_sigFigsCount_with6SigFig", test_sigFigsCount_with6SigFig),
-        ("test_sigFigsCount_with7SigFig", test_sigFigsCount_with7SigFig),
+    // MARK: Sig Figs Count
+    @Suite("Sig Figs Count")
+    struct SigFigsCount {
         
-        ("test_sigFigs_1Digit",                     test_sigFigs_1Digit),
-        ("test_sigFigs_5Digits",                    test_sigFigs_5Digits),
-        ("test_sigFigs_5DigitsWithTrailingZeros",   test_sigFigs_5DigitsWithTrailingZeros),
-        ("test_sigFigs_5DigitsWithMidZeros",        test_sigFigs_5DigitsWithMidZeros),
-        ("test_sigFigs_DecimalNumber",              test_sigFigs_DecimalNumber),
-        ("test_sigFigs_DecimalNumberMidZeros",      test_sigFigs_DecimalNumberMidZeros),
+        @Test("sigFigs count with decimal")
+        static func sigFigsCount_decimal() {
+            #expect(4.23.sigFigsCount == 3)
+        }
         
-        ("test_powerOfTen_1Digit",          test_powerOfTen_1Digit),
-        ("test_powerOfTen_5Digits",         test_powerOfTen_5Digits),
-        ("test_powerOfTen_Fractional",      test_powerOfTen_Fractional),
-        ("test_powerOfTen_DecimalNumber",   test_powerOfTen_DecimalNumber),
+        @Test("sigFigs count with integer")
+        static func sigFigsCount_integer() {
+            #expect(400.0.sigFigsCount == 1)
+            #expect(46_000.0.sigFigsCount == 2)
+            #expect(432.0.sigFigsCount == 3)
+            #expect(7071.0.sigFigsCount == 4)
+            #expect(40_001.0.sigFigsCount == 5)
+            #expect(40_0001.0.sigFigsCount == 6)
+            #expect(47_856_010.0.sigFigsCount == 7)
+        }
+    }
+    
+    // MARK: Sig Figs Value
+    @Suite("Sig Figs Value")
+    struct SigFigs {
         
-        ("test_hundredsDecade_1Digit",          test_hundredsDecade_1Digit),
-        ("test_hundredsDecade_3Digits",         test_hundredsDecade_3Digits),
-        ("test_hundredsDecade_5Digits",         test_hundredsDecade_5Digits),
-        ("test_hundredsDecade_Fractional",      test_hundredsDecade_Fractional),
-        ("test_hundredsDecade_DecimalNumber",   test_hundredsDecade_DecimalNumber),
+        @Test("sigFigs value with 1 digit")
+        static func sigFigsValue_1Digit() {
+            #expect(4.sigFigs == 4.0)
+        }
         
-        ("test_sigFigsRounded_by1_5Digits",         test_sigFigsRounded_by1_5Digits),
-        ("test_sigFigsRounded_by2_5Digits",         test_sigFigsRounded_by2_5Digits),
-        ("test_sigFigsRounded_by3_5Digits",         test_sigFigsRounded_by3_5Digits),
-        ("test_sigFigsRounded_by2_5DigitDecimal",   test_sigFigsRounded_by2_5DigitDecimal),
-        ("test_sigFigsRounded_by2_Fractional",      test_sigFigsRounded_by2_Fractional),
-    ]
+        @Test("sigFigs value with 5 digits")
+        static func sigFigsValue_5Digits() {
+            #expect(12345.sigFigs == 1.2345)
+        }
+        
+        @Test("sigFigs value with 5 digits and trailing zeros")
+        static func sigFigsValue_5DigitsTrailingZeros() {
+            #expect(54000.sigFigs == 5.4)
+        }
+        
+        @Test("sigFigs value with 5 digits containing zeros")
+        static func sigFigsValue_5DigitsContainingZeros() {
+            #expect(44002.sigFigs == 4.4002)
+        }
+        
+        @Test("sigFigs value with decimal numeber")
+        static func sigFigsValue_decimal() {
+            #expect(45.35.sigFigs == 4.535)
+        }
+        
+        @Test("sigFigs value with decimal number containing zeros")
+        static func sigFigsValue_decimalContainingZeros() {
+            #expect(602.303.sigFigs == 6.02303)
+        }
+    }
+    
+    // MARK: Power Of Ten
+    @Suite("Power Of Ten")
+    struct PowerOfTen {
+        
+        @Test("powerOfTen with 1 digit")
+        static func powerOfTen_1Digit() {
+            #expect(4.powerOfTen == 0)
+        }
+        
+        @Test("powerOfTen with 5 digits")
+        static func powerOfTen_5Digits() {
+            #expect(65485.powerOfTen == 4)
+        }
+        
+        @Test("powerOfTen with fractional number")
+        static func powerOfTen_fraction() {
+            #expect(0.03.powerOfTen == -2)
+        }
+        
+        @Test("powerOfTen with a decimal number")
+        static func powerOfTen_decimal() {
+            #expect(453.1.powerOfTen == 2)
+        }
+    }
+    
+    // MARK: Hundreds Decade
+    @Suite("Hundreds Decade")
+    struct HundredsDecade {
+        
+        @Test("hundredsDecade with 1 digit")
+        static func hundredsDecade_1Digit() {
+            #expect(4.hundredsDecade == 400)
+        }
+        
+        @Test("hundredsDecade with 3 digits")
+        static func hundredsDecade_3Digits() {
+            #expect(423.hundredsDecade == 423)
+        }
+        
+        @Test("hundredsDecade with 5 digits")
+        static func hundredsDecade_5Digits() {
+            #expect(44560.hundredsDecade == 446)
+        }
+        
+        @Test("hundredsDecade with fractional number")
+        static func hundredsDecade_fraction() {
+            #expect(0.52.hundredsDecade == 520)
+        }
+        
+        @Test("hundredsDecade with decimal number")
+        static func hundredsDecade_decimal() {
+            #expect(4.56.hundredsDecade == 456)
+        }
+    }
+    
+    // MARK: Sig Figs Rounded
+    @Suite("Sig Figs Rounded")
+    struct SigFigsRounded {
+        
+        @Test("sigFigsRounded by 1 with a 5 digit number")
+        static func sigFigsRounded_by1_5Digits() {
+            #expect(12457.sigFigsRounded(by: 1) == 10000)
+            #expect(15234.sigFigsRounded(by: 1) == 20000)
+        }
+        
+        @Test("sigFigsRounded by 2 with a 5 digit number")
+        static func sigFigsRounded_by2_5Digits() {
+            #expect(12457.sigFigsRounded(by: 2) == 12000)
+            #expect(15234.sigFigsRounded(by: 2) == 15000)
+        }
+        
+        @Test("sigFigsRounded by 3 with a 5 digit number")
+        static func sigFigsRounded_by3_5Digits() {
+            #expect(12457.sigFigsRounded(by: 3) == 12500)
+            #expect(15234.sigFigsRounded(by: 3) == 15200)
+        }
+        
+        @Test("sigFigsRounded by 2 with a 5 digit decimal number")
+        static func sigFigsRounded_by2_5DigitDecimal() {
+            #expect(124.57.sigFigsRounded(by: 2) == 120)
+            #expect(152.34.sigFigsRounded(by: 2) == 150)
+        }
+        
+        @Test("sigFigsRounded by 2 with a fractional number")
+        static func sigFigsRounded_by2_Fractional() {
+            #expect(0.2457.sigFigsRounded(by: 2) == 0.25)
+            #expect(0.5234.sigFigsRounded(by: 2) == 0.52)
+        }
+    }
 }
